@@ -2,6 +2,60 @@
 
 <project name="NextEuropa" default="help">
 
+    <!-- Patterns matching files that are not strictly necessary at runtime. -->
+    <!-- .txt files that just make it easier to guess which version we are running -->
+    <patternset id="cleanables-txtfiles">
+        <include name="**/LICENSE.txt" />
+        <include name="**/CHANGELOG.txt" />
+        <include name="**/COPYRIGHT.txt" />
+        <include name="**/INSTALL.*" />
+        <include name="**/UPGRADE.txt" />
+        <include name="**/README.txt" />
+        <include name="**/MAINTAINERS.txt" />
+    </patternset>
+    <!-- Patches (also avoidable through drush make's no-patch-txt option). -->
+    <patternset id="cleanables-patches">
+        <include name="**/PATCHES.txt" />
+        <include name="**/*.patch" />
+    </patternset>
+    <!-- Development stuff. -->
+    <patternset id="cleanables-devel">
+        <include name="scripts/**" />
+        <include name="**/.gitignore" />
+    </patternset>
+    <!-- Composer files. -->
+    <patternset id="cleanables-composer">
+        <include name="**/composer.json" />
+        <include name="**/composer.lock" />
+    </patternset>
+    <!-- Examples. -->
+    <patternset id="cleanables-examples">
+        <include name="sites/example.sites.php" />
+        <include name="profiles/*/libraries/*/examples/**" />
+        <include name="profiles/*/libraries/*/demo/**" />
+    </patternset>
+    <!-- Tools and utilities. -->
+    <patternset id="cleanables-tools">
+        <include name="profiles/*/libraries/*/utils/**" />
+        <include name="profiles/*/libraries/*/tools/**" />
+    </patternset>
+    <!-- Some interesting PHP files. -->
+    <patternset id="cleanables-php">
+        <include name="update.php" />
+        <include name="sites/*settings*.php" />
+        <include name="sites/default/*settings*.php" />
+        <exclude name="sites/default/default.settings.php" />
+    </patternset>
+    <!-- Top "vendor" directory. -->
+    <patternset id="cleanables-vendor">
+        <include name="vendor/**" />
+    </patternset>
+    <!-- HTTP server configuration files. -->
+    <patternset id="cleanables-webserver">
+        <include name="**/.htaccess" />
+        <include name="**/web.config" />
+    </patternset>
+
     <!-- Delete the previous build. -->
     <target name="delete-platform">
         <!--
@@ -151,6 +205,33 @@
         name="build-platform-dist"
         description="Build a version of the platform intended to distribute as a release package."
         depends="delete-platform, make-drupal-core, clean-platform-profiles, copy-platform-profiles, make-platform, copy-platform-resources, install-platform-dependencies" />
+
+    <target
+        name="build-platform-dist-clean"
+        description="Build a minimalistic version of the platform for deployment purposes."
+        depends="build-platform-dist">
+        <foreach list="${platform.clean}" param="cleanset" target="build-platform-dist-clean-subtask" />
+        <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
+        <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
+
+        <!-- Note the Git commit used to generate the build in a .commit file. -->
+        <gitlog
+            gitPath="${git.bin}"
+            repository="${platform.basedir}"
+            outputProperty="platform.git.head"
+            format="format:%H"
+            maxCount="1"
+        />
+        <append destFile="${phing.project.build.dir}/.commit" text="${platform.git.head}" />
+    </target>
+    <target name="build-platform-dist-clean-subtask">
+        <echo msg="Remove &quot;${cleanset}&quot; files from the platform build:" />
+        <delete includeemptydirs="true">
+            <fileset dir="${phing.project.build.dir}" defaultexcludes="false">
+                <patternset refid="cleanables-${cleanset}" />
+            </fileset>
+        </delete>
+    </target>
 
     <target
         name="build-multisite-dist"

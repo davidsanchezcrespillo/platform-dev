@@ -35,11 +35,13 @@ platform.basedir = ${project.basedir}
 # The make file for the platform.
 platform.make = ${platform.resources.profile.dir}/build.make
 
+platform.clean = txtfiles,patches,devel,composer,examples,tools,php,vendor,webserver
 
 # Paths
 # -----
 
 # Paths to executables.
+git.bin = git
 phing.bin = ${project.basedir}/bin/phing
 drush.bin = ${project.basedir}/bin/drush
 composer.bin = composer.phar
