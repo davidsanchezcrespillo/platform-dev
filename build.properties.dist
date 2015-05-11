@@ -36,6 +36,8 @@ platform.basedir = ${project.basedir}
 platform.make = ${platform.resources.profile.dir}/build.make
 
 platform.clean = txtfiles,patches,devel,composer,examples,tools,php,vendor,webserver
+platform.store-commit = true
+platform.store-commit.path = .commit
 
 # Paths
 # -----

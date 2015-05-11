@@ -214,15 +214,22 @@
         <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
         <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
 
-        <!-- Note the Git commit used to generate the build in a .commit file. -->
-        <gitlog
-            gitPath="${git.bin}"
-            repository="${platform.basedir}"
-            outputProperty="platform.git.head"
-            format="format:%H"
-            maxCount="1"
-        />
-        <append destFile="${phing.project.build.dir}/.commit" text="${platform.git.head}" />
+        <if>
+            <istrue value="${platform.store-commit}" />
+            <then>
+                <!-- Note the Git commit used to generate the build in a .commit file. -->
+                <gitlog
+                    gitPath="${git.bin}"
+                    repository="${platform.basedir}"
+                    outputProperty="platform.git.head"
+                    format="format:%H"
+                    maxCount="1"
+                />
+                <dirname property="platform.store-commit.basepath" file="${phing.project.build.dir}/${platform.store-commit.path}" />
+                <mkdir dir="${platform.store-commit.basepath}" />
+                <append destFile="${phing.project.build.dir}/${platform.store-commit.path}" text="${platform.git.head}" />
+            </then>
+        </if>
     </target>
     <target name="build-platform-dist-clean-subtask">
         <echo msg="Remove &quot;${cleanset}&quot; files from the platform build:" />
