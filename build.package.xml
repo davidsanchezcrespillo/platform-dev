@@ -210,9 +210,14 @@
         name="build-platform-dist-clean"
         description="Build a minimalistic version of the platform for deployment purposes."
         depends="build-platform-dist">
-        <foreach list="${platform.clean}" param="cleanset" target="build-platform-dist-clean-subtask" />
-        <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
-        <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
+        <if>
+            <istrue value="${platform.clean}" />
+            <then>
+                <foreach list="${platform.clean}" param="cleanset" target="build-platform-dist-clean-subtask" />
+                <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
+                <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
+            </then>
+        </if>
 
         <if>
             <istrue value="${platform.store-commit}" />
