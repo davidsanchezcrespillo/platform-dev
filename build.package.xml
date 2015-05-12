@@ -212,11 +212,19 @@
         <if>
             <istrue value="${platform.clean}" />
             <then>
-                <foreach list="${platform.clean}" param="cleanset" target="build-platform-dist-clean-subtask" />
+                <foreach list="${platform.clean}" param="cleanset" target="deep-clean-platform-subtask" />
                 <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
                 <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
             </then>
         </if>
+    </target>
+    <target name="deep-clean-platform-subtask">
+        <echo msg="Remove &quot;${cleanset}&quot; files from the platform build:" />
+        <delete includeemptydirs="true">
+            <fileset dir="${phing.project.build.dir}" defaultexcludes="false">
+                <patternset refid="cleanables-${cleanset}" />
+            </fileset>
+        </delete>
     </target>
     <target
         name="store-build-commit"
@@ -237,14 +245,6 @@
                 <append destFile="${phing.project.build.dir}/${platform.store-commit.path}" text="${platform.git.head}" />
             </then>
         </if>
-    </target>
-    <target name="build-platform-dist-clean-subtask">
-        <echo msg="Remove &quot;${cleanset}&quot; files from the platform build:" />
-        <delete includeemptydirs="true">
-            <fileset dir="${phing.project.build.dir}" defaultexcludes="false">
-                <patternset refid="cleanables-${cleanset}" />
-            </fileset>
-        </delete>
     </target>
 
     <target
