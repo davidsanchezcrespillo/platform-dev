@@ -22,3 +22,6 @@ profiles/testing
 profiles/multisite_drupal_*/libraries
 profiles/multisite_drupal_*/modules/contrib
 profiles/multisite_drupal_*/themes
+
+
+*.svn
