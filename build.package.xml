@@ -46,10 +46,6 @@
         <include name="sites/default/*settings*.php" />
         <exclude name="sites/default/default.settings.php" />
     </patternset>
-    <!-- Top "vendor" directory. -->
-    <patternset id="cleanables-vendor">
-        <include name="vendor/**" />
-    </patternset>
     <!-- HTTP server configuration files. -->
     <patternset id="cleanables-webserver">
         <include name="**/.htaccess" />
