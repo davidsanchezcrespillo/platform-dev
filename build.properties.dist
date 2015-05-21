@@ -35,7 +35,11 @@ platform.basedir = ${project.basedir}
 # The make file for the platform.
 platform.make = ${platform.resources.profile.dir}/build.make
 
-platform.clean = txtfiles,patches,devel,composer,examples,tools,php,webserver
+# Control the components that get stripped from the build.
+# This property should hold a comma-separated list of cleanables.
+# Example: txtfiles,patches,devel,composer,examples,tools,php,webserver
+# By default, nothing gets cleaned.
+platform.clean =
 platform.store-commit = true
 platform.store-commit.path = .commit
 
