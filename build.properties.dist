@@ -35,11 +35,15 @@ platform.basedir = ${project.basedir}
 # The make file for the platform.
 platform.make = ${platform.resources.profile.dir}/build.make
 
-# Control the components that get stripped from the build.
-# This property should hold a comma-separated list of cleanables.
-# Example: txtfiles,patches,devel,composer,examples,tools,settings,webserver
-# By default, nothing gets cleaned.
-platform.clean =
+# The following properties control which files get stripped from the "dist"
+# build.
+# Whether to apply any cleaning at all. By default, nothing is cleaned.
+platform.clean = false
+#  A comma-separated list of cleanables.
+platform.clean.patterns = txtfiles,patches,devel,composer,examples,tools,settings,webserver
+# Extra, custom patterns that will get removed too.
+platform.clean.extra = authorize.php update.php
+
 platform.store-commit = true
 platform.store-commit.path = .commit
 

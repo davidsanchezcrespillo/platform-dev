@@ -211,13 +211,16 @@
         <if>
             <istrue value="${platform.clean}" />
             <then>
-                <foreach list="${platform.clean}" param="cleanset" target="deep-clean-platform-subtask" />
+                <!-- Clean known patterns provided by the platform. -->
+                <foreach list="${platform.clean.patterns}" param="cleanset" target="deep-clean-platform-patterns-subtask" />
+                <!-- Clean extra patterns, typically taken from local properties. -->
+                <foreach list="${platform.clean.extra}" param="pattern" target="deep-clean-platform-extra-subtask" />
                 <!-- We do not want to enforce a particular mode, we just want to remove execution bits. -->
                 <exec os="Linux" command="find ${phing.project.build.dir} -type f -perm /0111 -print0 | xargs --no-run-if-empty --null chmod ugo-x" />
             </then>
         </if>
     </target>
-    <target name="deep-clean-platform-subtask">
+    <target name="deep-clean-platform-patterns-subtask">
         <echo msg="Remove &quot;${cleanset}&quot; files from the platform build:" />
         <delete includeemptydirs="true">
             <fileset dir="${phing.project.build.dir}" defaultexcludes="false">
@@ -225,6 +228,15 @@
             </fileset>
         </delete>
     </target>
+    <target name="deep-clean-platform-extra-subtask">
+        <echo msg="Remove extra pattern &quot;${pattern}&quot; from the platform build:" />
+        <delete includeemptydirs="true">
+            <fileset dir="${phing.project.build.dir}" defaultexcludes="false">
+                <patternset includes="${pattern}" />
+            </fileset>
+        </delete>
+    </target>
+
     <target
         name="store-build-commit"
         description="Store the hash of the commit being built">
