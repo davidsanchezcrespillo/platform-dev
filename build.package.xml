@@ -39,9 +39,12 @@
         <include name="profiles/*/libraries/*/utils/**" />
         <include name="profiles/*/libraries/*/tools/**" />
     </patternset>
-    <!-- Some interesting PHP files. -->
-    <patternset id="cleanables-php">
-        <include name="update.php" />
+    <!--
+        Settings PHP files: a platform build is supposed to have a
+        default.settings.php but no settings.php until a subsite is effectively
+        installed.
+    -->
+    <patternset id="cleanables-settings">
         <include name="sites/*settings*.php" />
         <include name="sites/default/*settings*.php" />
         <exclude name="sites/default/default.settings.php" />

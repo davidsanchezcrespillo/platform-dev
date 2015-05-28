@@ -37,7 +37,7 @@ platform.make = ${platform.resources.profile.dir}/build.make
 
 # Control the components that get stripped from the build.
 # This property should hold a comma-separated list of cleanables.
-# Example: txtfiles,patches,devel,composer,examples,tools,php,webserver
+# Example: txtfiles,patches,devel,composer,examples,tools,settings,webserver
 # By default, nothing gets cleaned.
 platform.clean =
 platform.store-commit = true
