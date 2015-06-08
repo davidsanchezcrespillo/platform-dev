@@ -17,6 +17,7 @@
     <echo msg="Loading Drush task." />
     <taskdef name="drush" classname="DrushTask" />
 
+    <import file="build.clean.xml" />
     <import file="build.package.xml" />
     <import file="build.test.xml" />
 

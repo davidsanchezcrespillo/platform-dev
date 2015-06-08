@@ -224,7 +224,4 @@
 
     </target>
 
-    <!-- Import cleanable patterns. -->
-    <import file="patterns.clean.xml" />
-
 </project>
