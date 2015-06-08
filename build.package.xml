@@ -2,59 +2,6 @@
 
 <project name="NextEuropa" default="help">
 
-    <!-- Patterns matching files that are not strictly necessary at runtime. -->
-    <!-- .txt files that just make it easier to guess which version we are running -->
-    <patternset id="cleanables-txtfiles">
-        <include name="**/LICENSE.txt" />
-        <include name="**/CHANGELOG.txt" />
-        <include name="**/COPYRIGHT.txt" />
-        <include name="**/INSTALL.*" />
-        <include name="**/UPGRADE.txt" />
-        <include name="**/README.txt" />
-        <include name="**/MAINTAINERS.txt" />
-    </patternset>
-    <!-- Patches (also avoidable through drush make's no-patch-txt option). -->
-    <patternset id="cleanables-patches">
-        <include name="**/PATCHES.txt" />
-        <include name="**/*.patch" />
-    </patternset>
-    <!-- Development stuff. -->
-    <patternset id="cleanables-devel">
-        <include name="scripts/**" />
-        <include name="**/.gitignore" />
-    </patternset>
-    <!-- Composer files. -->
-    <patternset id="cleanables-composer">
-        <include name="**/composer.json" />
-        <include name="**/composer.lock" />
-    </patternset>
-    <!-- Examples. -->
-    <patternset id="cleanables-examples">
-        <include name="sites/example.sites.php" />
-        <include name="profiles/*/libraries/*/examples/**" />
-        <include name="profiles/*/libraries/*/demo/**" />
-    </patternset>
-    <!-- Tools and utilities. -->
-    <patternset id="cleanables-tools">
-        <include name="profiles/*/libraries/*/utils/**" />
-        <include name="profiles/*/libraries/*/tools/**" />
-    </patternset>
-    <!--
-        Settings PHP files: a platform build is supposed to have a
-        default.settings.php but no settings.php until a subsite is effectively
-        installed.
-    -->
-    <patternset id="cleanables-settings">
-        <include name="sites/*settings*.php" />
-        <include name="sites/default/*settings*.php" />
-        <exclude name="sites/default/default.settings.php" />
-    </patternset>
-    <!-- HTTP server configuration files. -->
-    <patternset id="cleanables-webserver">
-        <include name="**/.htaccess" />
-        <include name="**/web.config" />
-    </patternset>
-
     <!-- Delete the previous build. -->
     <target name="delete-platform">
         <!--
@@ -276,5 +223,8 @@
         <phingcall target="install-platform-dependencies" />
 
     </target>
+
+    <!-- Import cleanable patterns. -->
+    <import file="patterns.clean.xml" />
 
 </project>

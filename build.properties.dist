@@ -39,7 +39,7 @@ platform.make = ${platform.resources.profile.dir}/build.make
 # build.
 # Whether to apply any cleaning at all. By default, nothing is cleaned.
 platform.clean = false
-#  A comma-separated list of cleanables.
+#  A comma-separated list of cleanables. See patterns.clean.xml for details.
 platform.clean.patterns = txtfiles,patches,devel,composer,examples,tools,settings,webserver
 # Extra, custom patterns that will get removed too.
 platform.clean.extra = authorize.php update.php
