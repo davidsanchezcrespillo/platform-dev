@@ -48,6 +48,9 @@ projects[bootstrap_gallery][version] = "3.0"
 projects[captcha][subdir] = "contrib"
 projects[captcha][version] = "1.2"
 
+projects[cas][subdir] = "contrib"
+projects[cas][version] = "1.4"
+
 projects[chr][subdir] = "contrib"
 projects[chr][version] = "1.6"
 

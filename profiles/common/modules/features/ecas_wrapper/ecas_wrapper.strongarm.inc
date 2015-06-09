@@ -27,6 +27,13 @@ function ecas_wrapper_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'cas_service_validate_url';
+  $strongarm->value = 'https://ecas.cc.cec.eu.int:7002/cas/serviceValidate?userDetails=true&groups=*';
+  $export['cas_service_validate_url'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'cas_uri';
   $strongarm->value = 'cas';
   $export['cas_uri'] = $strongarm;

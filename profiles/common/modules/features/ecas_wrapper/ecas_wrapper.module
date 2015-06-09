@@ -8,7 +8,6 @@ include_once 'ecas_wrapper.features.inc';
 
 //function ecas_wrapper_cas_user_alter($user) {
 function ecas_wrapper_cas_user_presave(&$edit, $account) {
-  drupal_set_message(print_r($account, TRUE), 'status');
   watchdog('ecas_wrapper', print_r($edit, TRUE));
 
   $field_firstname = trim(variable_get('ecas_profile_core_firstname_field', 'field_firstname'));
