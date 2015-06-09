@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * Code for the ecas_wrapper feature.
+ */
+
+include_once 'ecas_wrapper.features.inc';
+
+//function ecas_wrapper_cas_user_alter($user) {
+function ecas_wrapper_cas_user_presave(&$edit, $account) {
+  drupal_set_message(print_r($account, TRUE), 'status');
+  watchdog('ecas_wrapper', print_r($edit, TRUE));
+
+  $field_firstname = trim(variable_get('ecas_profile_core_firstname_field', 'field_firstname'));
+  $field_lastname = trim(variable_get('ecas_profile_core_lastname_field',  'field_lastname' ));
+  $field_ecasmail = trim(variable_get('ecas_profile_core_ecas_email_field', 'field_ecas_mail'));
+  $field_ecascreator = trim(variable_get('ecas_profile_core_ecas_creator_field', 'field_creator'));
+
+  if(!empty($field_firstname) && isset($edit['cas_user']['attributes']['firstName'])) {
+    drupal_set_message("debug  $field_firstname ".$edit['cas_user']['attributes']['firstName']);
+    $edit[$field_firstname][LANGUAGE_NONE][0]['value'] = $edit['cas_user']['attributes']['firstName'];
+  }
+  if(!empty($field_lastname) && isset($edit['cas_user']['attributes']['lastName'])) {
+    $edit[$field_lastname][LANGUAGE_NONE][0]['value'] = $edit['cas_user']['attributes']['lastName'];
+  }
+  if(!empty($field_ecasmail) && isset($edit['cas_user']['attributes']['email'])) {
+    $edit['mail'] = $edit['cas_user']['attributes']['email'];
+  }
+  if(!empty($field_ecascreator) && isset($edit['cas_user']['attributes']['departmentNumber'])) {
+    $edit[$field_ecascreator][LANGUAGE_NONE][0]['value'] = $edit['cas_user']['attributes']['departmentNumber'];
+  } 
+}
+
+
