@@ -2,6 +2,16 @@
 
 <project name="NextEuropa" default="help">
 
+    <!-- you want this file in the deploy repo : -->
+    <property file="build.properties.deploy" />
+
+    <!-- generate static configuration based on build.properties.config -->
+
+    <target name="generate-deploy-config">
+        <!-- need interations here to set an additional drupal settings file -->
+        <!-- this task will handle the solr, gelf_log, ecas settings for eg -->
+    </target>
+
     <!-- Delete the previous build. -->
     <target name="delete-platform">
         <!--

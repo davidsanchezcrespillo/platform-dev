@@ -7,6 +7,9 @@ nbproject/
 # Ignore local configuration overrides.
 build.properties.local
 
+# Ignore deployment configuration
+build.properties.deploy
+
 # Ignore build folders.
 bin/
 build/
