@@ -1,0 +1,46 @@
+diff --git a/cas.admin.inc b/cas.admin.inc
+index 6b22e19..a707903 100644
+--- a/cas.admin.inc
++++ b/cas.admin.inc
+@@ -91,6 +91,16 @@ function cas_admin_settings() {
+     '#description' => t('The PEM certificate of the Certificate Authority that issued the certificate of the CAS server. If omitted, the certificate authority will not be verified.'),
+   );
+ 
++   $form['server']['cas_service_validate_url'] = array(
++    '#type' => 'textfield',
++    '#title' => t('Service validation URL'),
++    '#default_value' => variable_get('cas_service_validate_url', ''),
++    '#size' => 30,
++    // Hostnames can be 255 characters long.
++    '#maxlength' => 255,
++    '#description' => t('Hostname or IP Address of the CAS service validation URL, if differrent from the cas server URL.'),
++  );
++
+   $form['login'] = array(
+     '#type' => 'fieldset',
+     '#title' => t('Login form'),
+diff --git a/cas.module b/cas.module
+index 1833673..837a86f 100644
+--- a/cas.module
++++ b/cas.module
+@@ -255,6 +255,7 @@ function cas_phpcas_init() {
+   $server_port       = (int)variable_get('cas_port', '443');
+   $server_uri        = (string)variable_get('cas_uri', '');
+   $cas_cert          = (string)variable_get('cas_cert', '');
++  $server_service_validate = (string) variable_get('cas_service_validate_url', '');
+   $debug_file        = (string)variable_get('cas_debugfile', '');
+   if ($debug_file != '') {
+     phpCAS::setDebug($debug_file);
+@@ -295,6 +296,12 @@ function cas_phpcas_init() {
+   phpCAS::setFixedServiceURL(url(current_path(), array('query' => drupal_get_query_parameters(), 'absolute' => TRUE)));
+   phpCAS::setCacheTimesForAuthRecheck((int) variable_get('cas_check_frequency', CAS_CHECK_NEVER));
+ 
++  // Override the service validation URL if specified.
++  $service_validate_url = variable_get('cas_service_validate_url', '');
++  if(!empty($service_validate_url)) {
++    phpCAS::setServerServiceValidateURL($service_validate_url);
++  }
++
+   // Allow other modules to call phpCAS routines. We do not call
+   // drupal_alter() since there are no parameters to pass.
+   module_invoke_all('cas_phpcas_alter');

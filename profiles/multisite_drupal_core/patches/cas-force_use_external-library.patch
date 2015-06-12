@@ -1,0 +1,38 @@
+--- cas.module	2015-06-11 18:15:01.000000000 +0200
++++ cas.module	2015-06-11 18:33:08.595559411 +0200
+@@ -204,7 +204,7 @@
+  */
+ function cas_phpcas_load($path = NULL) {
+   if (!isset($path)) {
+-    if (module_exists('libraries')) {
++    if (module_exists('libraries') && variable_get('cas_force_library_dir') == 0) {
+       $path = libraries_get_path('CAS');
+     }
+     else {
+--- cas.admin.inc	2015-06-11 18:15:01.000000000 +0200
++++ cas.admin.inc	2015-06-11 18:33:08.594559400 +0200
+@@ -15,7 +15,14 @@
+     '#title' => t('Library (phpCAS)'),
+     '#collapsible' => TRUE,
+   );
+-  if (module_exists('libraries')) {
++
++  $form['library']['cas_force_library_dir'] = array(  
++    '#type' => 'checkbox',
++    '#title' => t('force the use of an external phpCAS library (even if the libraries module is used)'),
++    '#default_value' => variable_get('cas_force_library_dir', 1),
++  );
++
++  if (module_exists('libraries') && variable_get('cas_force_library_dir') == 0) {
+     // If Libraries API is enabled, print an information item.
+     $form['library']['cas_library_dir'] = array(
+       '#type' => 'item',
+@@ -374,7 +382,7 @@
+  *   The modified form element containing the "library" fieldset.
+  */
+ function cas_library_version_check($element, &$form_state) {
+-  $path = module_exists('libraries') ? NULL : $element['#value'];
++  $path = (module_exists('libraries')&& variable_get('cas_force_library_dir') == 0) ? NULL : $element['#value'];
+   // Suppress errors if phpCAS cannot be loaded.
+   if ($version = @cas_phpcas_load($path)) {
+     $element['#suffix'] = '<div class="ok messages">' . t('phpCAS version %version successfully loaded.', array('%version' => $version)) . '</div>';
