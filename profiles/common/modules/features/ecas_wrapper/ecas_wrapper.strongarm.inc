@@ -13,6 +13,13 @@ function ecas_wrapper_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'cas_force_library_dir';
+  $strongarm->value = 1;
+  $export['cas_force_library_dir'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'cas_port';
   $strongarm->value = '7002';
   $export['cas_port'] = $strongarm;
