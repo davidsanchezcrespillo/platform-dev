@@ -44,7 +44,15 @@ platform.clean.patterns = txtfiles,patches,devel,composer,examples,tools,setting
 # Extra, custom patterns that will get removed too.
 platform.clean.extra = authorize.php update.php
 
+# When building the platform, it is possible to store the built commit id into
+# a text file. That file simply contains the hexadecimal, 40 characters long
+# SHA-1 hash of the Git commit, without even a line feed after it. That makes
+# it very suitable for external parsing (e.g. using PHP's file_get_contents()
+# or bash's input redirection).
+# State whether or not to generate the commit file.
 platform.store-commit = true
+# Path to the commit file, relatively to the root of the freshly built Drupal
+# directory. Missing intermediate directories will be created if needed.
 platform.store-commit.path = .commit
 
 # Paths
