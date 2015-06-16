@@ -15,8 +15,13 @@
         <include name="**/COPYRIGHT.txt" />
         <include name="**/INSTALL.*" />
         <include name="**/UPGRADE.txt" />
-        <include name="**/README.txt" />
         <include name="**/MAINTAINERS.txt" />
+        <include name="**/README.txt" />
+        <!--
+            Modules are liable to use the content of their README file in
+            their hook_help(): keep all those under profiles/.
+        -->
+        <exclude name="profiles/**/README.txt" />
     </patternset>
 
     <!-- Patches (also avoidable through drush make's no-patch-txt option). -->
