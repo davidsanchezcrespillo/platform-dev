@@ -6,6 +6,13 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function nexteuropa_integration_init() {
+
+}
+
+/**
  * Implements hook_nexteuropa_integration_producer_info().
  */
 function nexteuropa_integration_nexteuropa_integration_producer_info() {
