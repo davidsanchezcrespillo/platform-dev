@@ -6,4 +6,5 @@ version = 7.x-1.0-dev
 project = nexteuropa_integration
 
 dependencies[] = registry_autoload
+registry_autoload[] = PSR-0
 registry_autoload[] = PSR-4
