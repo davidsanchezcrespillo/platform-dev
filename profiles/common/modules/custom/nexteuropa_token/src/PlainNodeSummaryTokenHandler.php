@@ -21,7 +21,7 @@ class PlainNodeSummaryTokenHandler extends TokenAbstractHandler {
    * {@inheritdoc}
    */
   public function hookTokens($type, $tokens, array $data = array(), array $options = array()) {
-    
+
     if (isset($options['language'])) {
       $language_code = $options['language']->language;
     }
@@ -40,8 +40,8 @@ class PlainNodeSummaryTokenHandler extends TokenAbstractHandler {
             $instance = field_info_instance('node', 'body', $data['node']->type);
             $field_langcode = field_language('node', $data['node'], 'body', $language_code);
             // If the summary was requested and is not empty, use it.
-            $output = !empty($items[0]['summary']) 
-              ? _text_sanitize($instance, $field_langcode, $items[0], 'summary') 
+            $output = !empty($items[0]['summary'])
+              ? _text_sanitize($instance, $field_langcode, $items[0], 'summary')
               : text_summary(_text_sanitize($instance, $field_langcode, $items[0], 'value'));
             // Place it in the response.
             $replacements[$original] = strip_tags($output);
