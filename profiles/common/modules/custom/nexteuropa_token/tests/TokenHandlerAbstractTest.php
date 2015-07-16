@@ -151,11 +151,12 @@ abstract class TokenHandlerAbstractTest extends \PHPUnit_Framework_TestCase {
    * @return \stdClass
    *    Return node object.
    */
-  protected function getTestNode() {
+  protected function getTestNode($title = 'Node Title', $body = 'Node Body') {
     $content_type = $this->getTestContentType();
     $node = new \stdClass();
-    $node->title = self::randomName(8);
+    $node->title = $title;
     $node->type = $content_type->name;
+    $node->body[LANGUAGE_NONE][0]['value'] = $body;
     node_object_prepare($node);
     node_save($node);
 
