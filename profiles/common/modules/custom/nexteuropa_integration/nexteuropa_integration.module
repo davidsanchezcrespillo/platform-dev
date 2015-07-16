@@ -6,8 +6,44 @@
  */
 
 /**
- * Implements hook_init().
+ * Implements hook_nexteuropa_integration_producer_info().
  */
-function nexteuropa_integration_init() {
+function nexteuropa_integration_nexteuropa_integration_producer_info() {
+  return array(
+    'node' => array(
+      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
+    ),
+    'taxonomy_term' => array(
+      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
+    ),
+  );
+}
 
+/**
+ * Implements hook_nexteuropa_integration_producer_info().
+ */
+function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
+  $field_handlers = array();
+
+  $field_types = array(
+    'datetime',
+    'date',
+    'datestamp',
+    'list_float',
+    'list_text',
+    'list_boolean',
+    'number_integer',
+    'number_decimal',
+    'number_float',
+    'text',
+    'text_long',
+    'text_with_summary',
+  );
+  foreach ($field_types as $type) {
+    $default_handlers[$type] = array(
+      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
+      'alter' => FALSE,
+    );
+  }
+  return $field_handlers;
 }
