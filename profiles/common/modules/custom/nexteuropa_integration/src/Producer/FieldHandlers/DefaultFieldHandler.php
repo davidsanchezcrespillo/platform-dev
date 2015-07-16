@@ -2,11 +2,16 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler
+ * Contains DefaultFieldHandler.
  */
 
 namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
+/**
+ * Class DefaultFieldHandler.
+ *
+ * @package Drupal\nexteuropa_integration\Producer\FieldHandlers
+ */
 class DefaultFieldHandler {
 
 
