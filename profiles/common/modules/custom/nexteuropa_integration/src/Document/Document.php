@@ -36,8 +36,8 @@ class Document implements DocumentInterface {
    * @param object $document
    *    Raw document object.
    */
-  public function __construct($document) {
-    $this->document = $document;
+  public function __construct($document = NULL) {
+    $this->document = !$document ? $this->getEmptyDocument() : $document;
   }
 
   /**
@@ -146,6 +146,28 @@ class Document implements DocumentInterface {
       $this->setCurrentLanguage($this->getDefaultLanguage());
     }
     return $this->currentLanguage;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDocument() {
+    return $this->document;
+  }
+
+  /**
+   * Return empty document, to be initialized with if no argument is passed.
+   *
+   * @return \stdClass
+   *    Valid, empty document.
+   */
+  protected function getEmptyDocument() {
+    $document = new \stdClass();
+    $document->_id = NULL;
+    $document->default_language = 'en';
+    $document->languages = array('en');
+    $document->fields = array();
+    return $document;
   }
 
 }

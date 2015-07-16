@@ -87,6 +87,14 @@ interface DocumentInterface {
   public function setCurrentLanguage($language = NULL);
 
   /**
+   * Get raw document object.
+   *
+   * @return mixed
+   *    Raw document object.
+   */
+  public function getDocument();
+
+  /**
    * Get document's current language.
    *
    * @return string
