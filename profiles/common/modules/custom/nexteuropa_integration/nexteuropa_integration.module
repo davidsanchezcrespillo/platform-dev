@@ -6,6 +6,30 @@
  */
 
 /**
+ * Collect and return list of producer definitions.
+ *
+ * @return array
+ *    List of producer definitions.
+ */
+function nexteuropa_integration_producer_info_producers() {
+  $producers = module_invoke_all('nexteuropa_integration_producer_info');
+  drupal_alter('nexteuropa_integration_producer_info', $producers);
+  return $producers;
+}
+
+/**
+ * Collect and return list of producer field handler definitions.
+ *
+ * @return array
+ *    List of producer field handler definitions.
+ */
+function nexteuropa_integration_producer_info_field_handlers() {
+  $field_handlers = module_invoke_all('nexteuropa_integration_producer_field_handler_info');
+  drupal_alter('nexteuropa_integration_producer_field_handler_info', $field_handlers);
+  return $field_handlers;
+}
+
+/**
  * Implements hook_nexteuropa_integration_producer_info().
  */
 function nexteuropa_integration_nexteuropa_integration_producer_info() {
@@ -20,7 +44,7 @@ function nexteuropa_integration_nexteuropa_integration_producer_info() {
 }
 
 /**
- * Implements hook_nexteuropa_integration_producer_info().
+ * Implements hook_nexteuropa_integration_producer_field_handler_info().
  */
 function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
   $field_handlers = array();
@@ -40,7 +64,7 @@ function nexteuropa_integration_nexteuropa_integration_producer_field_handler_in
     'text_with_summary',
   );
   foreach ($field_types as $type) {
-    $default_handlers[$type] = array(
+    $field_handlers[$type] = array(
       'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
       'alter' => FALSE,
     );
