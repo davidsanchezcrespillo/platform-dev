@@ -30,6 +30,7 @@ projects[apachesolr][version] = "1.7"
 projects[apachesolr][patch][] = patches/apachesolr-attachment_indexation-481.patch
 projects[apachesolr][patch][] = patches/apachesolr-invalidate-caches-new-node-type-2178283.patch
 projects[apachesolr][patch][] = patches/apachesolr-multiples_dates-4335.patch
+projects[apachesolr][patch][] = patches/apachesolr_search-overwritten_menu_items.patch
 
 projects[apachesolr_attachments][subdir] = "contrib"
 projects[apachesolr_attachments][version] = "1.3"
@@ -104,7 +105,7 @@ projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.7"
 
 projects[customerror][subdir] = "contrib"
-projects[customerror][version] = "1.3"
+projects[customerror][version] = "1.4"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"
@@ -519,6 +520,7 @@ projects[workbench_moderation][version] = "1.4"
 projects[workbench_moderation][patch][] = patches/workbench_moderation-001-wm-field_translations-2285931-1.patch
 projects[workbench_moderation][patch][] = patches/workbench_moderation-002-attachment_fix-1084436-47.patch
 projects[workbench_moderation][patch][] = patches/workbench_moderation-005-workbench_moderation.rules-5054.patch
+projects[workbench_moderation][patch][] = https://www.drupal.org/files/issues/support_for_migrate-1445824-35.patch
 
 projects[workbench_og][subdir] = "contrib"
 projects[workbench_og][version] = "2.0-beta1"
