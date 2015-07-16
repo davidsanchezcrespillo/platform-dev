@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Contains EuropeanCommission\IntegrationLayer\Tests\BackendTest.
+ * Contains Drupal\nexteuropa_integration\Tests\BackendTest.
  */
 
-namespace EuropeanCommission\IntegrationLayer\Tests;
+namespace Drupal\nexteuropa_integration\Tests;
 
 /**
  * Class BackendTest.
  *
- * @package EuropeanCommission\IntegrationLayer\Tests\BackendTest
+ * @package Drupal\nexteuropa_integration\Tests\BackendTest
  */
 class BackendTest extends \PHPUnit_Framework_TestCase {
 
