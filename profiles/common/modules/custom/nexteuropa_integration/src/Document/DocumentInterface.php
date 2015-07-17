@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\DocumentInterface.
+ * Contains DocumentInterface.
  */
 
 namespace Drupal\nexteuropa_integration;
@@ -81,10 +81,47 @@ interface DocumentInterface {
    * @param string $language
    *    Language code in ISO 639-1 format.
    *
-   * @return \Drupal\nexteuropa_integration\DocumentInterface
+   * @return DocumentInterface
    *    Set current language and return document object.
    */
   public function setCurrentLanguage($language = NULL);
+
+  /**
+   * Set metadata name/value pair on the document object.
+   *
+   * @param string $name
+   *    Metadata name.
+   * @param string $value
+   *    Metadata value.
+   *
+   * @return DocumentInterface
+   *    Set metadata property and return document object.
+   */
+  public function setMetadata($name, $value);
+
+  /**
+   * Set field name/value pair on the document object.
+   *
+   * @param string $name
+   *    Field name.
+   * @param string $value
+   *    Field value.
+   *
+   * @return DocumentInterface
+   *    Set field value and return document object.
+   */
+  public function setField($name, $value);
+
+  /**
+   * Get metadata value.
+   *
+   * @param string $name
+   *    Metadata name.
+   *
+   * @return string|null
+   *    Metadata value.
+   */
+  public function getMetadata($name);
 
   /**
    * Get raw document object.
