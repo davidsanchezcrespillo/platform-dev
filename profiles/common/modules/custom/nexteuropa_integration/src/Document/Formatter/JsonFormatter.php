@@ -25,7 +25,7 @@ class JsonFormatter implements FormatterInterface {
    *    Textual representation of the Document object.
    */
   public function format(DocumentInterface $document) {
-    return json_encode($document->getDocument());
+    return json_encode($document->getDocument(), JSON_PRETTY_PRINT);
   }
 
 }
