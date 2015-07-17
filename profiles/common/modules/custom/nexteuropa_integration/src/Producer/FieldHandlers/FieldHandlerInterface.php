@@ -14,4 +14,12 @@ namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
  */
 interface FieldHandlerInterface {
 
+  /**
+   * Get field value.
+   *
+   * @return mixed
+   *    Get field values.
+   */
+  public function getValues();
+
 }
