@@ -7,9 +7,10 @@
 
 namespace Drupal\nexteuropa_integration\Tests\Producer;
 
-use Drupal\nexteuropa_integration\Producer\DefaultProducer;
+use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 use \Mockery as m;
 
@@ -20,8 +21,7 @@ use \Mockery as m;
  */
 class ProducerTest extends \PHPUnit_Framework_TestCase {
 
-  private $entity;
-  private $fieldHandler;
+  private $entityWrapper;
   private $document;
   private $formatter;
 
@@ -29,8 +29,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    * Setup PHPUnit hook.
    */
   public function setUp() {
-    $this->entity = m::mock('EntityDrupalWrapper');
-    $this->fieldHandler = m::mock('Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface');
+    $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper');
     $this->document = m::mock('Drupal\nexteuropa_integration\DocumentInterface');
     $this->formatter = m::mock('Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface');
   }
@@ -40,7 +39,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    */
   public function testProducerInstance() {
 
-    $producer = new DefaultProducer('node', $this->entity, $this->fieldHandler, $this->document, $this->formatter);
+    $producer = new NodeProducer($this->entityWrapper, $this->document, $this->formatter);
     $reflection = new \ReflectionClass($producer);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }
