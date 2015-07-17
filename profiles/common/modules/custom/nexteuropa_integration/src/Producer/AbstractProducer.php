@@ -19,6 +19,13 @@ use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 abstract class AbstractProducer implements ProducerInterface {
 
   /**
+   * Entity wrapper.
+   *
+   * @var \EntityDrupalWrapper
+   */
+  private $entity = NULL;
+
+  /**
    * Field handler instance.
    *
    * @var FieldHandlerInterface
@@ -33,11 +40,18 @@ abstract class AbstractProducer implements ProducerInterface {
   private $document = NULL;
 
   /**
+   * Formatter instance.
+   *
+   * @var FormatterInterface
+   */
+  private $formatter = NULL;
+
+  /**
    * Constructor.
    *
    * @param string $entity_type
    *    Entity type.
-   * @param object $entity
+   * @param \EntityDrupalWrapper $entity
    *    Entity object.
    * @param FieldHandlerInterface $field_handler
    *    Field handler object.
@@ -46,7 +60,7 @@ abstract class AbstractProducer implements ProducerInterface {
    * @param FormatterInterface $formatter
    *    Formatter object.
    */
-  public function __construct($entity_type, $entity, FieldHandlerInterface $field_handler, DocumentInterface $document, FormatterInterface $formatter) {
+  public function __construct($entity_type, \EntityDrupalWrapper $entity, FieldHandlerInterface $field_handler, DocumentInterface $document, FormatterInterface $formatter) {
 
   }
 
