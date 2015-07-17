@@ -18,27 +18,15 @@ function nexteuropa_integration_producer_info_producers() {
 }
 
 /**
- * Collect and return list of producer field handler definitions.
- *
- * @return array
- *    List of producer field handler definitions.
- */
-function nexteuropa_integration_producer_info_field_handlers() {
-  $field_handlers = module_invoke_all('nexteuropa_integration_producer_field_handler_info');
-  drupal_alter('nexteuropa_integration_producer_field_handler_info', $field_handlers);
-  return $field_handlers;
-}
-
-/**
  * Implements hook_nexteuropa_integration_producer_info().
  */
 function nexteuropa_integration_nexteuropa_integration_producer_info() {
   return array(
     'node' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
+      'class' => '\Drupal\nexteuropa_integration\Producer\NodeProducer',
     ),
     'taxonomy_term' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
+      'class' => '\Drupal\nexteuropa_integration\Producer\TaxonomyProducer',
     ),
   );
 }

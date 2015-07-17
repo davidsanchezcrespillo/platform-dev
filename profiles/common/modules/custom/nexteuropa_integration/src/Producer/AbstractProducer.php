@@ -7,9 +7,9 @@
 
 namespace Drupal\nexteuropa_integration\Producer;
 
-use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
+use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 
 /**
  * Class AbstractProducer.
@@ -21,16 +21,9 @@ abstract class AbstractProducer implements ProducerInterface {
   /**
    * Entity wrapper.
    *
-   * @var \EntityDrupalWrapper
+   * @var DefaultEntityWrapper
    */
-  private $entity = NULL;
-
-  /**
-   * Field handler instance.
-   *
-   * @var FieldHandlerInterface
-   */
-  private $fieldHandler = NULL;
+  private $entityWrapper = NULL;
 
   /**
    * Document handler instance.
@@ -49,19 +42,47 @@ abstract class AbstractProducer implements ProducerInterface {
   /**
    * Constructor.
    *
-   * @param string $entity_type
-   *    Entity type.
-   * @param \EntityDrupalWrapper $entity
+   * @param DefaultEntityWrapper $entity_wrapper
    *    Entity object.
-   * @param FieldHandlerInterface $field_handler
-   *    Field handler object.
    * @param DocumentInterface $document
    *    Document object.
    * @param FormatterInterface $formatter
    *    Formatter object.
    */
-  public function __construct($entity_type, \EntityDrupalWrapper $entity, FieldHandlerInterface $field_handler, DocumentInterface $document, FormatterInterface $formatter) {
+  public function __construct(DefaultEntityWrapper $entity_wrapper, DocumentInterface $document, FormatterInterface $formatter) {
+    $this->entityWrapper = $entity_wrapper;
+    $this->document = $document;
+    $this->formatter = $formatter;
+  }
 
+  /**
+   * Entity wrapper the producer has been instantiated with.
+   *
+   * @return DefaultEntityWrapper
+   *    Entity wrapper object.
+   */
+  public function getEntityWrapper() {
+    return $this->entityWrapper;
+  }
+
+  /**
+   * Get document handler the producer has been instantiated with.
+   *
+   * @return DocumentInterface
+   *    Document object.
+   */
+  public function getDocument() {
+    return $this->document;
+  }
+
+  /**
+   * Get Formatter the producer has been instantiated with.
+   *
+   * @return FormatterInterface
+   *    Formatter object.
+   */
+  public function getFormatter() {
+    return $this->formatter;
   }
 
 }
