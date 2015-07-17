@@ -26,7 +26,7 @@ function nexteuropa_integration_nexteuropa_integration_producer_info() {
       'class' => '\Drupal\nexteuropa_integration\Producer\NodeProducer',
     ),
     'taxonomy_term' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\TaxonomyProducer',
+      'class' => '\Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
     ),
   );
 }
