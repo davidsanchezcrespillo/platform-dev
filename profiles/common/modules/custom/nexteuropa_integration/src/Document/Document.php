@@ -50,6 +50,21 @@ class Document implements DocumentInterface {
   /**
    * {@inheritdoc}
    */
+  public function setMetadata($name, $value) {
+    $this->document->{$name} = $value;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMetadata($name) {
+    return isset($this->document->{$name}) ? $this->document->{$name} : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCurrentLanguageFieldsValues() {
     $result = new \stdClass();
     foreach ($this->getFieldMachineNames() as $field_name) {
@@ -166,8 +181,31 @@ class Document implements DocumentInterface {
     $document->_id = NULL;
     $document->default_language = 'en';
     $document->languages = array('en');
-    $document->fields = array();
+    $document->fields = new \stdClass();
     return $document;
+  }
+
+  /**
+   * Set field name/value pair on the document object.
+   *
+   * @param string $name
+   *    Field name.
+   * @param string $value
+   *    Field value.
+   *
+   * @return DocumentInterface
+   *    Set field value and return document object.
+   */
+  public function setField($name, $value) {
+    $language = $this->getCurrentLanguage();
+
+    $fields = &$this->document->fields;
+    if (!isset($fields->{$name}->{$language})) {
+      $fields->{$name}->{$language} = array();
+    }
+    $values = &$fields->{$name}->{$language};
+    $values[] = $value;
+    return $this;
   }
 
 }
