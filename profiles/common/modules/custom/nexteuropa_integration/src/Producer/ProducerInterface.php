@@ -8,8 +8,8 @@
 namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 
 /**
  * Interface ProducerInterface.
@@ -29,18 +29,10 @@ interface ProducerInterface {
   /**
    * Entity wrapper the producer has been instantiated with.
    *
-   * @return \EntityDrupalWrapper
+   * @return DefaultEntityWrapper
    *    Entity wrapper object.
    */
-  public function getEntity();
-
-  /**
-   * Field handler the producer has been instantiated with.
-   *
-   * @return FieldHandlerInterface
-   *    Field handler object.
-   */
-  public function getFieldHandler();
+  public function getEntityWrapper();
 
   /**
    * Get document handler the producer has been instantiated with.
