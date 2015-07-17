@@ -85,4 +85,15 @@ abstract class AbstractProducer implements ProducerInterface {
     return $this->formatter;
   }
 
+  /**
+   * Return rendered document formatted according to the chosen format.
+   *
+   * @return string
+   *    Formatted document.
+   */
+  public function render() {
+    $document = $this->build();
+    return $this->formatter->format($document);
+  }
+
 }
