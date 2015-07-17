@@ -7,11 +7,13 @@
 
 namespace Drupal\nexteuropa_integration\Tests\Producer;
 
+use Drupal\nexteuropa_integration\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
+use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
 use \Mockery as m;
 
 /**
@@ -21,9 +23,20 @@ use \Mockery as m;
  */
 class ProducerTest extends \PHPUnit_Framework_TestCase {
 
-  private $entityWrapper;
-  private $document;
-  private $formatter;
+  /**
+   * @var \Mockery\MockInterface
+   */
+  protected $entityWrapper;
+
+  /**
+   * @var \Mockery\MockInterface
+   */
+  protected $document;
+
+  /**
+   * @var \Mockery\MockInterface
+   */
+  protected $formatter;
 
   /**
    * Setup PHPUnit hook.
@@ -37,7 +50,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
   /**
    * Test creation of a producer instance.
    */
-  public function testProducerInstance() {
+  public function testInstance() {
 
     $producer = new NodeProducer($this->entityWrapper, $this->document, $this->formatter);
     $reflection = new \ReflectionClass($producer);
@@ -45,10 +58,126 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Test build method.
+   */
+  public function testBuild() {
+    $node = $this->getExportedEntityFixture('node', 1);
+
+    $entity_wrapper = new DefaultEntityWrapper('node', $node);
+    $document = new Document();
+    $formatter = new JsonFormatter();
+    $producer = new NodeProducer($entity_wrapper, $document, $formatter);
+    $document = $producer->build();
+
+    $this->assertEquals('article', $document->getMetadata('type'));
+    $this->assertEquals('2015-07-17 12:00:52', $document->getMetadata('created'));
+
+    $document->setCurrentLanguage('en');
+    $this->assertEquals('Title EN', $document->getFieldValue('title_field'));
+    $this->assertContains('Body EN', $document->getFieldValue('body_value'));
+
+    $document->setCurrentLanguage('fr');
+    $this->assertEquals('Title FR', $document->getFieldValue('title_field'));
+    $this->assertContains('Body FR', $document->getFieldValue('body_value'));
+  }
+
+  /**
+   * Test render method.
+   */
+  public function testRender() {
+    $node = $this->getExportedEntityFixture('node', 1);
+
+    $entity_wrapper = new DefaultEntityWrapper('node', $node);
+    $document = new Document();
+    $formatter = new JsonFormatter();
+    $producer = new NodeProducer($entity_wrapper, $document, $formatter);
+    $output = $producer->render();
+
+    $expected = $this->getRenderedEntityFixture('node', 1);
+    $this->assertEquals(json_decode($expected), json_decode($output));
+  }
+
+  /**
+   * Test entity wrapper.
+   */
+  public function testEntityWrapper() {
+    $node = $this->getExportedEntityFixture('node', 1);
+    $wrapper = new DefaultEntityWrapper('node', $node);
+
+    $properties = array(
+      'nid',
+      'vid',
+      'type',
+      'title',
+      'language',
+      'status',
+      'promote',
+      'created',
+      'changed',
+      'author',
+    );
+    foreach ($properties as $property) {
+      $this->assertTrue($wrapper->isProperty($property));
+    }
+
+    $this->assertEquals('article', $wrapper->getProperty('type'));
+    $this->assertEquals('2015-07-17 12:00:52', $wrapper->getProperty('created'));
+
+    $fields = array(
+      'body',
+      'field_tags',
+      'field_image',
+      'title_field',
+    );
+    foreach ($fields as $field) {
+      $this->assertTrue($wrapper->isField($field));
+    }
+
+    $this->assertEquals(array('en', 'fr'), $wrapper->getAvailableLanguages());
+
+    $this->assertEquals('Title EN', $wrapper->getField('title_field', 'en'));
+    $this->assertEquals('Title FR', $wrapper->getField('title_field', 'fr'));
+  }
+
+  /**
    * Tear down PHPUnit hook.
    */
   public function tearDown() {
     m::close();
+  }
+
+  /**
+   * Get exported entity from fixture directory.
+   *
+   * @param string $type
+   *    Entity type.
+   * @param $id
+   *    Entity ID.
+   * @return \stdClass
+   *    Entity object.
+   */
+  private function getExportedEntityFixture($type, $id) {
+    static $entity_fixtures = array();
+    if (!isset($entity_fixtures[$type][$id])) {
+      $export = new \stdClass();
+      include_once "fixtures/$type-$id.php";
+      $entity_fixtures[$type][$id] = clone $export;
+    }
+    return $entity_fixtures[$type][$id];
+  }
+
+  /**
+   * Get rendered entity from fixture directory.
+   *
+   * @param string $type
+   *    Entity type.
+   * @param $id
+   *    Entity ID.
+   * @return \stdClass
+   *    Entity object.
+   */
+  protected function getRenderedEntityFixture($type, $id) {
+    return file_get_contents(dirname(__FILE__) . "/fixtures/$type-$id.json");
   }
 
 }
