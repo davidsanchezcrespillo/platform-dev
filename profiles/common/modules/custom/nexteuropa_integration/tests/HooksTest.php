@@ -26,7 +26,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
     );
     foreach ($expected as $entity_type => $producer_class) {
       $this->assertTrue(isset($producers[$entity_type]));
-      $this->assertTrue($producers[$entity_type]['class'] == '\Drupal\nexteuropa_integration\Producer\\' . $producer_class);
+      $this->assertEquals('\Drupal\nexteuropa_integration\Producer\\' . $producer_class, $producers[$entity_type]['class']);
     }
   }
 
