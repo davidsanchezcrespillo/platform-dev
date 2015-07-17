@@ -19,14 +19,6 @@ use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 interface ProducerInterface {
 
   /**
-   * Build document object using the entity the producer was instantiated with.
-   *
-   * @return DocumentInterface
-   *    Built document object.
-   */
-  public function build();
-
-  /**
    * Entity wrapper the producer has been instantiated with.
    *
    * @return DefaultEntityWrapper
@@ -49,5 +41,21 @@ interface ProducerInterface {
    *    Formatter object.
    */
   public function getFormatter();
+
+  /**
+   * Build document object using the entity the producer was instantiated with.
+   *
+   * @return DocumentInterface
+   *    Built document object.
+   */
+  public function build();
+
+  /**
+   * Return rendered document formatted according to the chosen format.
+   *
+   * @return string
+   *    Formatted document.
+   */
+  public function render();
 
 }
