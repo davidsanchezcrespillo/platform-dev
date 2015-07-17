@@ -1,0 +1,69 @@
+{
+  "_id": null,
+  "default_language": "en",
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "fields": {
+    "body_value": {
+      "en": [
+        "Body EN"
+      ],
+      "fr": [
+        "Body FR"
+      ]
+    },
+    "body_summary": {
+      "en": [
+        ""
+      ],
+      "fr": [
+        ""
+      ]
+    },
+    "body_format": {
+      "en": [
+        "filtered_html"
+      ],
+      "fr": [
+        "filtered_html"
+      ]
+    },
+    "body_safe_value": {
+      "en": [
+        "<p>Body EN<\/p>\n"
+      ],
+      "fr": [
+        "<p>Body FR<\/p>\n"
+      ]
+    },
+    "body_safe_summary": {
+      "en": [
+        ""
+      ],
+      "fr": [
+        ""
+      ]
+    },
+    "field_image": {
+      "en": [
+        null
+      ],
+      "fr": [
+        null
+      ]
+    },
+    "title_field": {
+      "en": [
+        "Title EN"
+      ],
+      "fr": [
+        "Title FR"
+      ]
+    }
+  },
+  "type": "article",
+  "created": "2015-07-17 12:00:52",
+  "changed": "2015-07-17 12:01:27"
+}
