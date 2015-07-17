@@ -23,7 +23,17 @@ class JsonFormatterTest extends \PHPUnit_Framework_TestCase {
 
     $document = new Document();
     $formatter = new JsonFormatter();
-    $this->assertEquals('{"_id":null,"default_language":"en","languages":["en"],"fields":[]}', $formatter->format($document));
+    $expected = <<<EOD
+{
+    "_id": null,
+    "default_language": "en",
+    "languages": [
+        "en"
+    ],
+    "fields": {}
+}
+EOD;
+    $this->assertEquals($expected, $formatter->format($document));
   }
 
 }
