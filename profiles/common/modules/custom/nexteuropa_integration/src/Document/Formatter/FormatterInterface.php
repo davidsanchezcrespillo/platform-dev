@@ -20,6 +20,7 @@ interface FormatterInterface {
    *
    * @param DocumentInterface $document
    *    Document handler object.
+   *
    * @return string
    *    Textual representation of the Document object.
    */
