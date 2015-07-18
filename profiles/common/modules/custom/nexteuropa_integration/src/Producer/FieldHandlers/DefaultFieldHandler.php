@@ -18,7 +18,7 @@ use Drupal\nexteuropa_integration\Document;
 class DefaultFieldHandler extends AbstractFieldHandler {
 
   /**
-   * Process and assign current field to document.
+   * {@inheritdoc}
    */
   public function processField() {
     $value = $this->getFieldValue();
