@@ -19,6 +19,46 @@ use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 interface ProducerInterface {
 
   /**
+   * Return document type, derived from the current entity.
+   *
+   * @return string
+   *    Type metadata value.
+   */
+  public function getDocumentType();
+
+  /**
+   * Return document creation date, derived from the current entity.
+   *
+   * @return int
+   *    Creation date metadata value, as UNIX timestamp.
+   */
+  public function getDocumentCreationDate();
+
+  /**
+   * Return document creation date, derived from the current entity.
+   *
+   * @return int
+   *    Creation date metadata value, as UNIX timestamp.
+   */
+  public function getDocumentUpdateDate();
+
+  /**
+   * Return current producer ID.
+   *
+   * @return string
+   *    Producer identification string.
+   */
+  public function getProducerId();
+
+  /**
+   * Return content ID, unique to the producer.
+   *
+   * @return string
+   *    Producer content identification string.
+   */
+  public function getProducerContentId();
+
+  /**
    * Entity wrapper the producer has been instantiated with.
    *
    * @return DefaultEntityWrapper
