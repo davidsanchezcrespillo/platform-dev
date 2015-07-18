@@ -7,9 +7,9 @@
 
 namespace Drupal\nexteuropa_integration\Tests\Producer;
 
-use Drupal\nexteuropa_integration\Document;
+use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
-use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
@@ -49,7 +49,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    */
   public function setUp() {
     $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper');
-    $this->document = m::mock('Drupal\nexteuropa_integration\DocumentInterface');
+    $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
     $this->formatter = m::mock('Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface');
   }
 
