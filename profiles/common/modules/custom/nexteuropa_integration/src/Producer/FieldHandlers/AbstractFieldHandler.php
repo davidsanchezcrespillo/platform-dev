@@ -62,17 +62,14 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
   }
 
   /**
-   * Return field value for current language.
-   *
-   * @return array|string
-   *    Current field value.
+   * {@inheritdoc}
    */
   public function getFieldValue() {
     return $this->getEntityWrapper()->getField($this->fieldName, $this->language);
   }
 
   /**
-   * Process current field.
+   * {@inheritdoc}
    */
   public function process() {
     $this->getDocument()->setCurrentLanguage($this->language);
@@ -81,20 +78,14 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
   }
 
   /**
-   * Entity wrapper the producer has been instantiated with.
-   *
-   * @return DefaultEntityWrapper
-   *    Entity wrapper object.
+   * {@inheritdoc}
    */
   public function getEntityWrapper() {
     return $this->entityWrapper;
   }
 
   /**
-   * Get document handler the producer has been instantiated with.
-   *
-   * @return DocumentInterface
-   *    Document object.
+   * {@inheritdoc}
    */
   public function getDocument() {
     return $this->document;
