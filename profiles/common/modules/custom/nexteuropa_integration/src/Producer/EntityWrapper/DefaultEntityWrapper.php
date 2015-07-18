@@ -49,26 +49,14 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Check weather $name is a property or not.
-   *
-   * @param string $name
-   *    Property name.
-   *
-   * @return bool
-   *    TRUE if property, FALSE otherwise.
+   * {@inheritdoc}
    */
   public function isProperty($name) {
     return in_array($name, $this->getPropertyList());
   }
 
   /**
-   * Get property value.
-   *
-   * @param string $name
-   *    Property name.
-   *
-   * @return string
-   *    Property value.
+   * {@inheritdoc}
    */
   public function getProperty($name) {
     if ($this->isProperty($name)) {
@@ -89,10 +77,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Return list of all entity's properties.
-   *
-   * @return array[string]
-   *    Array of property names.
+   * {@inheritdoc}
    */
   public function getPropertyList() {
     $properties = array();
@@ -105,10 +90,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Return list of all entity's fields.
-   *
-   * @return array[string]
-   *    Array of field names.
+   * {@inheritdoc}
    */
   public function getFieldList() {
 
@@ -122,28 +104,14 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Check weather $name is a field or not.
-   *
-   * @param string $name
-   *    Field name.
-   *
-   * @return bool
-   *    TRUE if property, FALSE otherwise.
+   * {@inheritdoc}
    */
   public function isField($name) {
     return in_array($name, $this->getFieldList());
   }
 
   /**
-   * Get field value, given a certain language.
-   *
-   * @param string $name
-   *    Field name.
-   * @param string $language
-   *    Language code.
-   *
-   * @return array
-   *    String values, in selected language.
+   * {@inheritdoc}
    */
   public function getField($name, $language = NULL) {
     $this->language($language);
@@ -153,10 +121,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Get available languages for current entity.
-   *
-   * @return array
-   *    Array of language codes.
+   * {@inheritdoc}
    */
   public function getAvailableLanguages() {
     $translations = $this->translationHandler->getTranslations();
@@ -164,10 +129,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   }
 
   /**
-   * Get default language for current entity.
-   *
-   * @return string
-   *    Default language code.
+   * {@inheritdoc}
    */
   public function getDefaultLanguage() {
     return $this->translationHandler->getDefaultLanguage();
