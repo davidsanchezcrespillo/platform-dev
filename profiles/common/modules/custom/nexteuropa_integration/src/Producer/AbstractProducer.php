@@ -10,6 +10,8 @@ namespace Drupal\nexteuropa_integration\Producer;
 use Drupal\nexteuropa_integration\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler;
+use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 
 /**
  * Class AbstractProducer.
@@ -56,40 +58,72 @@ abstract class AbstractProducer implements ProducerInterface {
   }
 
   /**
-   * Entity wrapper the producer has been instantiated with.
-   *
-   * @return DefaultEntityWrapper
-   *    Entity wrapper object.
+   * {@inheritdoc}
    */
   public function getEntityWrapper() {
     return $this->entityWrapper;
   }
 
   /**
-   * Get document handler the producer has been instantiated with.
-   *
-   * @return DocumentInterface
-   *    Document object.
+   * {@inheritdoc}
    */
   public function getDocument() {
     return $this->document;
   }
 
   /**
-   * Get Formatter the producer has been instantiated with.
-   *
-   * @return FormatterInterface
-   *    Formatter object.
+   * {@inheritdoc}
    */
   public function getFormatter() {
     return $this->formatter;
   }
 
   /**
-   * Return rendered document formatted according to the chosen format.
-   *
-   * @return string
-   *    Formatted document.
+   * {@inheritdoc}
+   */
+  public function getProducerId() {
+    // @todo: fetch this from system settings.
+    return 'temp-producer-id';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFieldHandler($field_name, $language) {
+    // @todo: get field handler by type, atm only returns default.
+    return new DefaultFieldHandler($field_name, $language, $this->getEntityWrapper(), $this->getDocument());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+
+    // Set document metadata.
+    $this->getDocument()->setMetadata('type', $this->getDocumentType());
+    $this->getDocument()->setMetadata('producer_id', $this->getProducerId());
+    $this->getDocument()->setMetadata('producer_content_id', $this->getProducerContentId());
+    $this->getDocument()->setMetadata('created', $this->getDocumentCreationDate());
+    $this->getDocument()->setMetadata('changed', $this->getDocumentUpdateDate());
+
+    // Set multilingual-related metadata.
+    $this->getDocument()->setMetadata('languages', $this->getEntityWrapper()->getAvailableLanguages());
+    $this->getDocument()->setMetadata('default_language', $this->getEntityWrapper()->getDefaultLanguage());
+
+    // Set field values.
+    foreach ($this->getEntityWrapper()->getAvailableLanguages() as $language) {
+      foreach ($this->getEntityWrapper()->getFieldList() as $field_name) {
+        $this->getFieldHandler($field_name, $language)->process();
+      }
+    }
+
+    $document = $this->getDocument();
+    drupal_alter('nexteuropa_integration_producer_document_build', $document);
+    return $document;
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function render() {
     $document = $this->build();
