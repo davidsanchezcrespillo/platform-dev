@@ -18,7 +18,8 @@ class NodeProducer extends AbstractProducer {
    * {@inheritdoc}
    */
   public function getProducerContentId() {
-    return 'node-' . $this->getEntityWrapper()->getBundle() . '-' . $this->getEntityWrapper()->nid->value();
+    $wrapper = $this->getEntityWrapper();
+    return 'node-' . str_replace('_', '-', $wrapper->getBundle()) . '-' . $wrapper->getIdentifier();
   }
 
   /**
