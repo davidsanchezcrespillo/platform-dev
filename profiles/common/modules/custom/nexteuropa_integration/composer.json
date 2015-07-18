@@ -2,5 +2,10 @@
   "require-dev": {
     "mockery/mockery": "dev-master",
     "phpunit/phpunit": "4.5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\nexteuropa_integration\\Tests\\": "./tests/"
+    }
   }
 }
