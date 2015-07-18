@@ -24,16 +24,22 @@ use \Mockery as m;
 class ProducerTest extends \PHPUnit_Framework_TestCase {
 
   /**
+   * Entity wrapper mock.
+   *
    * @var \Mockery\MockInterface
    */
   protected $entityWrapper;
 
   /**
+   * Document mock.
+   *
    * @var \Mockery\MockInterface
    */
   protected $document;
 
   /**
+   * Formatter mock.
+   *
    * @var \Mockery\MockInterface
    */
   protected $formatter;
@@ -151,8 +157,9 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    *
    * @param string $type
    *    Entity type.
-   * @param $id
+   * @param int $id
    *    Entity ID.
+   *
    * @return \stdClass
    *    Entity object.
    */
@@ -171,8 +178,9 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    *
    * @param string $type
    *    Entity type.
-   * @param $id
+   * @param int $id
    *    Entity ID.
+   *
    * @return \stdClass
    *    Entity object.
    */
