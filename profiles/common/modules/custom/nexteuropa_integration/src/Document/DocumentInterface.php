@@ -5,12 +5,12 @@
  * Contains DocumentInterface.
  */
 
-namespace Drupal\nexteuropa_integration;
+namespace Drupal\nexteuropa_integration\Document;
 
 /**
  * Interface DocumentInterface.
  *
- * @package Drupal\nexteuropa_integration
+ * @package Drupal\nexteuropa_integration\Document
  */
 interface DocumentInterface {
 

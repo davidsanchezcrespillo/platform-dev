@@ -6,7 +6,7 @@
 
 namespace Drupal\nexteuropa_integration\Tests\Document\Formatter;
 
-use Drupal\nexteuropa_integration\Document;
+use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
 
 /**
