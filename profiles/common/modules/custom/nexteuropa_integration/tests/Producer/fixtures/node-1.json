@@ -65,5 +65,7 @@
   },
   "type": "article",
   "created": "2015-07-17 12:00:52",
-  "changed": "2015-07-17 12:01:27"
+  "changed": "2015-07-17 12:01:27",
+  "producer_id": "temp-producer-id",
+  "producer_content_id": "node-article-1"
 }
