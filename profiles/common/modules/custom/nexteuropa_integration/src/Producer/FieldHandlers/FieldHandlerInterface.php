@@ -7,6 +7,10 @@
 
 namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
+use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Document;
+
 /**
  * Interface FieldHandlerInterface.
  *
@@ -15,11 +19,37 @@ namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 interface FieldHandlerInterface {
 
   /**
-   * Get field value.
+   * Return field value for current language.
    *
-   * @return mixed
-   *    Get field values.
+   * @return array|string
+   *    Current field value.
    */
-  public function getValues();
+  public function getFieldValue();
+
+  /**
+   * Entity wrapper the producer has been instantiated with.
+   *
+   * @return DefaultEntityWrapper
+   *    Entity wrapper object.
+   */
+  public function getEntityWrapper();
+
+  /**
+   * Get document handler the producer has been instantiated with.
+   *
+   * @return DocumentInterface
+   *    Document object.
+   */
+  public function getDocument();
+
+  /**
+   * Process and assign current field to document.
+   */
+  public function processField();
+
+  /**
+   * Process current field.
+   */
+  public function process();
 
 }
