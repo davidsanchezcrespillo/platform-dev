@@ -57,6 +57,7 @@ interface EntityWrapperInterface {
    *
    * @param string $name
    *    Property name.
+   *
    * @return bool
    *    TRUE if property, FALSE otherwise.
    */
@@ -67,6 +68,7 @@ interface EntityWrapperInterface {
    *
    * @param string $name
    *    Property name.
+   *
    * @return string
    *    Property value.
    */

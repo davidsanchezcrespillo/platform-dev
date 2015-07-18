@@ -10,6 +10,8 @@ namespace Drupal\nexteuropa_integration\Producer;
 use Drupal\nexteuropa_integration\Document;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler;
+use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 
 /**
  * Class NodeProducer.
@@ -41,25 +43,30 @@ class NodeProducer extends AbstractProducer {
     $this->getDocument()->setMetadata('default_language', $this->getEntityWrapper()->getDefaultLanguage());
 
     // Set field values.
-    // @todo: improve this part by using field handlers, name altering, etc.
     foreach ($this->getEntityWrapper()->getAvailableLanguages() as $language) {
-      $this->getDocument()->setCurrentLanguage($language);
       foreach ($this->getEntityWrapper()->getFieldList() as $field_name) {
-        $value = $this->getEntityWrapper()->getField($field_name, $language);
-        if (is_array($value)) {
-          foreach ($value as $column_name => $column_value) {
-            $this->getDocument()->setField($field_name . '_' . $column_name, $column_value);
-          }
-        }
-        else {
-          $this->getDocument()->setField($field_name, $value);
-        }
+        $this->getFieldHandler($field_name, $language)->process();
       }
     }
-
     $document = $this->getDocument();
     drupal_alter('nexteuropa_integration_producer_document_build', $document);
     return $document;
+  }
+
+  /**
+   * Returns field handler interface.
+   *
+   * @param string $field_name
+   *    Current field name.
+   * @param string $language
+   *    Current field language code.
+   *
+   * @return FieldHandlerInterface
+   *    Field handler instance.
+   */
+  protected function getFieldHandler($field_name, $language) {
+    // @todo: get field handler by type, atm only returns default.
+    return new DefaultFieldHandler($field_name, $language, $this->getEntityWrapper(), $this->getDocument());
   }
 
 }
