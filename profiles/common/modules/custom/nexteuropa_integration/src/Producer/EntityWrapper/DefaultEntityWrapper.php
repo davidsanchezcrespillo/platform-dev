@@ -35,11 +35,11 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   /**
    * Construct a new EntityDrupalWrapper object.
    *
-   * @param $type
+   * @param string $type
    *   The type of the passed data.
-   * @param $data
+   * @param object $data
    *   Optional. The entity to wrap or its identifier.
-   * @param $info
+   * @param mixed $info
    *   Optional. Used internally to pass info about properties down the tree.
    */
   public function __construct($type, $data = NULL, $info = array()) {

@@ -2,7 +2,9 @@
 
 /**
  * @file
+ * Node object export.
  */
+
 $export = (object) array(
   'vid' => '1',
   'uid' => '1',
