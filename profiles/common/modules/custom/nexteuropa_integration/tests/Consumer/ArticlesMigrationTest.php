@@ -50,16 +50,16 @@ class ArticlesMigrationTest extends MigrateAbstractTest {
 
         // Assert that list field has been imported correctly.
         foreach ($source->getFieldValue('list') as $key => $value) {
-          $this->assertEquals($value, $node->field_migrate_test_text[$language][$key]['value']);
+          $this->assertEquals($value, $node->field_integration_test_text[$language][$key]['value']);
         }
 
         // Assert that date field has been imported correctly.
-        $this->assertEquals($source->getFieldValue('date'), $node->field_migrate_test_dates[LANGUAGE_NONE][0]['value']);
+        $this->assertEquals($source->getFieldValue('date'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value']);
       }
 
       // Assert that taxonomy term reference migration worked successfully.
       $category_ids = $source->getFieldValue('categories');
-      foreach ($node->field_migrate_test_terms[LANGUAGE_NONE] as $key => $value) {
+      foreach ($node->field_integration_test_terms[LANGUAGE_NONE] as $key => $value) {
         $taxonomy_term_raw_document = $this->getDocument('categories', $category_ids[$key]);
         $taxonomy_term_source = new Document($taxonomy_term_raw_document);
         $taxonomy_term = taxonomy_term_load($value['tid']);
@@ -68,7 +68,7 @@ class ArticlesMigrationTest extends MigrateAbstractTest {
 
       // Assert that entity reference field has been imported correctly.
       $news_ids = $source->getFieldValue('news');
-      foreach ($node->field_migrate_test_references[LANGUAGE_NONE] as $key => $value) {
+      foreach ($node->field_integration_test_ref[LANGUAGE_NONE] as $key => $value) {
         $news_raw_document = $this->getDocument('news', $news_ids[$key]);
         $news_source = new Document($news_raw_document);
         $news_source->setCurrentLanguage($language);
@@ -78,18 +78,18 @@ class ArticlesMigrationTest extends MigrateAbstractTest {
 
       // Assert that images are imported correctly.
       foreach ($source->getFieldValue('images') as $key => $value) {
-        $this->assertContains($node->field_migrate_test_images[$language][$key]['filename'], $value);
+        $this->assertContains($node->field_integration_test_images[$language][$key]['filename'], $value);
       }
 
       // Assert that image alt and title fields are imported correctly.
       foreach ($source->getFieldValue('image_alt_text') as $key => $value) {
-        $this->assertEquals($value, $node->field_migrate_test_images[$language][$key]['alt']);
-        $this->assertEquals($value, $node->field_migrate_test_images[$language][$key]['title']);
+        $this->assertEquals($value, $node->field_integration_test_images[$language][$key]['alt']);
+        $this->assertEquals($value, $node->field_integration_test_images[$language][$key]['title']);
       }
 
       // Assert that files are imported correctly.
       foreach ($source->getFieldValue('files') as $key => $value) {
-        $this->assertEquals($value, $node->field_migrate_test_files[$language][$key]['filename']);
+        $this->assertEquals($value, $node->field_integration_test_files[$language][$key]['filename']);
       }
 
       // Assert that default language has been imported correctly.
