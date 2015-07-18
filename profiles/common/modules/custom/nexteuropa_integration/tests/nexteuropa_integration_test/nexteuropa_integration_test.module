@@ -1,0 +1,35 @@
+<?php
+/**
+ * @file
+ * Code for the NextEuropa Integration Test feature.
+ */
+
+include_once 'nexteuropa_integration_test.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function nexteuropa_integration_test_migrate_api() {
+  return array(
+    'api' => 2,
+    'groups' => array(
+      'NextEuropaIntegrationTest' => array(
+        'title' => t('NextEuropa Integration Test'),
+      ),
+    ),
+    'migrations' => array(
+      'NextEuropaIntegrationTestArticles' => array(
+        'class_name' => 'NextEuropaIntegrationTestArticlesMigration',
+        'group_name' => 'NextEuropaIntegrationTest',
+      ),
+      'NextEuropaIntegrationTestNews' => array(
+        'class_name' => 'NextEuropaIntegrationTestNewsMigration',
+        'group_name' => 'NextEuropaIntegrationTest',
+      ),
+      'NextEuropaIntegrationTestCategories' => array(
+        'class_name' => 'NextEuropaIntegrationTestCategoriesMigration',
+        'group_name' => 'NextEuropaIntegrationTest',
+      ),
+    ),
+  );
+}
