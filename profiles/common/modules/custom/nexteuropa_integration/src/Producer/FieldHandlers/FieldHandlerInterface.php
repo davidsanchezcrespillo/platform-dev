@@ -7,9 +7,9 @@
 
 namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
-use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
-use Drupal\nexteuropa_integration\Document;
+use Drupal\nexteuropa_integration\Document\Document;
 
 /**
  * Interface FieldHandlerInterface.

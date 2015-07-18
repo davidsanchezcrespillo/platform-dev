@@ -7,7 +7,7 @@
 
 namespace Drupal\nexteuropa_integration\Producer;
 
-use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler;

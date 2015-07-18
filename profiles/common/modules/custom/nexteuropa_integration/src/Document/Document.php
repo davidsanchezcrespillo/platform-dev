@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Document.
+ * Contains \Drupal\nexteuropa_integration\Document\Document.
  */
 
-namespace Drupal\nexteuropa_integration;
+namespace Drupal\nexteuropa_integration\Document;
 
 /**
  * Class Document.
  *
- * @package Drupal\nexteuropa_integration
+ * @package Drupal\nexteuropa_integration\Document
  */
 class Document implements DocumentInterface {
 

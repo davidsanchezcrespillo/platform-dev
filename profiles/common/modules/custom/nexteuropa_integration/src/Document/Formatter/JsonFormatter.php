@@ -6,7 +6,7 @@
 
 namespace Drupal\nexteuropa_integration\Document\Formatter;
 
-use Drupal\nexteuropa_integration\DocumentInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Class JsonFormatter.
