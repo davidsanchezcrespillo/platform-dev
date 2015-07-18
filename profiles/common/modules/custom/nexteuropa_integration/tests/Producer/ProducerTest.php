@@ -54,6 +54,13 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Tear down PHPUnit hook.
+   */
+  public function tearDown() {
+    m::close();
+  }
+
+  /**
    * Test creation of a producer instance.
    */
   public function testInstance() {
@@ -143,13 +150,6 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertEquals('Title EN', $wrapper->getField('title_field', 'en'));
     $this->assertEquals('Title FR', $wrapper->getField('title_field', 'fr'));
-  }
-
-  /**
-   * Tear down PHPUnit hook.
-   */
-  public function tearDown() {
-    m::close();
   }
 
   /**
