@@ -14,4 +14,5 @@ namespace Drupal\nexteuropa_integration\Consumer;
  */
 interface ConsumerInterface {
 
+
 }
