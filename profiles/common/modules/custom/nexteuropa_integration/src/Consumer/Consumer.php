@@ -53,6 +53,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     $configuration = $configuration_class::getInstance($arguments['consumer']['settings']);
     $this->setConfiguration($configuration);
 
+    // @todo: Set destination.
+    // @todo: Set source classes.
+    // @todo: Set mapping.
+
     parent::__construct($arguments);
   }
 
@@ -86,20 +90,6 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getDocument() {
-    return $this->document;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setDocument(DocumentInterface $document) {
-    $this->document = $document;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getBackend() {
     return $this->backend;
   }
@@ -112,9 +102,13 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Make sure required arguments are present and valid.
+   *
+   * @param array $arguments
+   *    Constructor's $arguments array.
    */
-  private function validateArguments($arguments) {
+  private function validateArguments(array $arguments) {
+
     // Pass class dependencies via the $arguments array.
     // Since the Consumer class is built via Migration::registerMigration()
     // this is the only way we can implement some form of dependency injection.
