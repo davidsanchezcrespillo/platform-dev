@@ -9,7 +9,6 @@ namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
-use Drupal\nexteuropa_integration\Document\Document;
 
 /**
  * Class AbstractFieldHandler.
@@ -47,6 +46,15 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
   protected $document = NULL;
 
   /**
+   * Current field info array.
+   *
+   * @see field_info_field()
+   *
+   * @var array
+   */
+  protected $fieldInfo = array();
+
+  /**
    * Constructor.
    *
    * @param DefaultEntityWrapper $entity_wrapper
@@ -59,13 +67,16 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
     $this->fieldName = $field_name;
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
+    $this->fieldInfo = field_info_field($field_name);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFieldValue() {
-    return $this->getEntityWrapper()->getField($this->fieldName, $this->language);
+  public function getFieldValues() {
+    // Normalize single-value field to ease value processing.
+    $value = $this->getEntityWrapper()->getField($this->fieldName, $this->language);
+    return ($this->fieldInfo['cardinality'] == 1) ? array($value) : $value;
   }
 
   /**

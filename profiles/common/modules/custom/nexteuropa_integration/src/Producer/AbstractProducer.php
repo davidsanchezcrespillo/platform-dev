@@ -10,8 +10,6 @@ namespace Drupal\nexteuropa_integration\Producer;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 
 /**
  * Class AbstractProducer.
@@ -42,6 +40,15 @@ abstract class AbstractProducer implements ProducerInterface {
   private $formatter = NULL;
 
   /**
+   * List of field handler definitions keyed by field type.
+   *
+   * @see nexteuropa_integration_producer_info_field_handlers()
+   *
+   * @var array[FieldHandlerInterface]
+   */
+  private $fieldHandlers = array();
+
+  /**
    * Constructor.
    *
    * @param DefaultEntityWrapper $entity_wrapper
@@ -55,6 +62,7 @@ abstract class AbstractProducer implements ProducerInterface {
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
     $this->formatter = $formatter;
+    $this->fieldHandlers = nexteuropa_integration_producer_info_field_handlers();
   }
 
   /**
@@ -90,8 +98,9 @@ abstract class AbstractProducer implements ProducerInterface {
    * {@inheritdoc}
    */
   protected function getFieldHandler($field_name, $language) {
-    // @todo: get field handler by type, atm only returns default.
-    return new DefaultFieldHandler($field_name, $language, $this->getEntityWrapper(), $this->getDocument());
+    $field_info = field_info_field($field_name);
+    $class = isset($this->fieldHandlers[$field_info['type']]) ? $this->fieldHandlers[$field_info['type']]['class'] : $this->fieldHandlers['default']['class'];
+    return new $class($field_name, $language, $this->getEntityWrapper(), $this->getDocument());
   }
 
   /**
