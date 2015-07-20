@@ -8,7 +8,7 @@
 /**
  * Class NextEuropaIntegrationTestArticlesMigration.
  */
-class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTestMigrationAbstract {
+class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTestAbstractMigration {
 
   /**
    * {@inheritdoc}

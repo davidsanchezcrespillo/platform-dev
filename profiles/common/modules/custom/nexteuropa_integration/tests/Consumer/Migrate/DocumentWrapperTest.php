@@ -15,7 +15,7 @@ use Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper;
  *
  * @package Drupal\nexteuropa_integration\Tests
  */
-class DocumentWrapperTest extends MigrateAbstractTest {
+class DocumentWrapperTest extends AbstractMigrateTest {
 
   /**
    * Testing DocumentWrapperInterface methods.

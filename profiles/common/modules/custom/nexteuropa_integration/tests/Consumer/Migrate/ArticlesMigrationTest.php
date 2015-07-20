@@ -14,7 +14,7 @@ use Drupal\nexteuropa_integration\Document\Document;
  *
  * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
  */
-class ArticlesMigrationTest extends MigrateAbstractTest {
+class ArticlesMigrationTest extends AbstractMigrateTest {
 
   /**
    * {@inheritdoc}

@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains NextEuropaIntegrationTestMigrationAbstract class.
+ * Contains NextEuropaIntegrationTestAbstractMigration class.
  */
 
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrationAbstract;
+use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 
 /**
- * Class NextEuropaIntegrationTestMigrationAbstract.
+ * Class NextEuropaIntegrationTestAbstractMigration.
  */
-abstract class NextEuropaIntegrationTestMigrationAbstract extends MigrationAbstract {
+abstract class NextEuropaIntegrationTestAbstractMigration extends AbstractMigration {
 
   /**
    * Define source key, to be used in setMap().
