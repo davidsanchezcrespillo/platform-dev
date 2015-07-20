@@ -19,12 +19,14 @@ use Drupal\nexteuropa_integration\Document\Document;
 interface FieldHandlerInterface {
 
   /**
-   * Return field value for current language.
+   * Return field values for current language.
    *
-   * @return array|string
-   *    Current field value.
+   * Values will be normalized to array of values, even for single fields.
+   *
+   * @return array
+   *    Current, normalized field values.
    */
-  public function getFieldValue();
+  public function getFieldValues();
 
   /**
    * Entity wrapper the producer has been instantiated with.
