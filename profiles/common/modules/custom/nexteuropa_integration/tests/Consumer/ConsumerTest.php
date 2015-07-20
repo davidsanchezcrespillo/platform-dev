@@ -68,6 +68,39 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('article', $configuration->getBundle());
     $this->assertEquals(TRUE, $configuration->getStatus());
 
+    $settings = $this->getSettings();
+
+    $configuration = ConsumerConfiguration::getInstance($settings);
+
+    $this->assertEquals($settings->label, $configuration->getLabel());
+    $this->assertEquals($settings->name, $configuration->getName());
+    $this->assertEquals($settings->entity_type, $configuration->getEntityType());
+    $this->assertEquals($settings->bundle, $configuration->getBundle());
+    $this->assertEquals($settings->status, $configuration->getStatus());
+    $this->assertEquals($settings->mapping, $configuration->getMapping());
+    $this->assertEquals($settings->options, $configuration->getOptions());
+  }
+
+  /**
+   * Test creation of a consumer instance.
+   */
+  public function testConsumer() {
+
+    $arguments = array();
+    $arguments['consumer']['class'] = 'Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration';
+    $arguments['consumer']['settings'] = $this->getSettings();
+    \Migration::registerMigration('Drupal\nexteuropa_integration\Consumer\Consumer', 'test', $arguments);
+
+    $migration = \Migration::getInstance('test');
+    $this->assertNotNull($migration);
+  }
+
+  /**
+   * Test settings object.
+   *
+   * @return \stdClass
+   */
+  protected function getSettings() {
     $settings = new \stdClass();
     $settings->label = 'Label';
     $settings->name = 'name';
@@ -83,16 +116,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
       'option1' => 'value1',
       'option2' => 'value2',
     );
-
-    $configuration = ConsumerConfiguration::getInstance($settings);
-
-    $this->assertEquals($settings->label, $configuration->getLabel());
-    $this->assertEquals($settings->name, $configuration->getName());
-    $this->assertEquals($settings->entity_type, $configuration->getEntityType());
-    $this->assertEquals($settings->bundle, $configuration->getBundle());
-    $this->assertEquals($settings->status, $configuration->getStatus());
-    $this->assertEquals($settings->mapping, $configuration->getMapping());
-    $this->assertEquals($settings->options, $configuration->getOptions());
+    return $settings;
   }
 
 }

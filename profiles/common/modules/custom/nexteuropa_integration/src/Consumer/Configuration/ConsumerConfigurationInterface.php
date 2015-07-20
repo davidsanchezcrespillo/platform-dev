@@ -15,19 +15,6 @@ namespace Drupal\nexteuropa_integration\Consumer\Configuration;
 interface ConsumerConfigurationInterface {
 
   /**
-   * Static factory method: return an instance given a setting object.
-   *
-   * @param \stdClass $settings
-   *    Consumer settings, as retrieved from settings table.
-   *
-   * @return ConsumerConfiguration
-   *    Instance of ConsumerConfiguration object.
-   *
-   * @see nexteuropa_integration_schema()
-   */
-  public static function getInstance(\stdClass $settings);
-
-  /**
    * Get configuration label.
    *
    * @return string
@@ -156,7 +143,7 @@ interface ConsumerConfigurationInterface {
   public function setOptions(array $options);
 
   /**
-   * Validate consistency of settings array.
+   * Validate consistency of settings object.
    *
    * @param object $settings
    *    Setting array.
@@ -173,5 +160,18 @@ interface ConsumerConfigurationInterface {
    *    Validation errors array.
    */
   static public function getErrors();
+
+  /**
+   * Static factory method: return an instance given a setting object.
+   *
+   * @param \stdClass $settings
+   *    Consumer settings, as retrieved from settings table.
+   *
+   * @return ConsumerConfigurationInterface
+   *    Instance of ConsumerConfiguration object.
+   *
+   * @see nexteuropa_integration_schema()
+   */
+  public static function getInstance(\stdClass $settings);
 
 }
