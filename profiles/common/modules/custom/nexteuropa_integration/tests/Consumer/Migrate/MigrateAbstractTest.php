@@ -5,12 +5,12 @@
  * Contains \Drupal\nexteuropa_integration\Tests\MigrateAbstractTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer;
+namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
 
 /**
  * Class MigrateAbstractTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer
+ * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
  */
 abstract class MigrateAbstractTest extends \PHPUnit_Framework_TestCase {
 
@@ -30,7 +30,6 @@ abstract class MigrateAbstractTest extends \PHPUnit_Framework_TestCase {
     if (!module_exists('nexteuropa_integration_test')) {
       throw new \Exception('NextEuropa Migrate module must be enabled before running tests.');
     }
-    $this->clearCache();
     $this->buildFixturesList();
   }
 
@@ -38,7 +37,7 @@ abstract class MigrateAbstractTest extends \PHPUnit_Framework_TestCase {
    * Generate list of fixtures divided by entity type.
    */
   public function buildFixturesList() {
-    $directory = drupal_get_path('module', 'nexteuropa_integration_test') . '/fixtures';
+    $directory = './fixtures';
     foreach (array('news', 'articles', 'categories') as $type) {
       foreach (file_scan_directory($directory . '/' . $type, '/(document-.*\.json)$/') as $path => $file) {
         list(, $id) = explode('-', $file->name);
@@ -76,13 +75,6 @@ abstract class MigrateAbstractTest extends \PHPUnit_Framework_TestCase {
     $filename = $this->fixtures[$type][$id];
     $json = file_get_contents($filename);
     return json_decode($json);
-  }
-
-  /**
-   * Clear only relevant caches for performance reasons.
-   */
-  protected function clearCache() {
-
   }
 
 }

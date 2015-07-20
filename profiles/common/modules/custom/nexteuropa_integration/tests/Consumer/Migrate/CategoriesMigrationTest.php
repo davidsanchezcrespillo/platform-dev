@@ -5,14 +5,14 @@
  * Contains CategoriesMigrationTest class.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer;
+namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Document\Document;
 
 /**
  * Class CategoriesMigrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer
+ * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
  */
 class CategoriesMigrationTest extends MigrateAbstractTest {
 
