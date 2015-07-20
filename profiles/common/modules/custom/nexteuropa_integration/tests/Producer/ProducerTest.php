@@ -11,7 +11,7 @@ use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
 use \Mockery as m;
@@ -48,7 +48,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    * Setup PHPUnit hook.
    */
   public function setUp() {
-    $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper');
+    $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
     $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
     $this->formatter = m::mock('Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface');
 
@@ -78,7 +78,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
   public function testBuild() {
     $node = $this->getExportedEntityFixture('integration_test', 1);
 
-    $entity_wrapper = new DefaultEntityWrapper('node', $node);
+    $entity_wrapper = new EntityWrapper('node', $node);
     $document = new Document();
     $formatter = new JsonFormatter();
     $producer = new NodeProducer($entity_wrapper, $document, $formatter);
@@ -116,7 +116,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
   public function testRender() {
     $node = $this->getExportedEntityFixture('node', 1);
 
-    $entity_wrapper = new DefaultEntityWrapper('node', $node);
+    $entity_wrapper = new EntityWrapper('node', $node);
     $document = new Document();
     $formatter = new JsonFormatter();
     $producer = new NodeProducer($entity_wrapper, $document, $formatter);
@@ -131,7 +131,7 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
    */
   public function testEntityWrapper() {
     $node = $this->getExportedEntityFixture('node', 1);
-    $wrapper = new DefaultEntityWrapper('node', $node);
+    $wrapper = new EntityWrapper('node', $node);
 
     $properties = array(
       'nid',
