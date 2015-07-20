@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Tests\AbstractMigrateTest.
+ * Contains AbstractMigrateTest.
  */
 
 namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;

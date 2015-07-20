@@ -49,4 +49,3 @@ function hook_nexteuropa_integration_producer_field_handler_info_alter(&$field_h
 function hook_nexteuropa_integration_producer_document_build_alter(DocumentInterface &$document) {
   $document->setMetadata('tag', 'My custom tag');
 }
-
