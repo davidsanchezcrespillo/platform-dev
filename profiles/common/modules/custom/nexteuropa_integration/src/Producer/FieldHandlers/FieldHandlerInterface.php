@@ -8,7 +8,7 @@
 namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Document\Document;
 
 /**
@@ -31,7 +31,7 @@ interface FieldHandlerInterface {
   /**
    * Entity wrapper the producer has been instantiated with.
    *
-   * @return DefaultEntityWrapper
+   * @return EntityWrapper
    *    Entity wrapper object.
    */
   public function getEntityWrapper();

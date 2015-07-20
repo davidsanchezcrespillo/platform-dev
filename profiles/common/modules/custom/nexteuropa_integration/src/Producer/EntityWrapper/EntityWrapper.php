@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains DefaultEntityWrapper.
+ * Contains EntityWrapper.
  */
 
 namespace Drupal\nexteuropa_integration\Producer\EntityWrapper;
 
 /**
- * Class DefaultEntityWrapper.
+ * Class EntityWrapper.
  *
  * @package Drupal\nexteuropa_integration\Producer\EntityWrapper
  */
-class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapperInterface {
+class EntityWrapper extends \EntityDrupalWrapper implements EntityWrapperInterface {
 
   /**
    * Default Entity Wrapper date format.

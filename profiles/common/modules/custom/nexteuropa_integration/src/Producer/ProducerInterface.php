@@ -9,7 +9,7 @@ namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
  * Interface ProducerInterface.
@@ -61,7 +61,7 @@ interface ProducerInterface {
   /**
    * Entity wrapper the producer has been instantiated with.
    *
-   * @return DefaultEntityWrapper
+   * @return EntityWrapper
    *    Entity wrapper object.
    */
   public function getEntityWrapper();
