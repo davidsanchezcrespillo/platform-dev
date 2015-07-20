@@ -65,7 +65,7 @@ In order to implement your own migration using Migrate refer to:
 [Getting started with Migrate](https://www.drupal.org/node/1006982).
 
 In order to be able to import Integration Layer JSON documents make sure that
-your migration classes extend ```Drupal\nexteuropa_integration\Consumer\Migrate\MigrationAbstract```
+your migration classes extend ```Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration```
 instead the default ```Migration``` class, provided by the Migrate module.
 
 Also use ```Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON``` 
@@ -78,9 +78,9 @@ classes:
 <?php
 
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrationAbstract;
+use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 
-class NextEuropaMigration extends MigrationAbstract {
+class NextEuropaMigration extends AbstractMigration {
 
   public function __construct($arguments) {
     // Ordinary Migrate code goes here.

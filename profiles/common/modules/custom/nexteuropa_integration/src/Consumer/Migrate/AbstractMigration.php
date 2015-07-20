@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\Migrate\MigrationAbstract.
+ * Contains \Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration.
  */
 
 namespace Drupal\nexteuropa_integration\Consumer\Migrate;
 
 /**
- * Class MigrationAbstract.
+ * Class AbstractMigration.
  *
  * @package Drupal\nexteuropa_integration\Consumer\Migrate
  *
  * Destination class implementing migration into translatable nodes.
  */
-abstract class MigrationAbstract extends \Migration {
+abstract class AbstractMigration extends \Migration {
 
   /**
    * Implements Migration::complete() callback.
