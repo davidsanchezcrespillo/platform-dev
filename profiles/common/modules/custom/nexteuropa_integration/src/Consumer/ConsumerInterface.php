@@ -43,22 +43,6 @@ interface ConsumerInterface {
   public function setConfiguration(ConsumerConfigurationInterface $configuration);
 
   /**
-   * Get document object.
-   *
-   * @return DocumentInterface
-   *    Document object.
-   */
-  public function getDocument();
-
-  /**
-   * Set document object.
-   *
-   * @param DocumentInterface $document
-   *    Document object.
-   */
-  public function setDocument(DocumentInterface $document);
-
-  /**
    * Get backend object.
    *
    * @return BackendInterface
