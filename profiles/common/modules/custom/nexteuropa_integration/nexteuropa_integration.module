@@ -54,25 +54,25 @@ function nexteuropa_integration_nexteuropa_integration_producer_field_handler_in
     'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
   ) + $defaults;
 
-  $field_handlers['text'] =
-  $field_handlers['text_long'] = array(
-    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
-  ) + $defaults;
+  $field_handlers['text']
+    = $field_handlers['text_long'] = array(
+      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+    ) + $defaults;
 
   $field_handlers['text_with_summary'] = array(
     'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextWithSummaryFieldHandler',
   ) + $defaults;
 
-  $field_handlers['date'] =
-  $field_handlers['datetime'] =
-  $field_handlers['datestamp'] = array(
-    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
-  ) + $defaults;
+  $field_handlers['date']
+    = $field_handlers['datetime']
+      = $field_handlers['datestamp'] = array(
+        'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
+      ) + $defaults;
 
-  $field_handlers['file'] =
-  $field_handlers['image'] = array(
-    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
-  ) + $defaults;
+  $field_handlers['file']
+    = $field_handlers['image'] = array(
+      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
+    ) + $defaults;
 
   return $field_handlers;
 }

@@ -357,4 +357,4 @@ $export = (object) array(
   'path' => FALSE,
   'menu' => NULL,
   'node_export_drupal_version' => '7',
-  );
+);
