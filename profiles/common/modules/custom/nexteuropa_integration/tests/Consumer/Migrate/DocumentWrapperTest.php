@@ -5,7 +5,7 @@
  * Contains \Drupal\nexteuropa_integration\Tests\DocumentWrapperTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer;
+namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper;
