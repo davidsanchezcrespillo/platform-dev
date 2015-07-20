@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Tests\MigrateAbstractTest.
+ * Contains \Drupal\nexteuropa_integration\Tests\AbstractMigrateTest.
  */
 
 namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
 
 /**
- * Class MigrateAbstractTest.
+ * Class AbstractMigrateTest.
  *
  * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
  */
-abstract class MigrateAbstractTest extends \PHPUnit_Framework_TestCase {
+abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * List of JSON document paths, divided by entity type, keyed by document id.
