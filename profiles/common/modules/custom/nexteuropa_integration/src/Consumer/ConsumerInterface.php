@@ -7,6 +7,10 @@
 
 namespace Drupal\nexteuropa_integration\Consumer;
 
+use Drupal\nexteuropa_integration\Backend\BackendInterface;
+use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
+
 /**
  * Interface ConsumerInterface.
  *
@@ -14,5 +18,60 @@ namespace Drupal\nexteuropa_integration\Consumer;
  */
 interface ConsumerInterface {
 
+  /**
+   * Define source key, to be used in setMap().
+   *
+   * @return array
+   *    Get default source key definition.
+   */
+  public function getSourceKey();
+
+  /**
+   * Get configuration object.
+   *
+   * @return ConsumerConfigurationInterface
+   *    Configuration object.
+   */
+  public function getConfiguration();
+
+  /**
+   * Set configuration object.
+   *
+   * @param ConsumerConfigurationInterface $configuration
+   *    Configuration object.
+   */
+  public function setConfiguration(ConsumerConfigurationInterface $configuration);
+
+  /**
+   * Get document object.
+   *
+   * @return DocumentInterface
+   *    Document object.
+   */
+  public function getDocument();
+
+  /**
+   * Set document object.
+   *
+   * @param DocumentInterface $document
+   *    Document object.
+   */
+  public function setDocument(DocumentInterface $document);
+
+  /**
+   * Get backend object.
+   *
+   * @return BackendInterface
+   *    Backend object.
+   */
+  public function getBackend();
+
+  /**
+   * Set configuration object.
+   *
+   * @param BackendInterface $backend
+   *    Backend object.
+   */
+  public function setBackend(BackendInterface $backend);
 
 }
