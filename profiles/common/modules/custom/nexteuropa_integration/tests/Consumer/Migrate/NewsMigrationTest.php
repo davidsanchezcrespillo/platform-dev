@@ -5,14 +5,14 @@
  * Contains NewsMigrationTest class.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer;
+namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Document\Document;
 
 /**
  * Class NewsMigrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer
+ * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
  */
 class NewsMigrationTest extends MigrateAbstractTest {
 
