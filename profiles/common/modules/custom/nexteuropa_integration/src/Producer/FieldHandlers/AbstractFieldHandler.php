@@ -8,7 +8,7 @@
 namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
  * Class AbstractFieldHandler.
@@ -34,7 +34,7 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
   /**
    * Entity wrapper.
    *
-   * @var DefaultEntityWrapper
+   * @var EntityWrapper
    */
   protected $entityWrapper = NULL;
 
@@ -57,12 +57,12 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
   /**
    * Constructor.
    *
-   * @param DefaultEntityWrapper $entity_wrapper
+   * @param EntityWrapper $entity_wrapper
    *    Entity object.
    * @param DocumentInterface $document
    *    Document object.
    */
-  public function __construct($field_name, $language, DefaultEntityWrapper $entity_wrapper, DocumentInterface $document) {
+  public function __construct($field_name, $language, EntityWrapper $entity_wrapper, DocumentInterface $document) {
     $this->language = $language;
     $this->fieldName = $field_name;
     $this->entityWrapper = $entity_wrapper;
