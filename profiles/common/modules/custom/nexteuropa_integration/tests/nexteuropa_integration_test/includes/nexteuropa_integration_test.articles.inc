@@ -5,6 +5,8 @@
  * Contains NextEuropaIntegrationTestArticlesMigration class.
  */
 
+use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\AbstractMigrateTest;
+
 /**
  * Class NextEuropaIntegrationTestArticlesMigration.
  */
@@ -54,7 +56,7 @@ class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTe
     // Files.
     $this->addFieldMapping('field_integration_test_files', 'files');
     $this->addFieldMapping('field_integration_test_files:file_replace')->defaultValue(FILE_EXISTS_REPLACE);
-    $this->addFieldMapping('field_integration_test_files:source_dir')->defaultValue(drupal_get_path('module', 'nexteuropa_integration_test') . '/fixtures/files');
+    $this->addFieldMapping('field_integration_test_files:source_dir')->defaultValue(AbstractMigrateTest::getFixturesPath() . '/files');
 
     // Mapping default language is necessary for correct translation handling.
     $this->addFieldMapping('language', 'default_language');
