@@ -84,18 +84,30 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
     $producer = new NodeProducer($entity_wrapper, $document, $formatter);
     $document = $producer->build();
 
-//    $this->assertEquals('article', $document->getMetadata('type'));
-//    $this->assertEquals('2015-07-17 12:00:52', $document->getMetadata('created'));
-//
-//    $document->setCurrentLanguage('en');
-//    $this->assertEquals('Title EN', $document->getFieldValues('title_field'));
-//    $this->assertContains('Body EN', $document->getFieldValues('body_value'));
-//
-//    $document->setCurrentLanguage('fr');
-//    $this->assertEquals('Title FR', $document->getFieldValues('title_field'));
-//    $this->assertContains('Body FR', $document->getFieldValues('body_value'));
+    $this->assertEquals('integration_test', $document->getMetadata('type'));
+    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('created'));
+    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('changed'));
+    $this->assertEquals('en', $document->getMetadata('default_language'));
+    $this->assertEquals('temp-producer-id', $document->getMetadata('producer_id'));
+    $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
 
-    return;
+    $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_start'));
+    $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_end'));
+    $this->assertEquals('UTC', $document->getFieldValue('field_integration_test_dates_timezone'));
+
+    $document->setCurrentLanguage('en');
+    $this->assertEquals('English title article 1', $document->getFieldValue('title_field'));
+    $this->assertContains('http://example.com/sites/default/files/file-english-1.txt', $document->getFieldValue('field_integration_test_files_path'));
+    $this->assertContains('http://example.com/sites/default/files/file-english-2.txt', $document->getFieldValue('field_integration_test_files_path'));
+    $this->assertContains('<p>English abstract article 1</p>', $document->getFieldValue('body'));
+    $this->assertEmpty($document->getFieldValue('body_summary'));
+
+    $document->setCurrentLanguage('fr');
+    $this->assertEquals('French title article 1', $document->getFieldValue('title_field'));
+    $this->assertContains('http://example.com/sites/default/files/file-french-1.txt', $document->getFieldValue('field_integration_test_files_path'));
+    $this->assertContains('http://example.com/sites/default/files/file-french-2.txt', $document->getFieldValue('field_integration_test_files_path'));
+    $this->assertContains('<p>French abstract article 1</p>', $document->getFieldValue('body'));
+    $this->assertEmpty($document->getFieldValue('body_summary'));
   }
 
   /**
