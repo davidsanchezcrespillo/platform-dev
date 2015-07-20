@@ -9,7 +9,7 @@ namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\DefaultEntityWrapper;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
  * Class AbstractProducer.
@@ -21,7 +21,7 @@ abstract class AbstractProducer implements ProducerInterface {
   /**
    * Entity wrapper.
    *
-   * @var DefaultEntityWrapper
+   * @var EntityWrapper
    */
   private $entityWrapper = NULL;
 
@@ -51,14 +51,14 @@ abstract class AbstractProducer implements ProducerInterface {
   /**
    * Constructor.
    *
-   * @param DefaultEntityWrapper $entity_wrapper
+   * @param EntityWrapper $entity_wrapper
    *    Entity object.
    * @param DocumentInterface $document
    *    Document object.
    * @param FormatterInterface $formatter
    *    Formatter object.
    */
-  public function __construct(DefaultEntityWrapper $entity_wrapper, DocumentInterface $document, FormatterInterface $formatter) {
+  public function __construct(EntityWrapper $entity_wrapper, DocumentInterface $document, FormatterInterface $formatter) {
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
     $this->formatter = $formatter;
