@@ -8,14 +8,14 @@
 namespace Drupal\nexteuropa_integration\Tests\Document;
 
 use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\MigrateAbstractTest;
+use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\AbstractMigrateTest;
 
 /**
  * Class DocumentTest.
  *
  * @package Drupal\nexteuropa_integration\Tests\Consumer
  */
-class DocumentTest extends MigrateAbstractTest {
+class DocumentTest extends AbstractMigrateTest {
 
   /**
    * Testing DocumentWrapperInterface methods.
