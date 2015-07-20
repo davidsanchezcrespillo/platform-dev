@@ -9,4 +9,5 @@ dependencies[] = entity
 dependencies[] = entity_translation
 dependencies[] = migrate
 dependencies[] = registry_autoload
+dependencies[] = title
 registry_autoload[] = PSR-4

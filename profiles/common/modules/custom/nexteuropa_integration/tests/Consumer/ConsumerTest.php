@@ -7,6 +7,7 @@
 
 namespace Drupal\nexteuropa_integration\Tests\Consumer;
 
+use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
@@ -57,28 +58,41 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
   /**
    * Test creation of a consumer instance.
    */
-  public function testInstance() {
+  public function testConsumerConfiguration() {
+
+    $configuration = new ConsumerConfiguration('Label', 'name', 'node', 'article');
+
+    $this->assertEquals('Label', $configuration->getLabel());
+    $this->assertEquals('name', $configuration->getName());
+    $this->assertEquals('node', $configuration->getEntityType());
+    $this->assertEquals('article', $configuration->getBundle());
+    $this->assertEquals(TRUE, $configuration->getStatus());
 
     $settings = new \stdClass();
-    $settings->label = 'Test consumer';
-    $settings->name = 'test_consumer';
+    $settings->label = 'Label';
+    $settings->name = 'name';
     $settings->status = TRUE;
-    $settings->backend = 'filesystem';
+    $settings->backend = 'backend';
     $settings->entity_type = 'node';
     $settings->bundle = 'article';
     $settings->mapping = array(
-      'title_field' => array('title', 'title_field'),
-      'body' => array('body'),
+      'source1' => 'destination1',
+      'source2' => 'destination2',
+    );
+    $settings->options = array(
+      'option1' => 'value1',
+      'option2' => 'value2',
     );
 
-    $arguments = array();
-    $arguments['consumer_settings'] = $settings;
+    $configuration = ConsumerConfiguration::getInstance($settings);
 
-    \Migration::registerMigration('Drupal\nexteuropa_integration\Consumer\Consumer', 'test_migration', $arguments);
-
-    $migration = \Migration::getInstance('test_migration');
-
-    return;
+    $this->assertEquals($settings->label, $configuration->getLabel());
+    $this->assertEquals($settings->name, $configuration->getName());
+    $this->assertEquals($settings->entity_type, $configuration->getEntityType());
+    $this->assertEquals($settings->bundle, $configuration->getBundle());
+    $this->assertEquals($settings->status, $configuration->getStatus());
+    $this->assertEquals($settings->mapping, $configuration->getMapping());
+    $this->assertEquals($settings->options, $configuration->getOptions());
   }
 
 }

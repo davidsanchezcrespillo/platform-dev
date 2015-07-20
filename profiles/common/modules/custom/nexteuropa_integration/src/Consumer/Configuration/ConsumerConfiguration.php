@@ -71,6 +71,13 @@ class ConsumerConfiguration implements ConsumerConfigurationInterface {
   private $options;
 
   /**
+   * Contains list of validation errors.
+   *
+   * @var array
+   */
+  static private $validationErrors = array();
+
+  /**
    * Constructor.
    *
    * @param string $label
@@ -94,178 +101,164 @@ class ConsumerConfiguration implements ConsumerConfigurationInterface {
   }
 
   /**
-   * Static factory method: return an instance given a setting object.
-   *
-   * @param \stdClass $settings
-   *    Consumer settings, as retrieved from settings table.
-   *
-   * @return ConsumerConfiguration
-   *    Instance of ConsumerConfiguration object.
-   *
-   * @see nexteuropa_integration_schema()
-   */
-  public static function getInstance(\stdClass $settings) {
-    return new self($settings->label, $settings->name, $settings->entity_type, $settings->bundle);
-  }
-
-  /**
-   * Get configuration label.
-   *
-   * @return string
-   *    Configuration label.
+   * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
   }
 
   /**
-   * Set configuration label.
-   *
-   * @param string $label
-   *    Configuration label.
+   * {@inheritdoc}
    */
   public function setLabel($label) {
     $this->label = $label;
   }
 
   /**
-   * Get configuration status.
-   *
-   * @return string
-   *    Configuration status.
+   * {@inheritdoc}
    */
   public function getStatus() {
     return $this->status;
   }
 
   /**
-   * Set configuration status.
-   *
-   * @param string $status
-   *    Configuration status.
+   * {@inheritdoc}
    */
   public function setStatus($status) {
     $this->status = $status;
   }
 
   /**
-   * Get configuration name.
-   *
-   * @return string
-   *    Configuration name.
+   * {@inheritdoc}
    */
   public function getName() {
     return $this->name;
   }
 
   /**
-   * Set configuration name.
-   *
-   * @param string $name
-   *    Configuration name.
+   * {@inheritdoc}
    */
   public function setName($name) {
     $this->name = $name;
   }
 
   /**
-   * Set backend name.
-   *
-   * @return string
-   *    Backend name.
+   * {@inheritdoc}
    */
   public function getBackend() {
     return $this->backend;
   }
 
   /**
-   * Set backend name.
-   *
-   * @param string $backend
-   *    Backend name.
+   * {@inheritdoc}
    */
   public function setBackend($backend) {
     $this->backend = $backend;
   }
 
   /**
-   * Get entity type.
-   *
-   * @return string
-   *    Entity type.
+   * {@inheritdoc}
    */
   public function getEntityType() {
     return $this->entityType;
   }
 
   /**
-   * Set entity type.
-   *
-   * @param string $entity_type
-   *    Entity type.
+   * {@inheritdoc}
    */
   public function setEntityType($entity_type) {
     $this->entityType = $entity_type;
   }
 
   /**
-   * Get entity bundle.
-   *
-   * @return string
-   *    Entity bundle.
+   * {@inheritdoc}
    */
   public function getBundle() {
     return $this->bundle;
   }
 
   /**
-   * Set entity bundle.
-   *
-   * @param string $bundle
-   *    Entity bundle.
+   * {@inheritdoc}
    */
   public function setBundle($bundle) {
     $this->bundle = $bundle;
   }
 
   /**
-   * Get field mapping.
-   *
-   * @return array
-   *    Field mapping.
+   * {@inheritdoc}
    */
   public function getMapping() {
     return $this->mapping;
   }
 
   /**
-   * Set field mapping.
-   *
-   * @param array $mapping
-   *    Field mapping.
+   * {@inheritdoc}
    */
   public function setMapping(array $mapping) {
     $this->mapping = $mapping;
   }
 
   /**
-   * Get consumer specific options.
-   *
-   * @return array
-   *    Consumer specific options.
+   * {@inheritdoc}
    */
   public function getOptions() {
     return $this->options;
   }
 
   /**
-   * Set consumer specific options.
-   *
-   * @param array $options
-   *    Consumer specific options.
+   * {@inheritdoc}
    */
   public function setOptions(array $options) {
     $this->options = $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  static public function validate($settings) {
+    $required = array(
+      'label',
+      'name',
+      'entity_type',
+      'backend',
+      'bundle',
+      'status',
+      'mapping',
+      'options',
+    );
+    foreach ($required as $key) {
+      if (!isset($settings->{$key})) {
+        self::$validationErrors[] = "Configuration property {$key} is missing.";
+      }
+      if (!in_array($key, array('options', 'mapping')) && empty($settings->{$key})) {
+        self::$validationErrors[] = "Configuration property {$key} is missing.";
+      }
+    }
+    return empty(self::$validationErrors);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  static public function getErrors() {
+    return self::$validationErrors;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInstance(\stdClass $settings) {
+
+    if (!self::validate($settings)) {
+      throw new \InvalidArgumentException(implode(' ', self::getErrors()));
+    }
+
+    $instance = new self($settings->label, $settings->name, $settings->entity_type, $settings->bundle);
+    $instance->setStatus($settings->status);
+    $instance->setBackend($settings->backend);
+    $instance->setMapping($settings->mapping);
+    $instance->setOptions($settings->options);
+    return $instance;
   }
 
 }
