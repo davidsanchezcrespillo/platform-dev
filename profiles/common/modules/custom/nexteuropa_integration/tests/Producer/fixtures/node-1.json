@@ -6,12 +6,12 @@
     "fr"
   ],
   "fields": {
-    "body_value": {
+    "body": {
       "en": [
-        "Body EN"
+        "<p>Body EN<\/p>\n"
       ],
       "fr": [
-        "Body FR"
+        "<p>Body FR<\/p>\n"
       ]
     },
     "body_summary": {
@@ -22,38 +22,6 @@
         ""
       ]
     },
-    "body_format": {
-      "en": [
-        "filtered_html"
-      ],
-      "fr": [
-        "filtered_html"
-      ]
-    },
-    "body_safe_value": {
-      "en": [
-        "<p>Body EN<\/p>\n"
-      ],
-      "fr": [
-        "<p>Body FR<\/p>\n"
-      ]
-    },
-    "body_safe_summary": {
-      "en": [
-        ""
-      ],
-      "fr": [
-        ""
-      ]
-    },
-    "field_image": {
-      "en": [
-        null
-      ],
-      "fr": [
-        null
-      ]
-    },
     "title_field": {
       "en": [
         "Title EN"
@@ -61,11 +29,43 @@
       "fr": [
         "Title FR"
       ]
+    },
+    "field_image_path": {
+      "en": [
+        "http:\/\/example.com\/"
+      ],
+      "fr": [
+        "http:\/\/example.com\/"
+      ]
+    },
+    "field_image_size": {
+      "en": [
+        null
+      ],
+      "fr": [
+        null
+      ]
+    },
+    "field_image_mime": {
+      "en": [
+        null
+      ],
+      "fr": [
+        null
+      ]
+    },
+    "field_image_status": {
+      "en": [
+        null
+      ],
+      "fr": [
+        null
+      ]
     }
   },
   "type": "article",
-  "created": "2015-07-17 12:00:52",
-  "changed": "2015-07-17 12:01:27",
   "producer_id": "temp-producer-id",
-  "producer_content_id": "node-article-1"
+  "producer_content_id": "node-article-1",
+  "created": "2015-07-17 12:00:52",
+  "changed": "2015-07-17 12:01:27"
 }
