@@ -6,28 +6,31 @@
  */
 
 /**
- * Collect and return list of producer definitions.
- *
- * @return array
- *    List of producer definitions.
+ * Implements hook_nexteuropa_integration_producer_info().
  */
-function nexteuropa_integration_producer_info_producers() {
-  $producers = module_invoke_all('nexteuropa_integration_producer_info');
-  drupal_alter('nexteuropa_integration_producer_info', $producers);
-  return $producers;
+function nexteuropa_integration_nexteuropa_integration_producer_info() {
+  $prefix = '\Drupal\nexteuropa_integration\Producer';
+  return array(
+    'node'          => array('class' => $prefix . '\NodeProducer'),
+    'taxonomy_term' => array('class' => $prefix . '\TaxonomyTermProducer'),
+  );
 }
 
 /**
  * Implements hook_nexteuropa_integration_producer_info().
  */
-function nexteuropa_integration_nexteuropa_integration_producer_info() {
+function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
+  $prefix = '\Drupal\nexteuropa_integration\Producer\FieldHandlers';
   return array(
-    'node' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\NodeProducer',
-    ),
-    'taxonomy_term' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
-    ),
+    'default'           => array('class' => $prefix . '\DefaultFieldHandler'),
+    'text'              => array('class' => $prefix . '\TextFieldHandler'),
+    'text_long'         => array('class' => $prefix . '\TextFieldHandler'),
+    'text_with_summary' => array('class' => $prefix . '\TextWithSummaryFieldHandler'),
+    'date'              => array('class' => $prefix . '\DateFieldHandler'),
+    'datetime'          => array('class' => $prefix . '\DateFieldHandler'),
+    'datestamp'         => array('class' => $prefix . '\DateFieldHandler'),
+    'file'              => array('class' => $prefix . '\FileFieldHandler'),
+    'image'             => array('class' => $prefix . '\FileFieldHandler'),
   );
 }
 
@@ -44,35 +47,13 @@ function nexteuropa_integration_producer_info_field_handlers() {
 }
 
 /**
- * Implements hook_nexteuropa_integration_producer_info().
+ * Collect and return list of producer definitions.
+ *
+ * @return array
+ *    List of producer definitions.
  */
-function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
-  $field_handlers = array();
-  $defaults = array('alter' => TRUE);
-
-  $field_handlers['default'] = array(
-    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
-  ) + $defaults;
-
-  $field_handlers['text']
-    = $field_handlers['text_long'] = array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
-    ) + $defaults;
-
-  $field_handlers['text_with_summary'] = array(
-    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextWithSummaryFieldHandler',
-  ) + $defaults;
-
-  $field_handlers['date']
-    = $field_handlers['datetime']
-      = $field_handlers['datestamp'] = array(
-        'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
-      ) + $defaults;
-
-  $field_handlers['file']
-    = $field_handlers['image'] = array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
-    ) + $defaults;
-
-  return $field_handlers;
+function nexteuropa_integration_producer_info_producers() {
+  $producers = module_invoke_all('nexteuropa_integration_producer_info');
+  drupal_alter('nexteuropa_integration_producer_info', $producers);
+  return $producers;
 }
