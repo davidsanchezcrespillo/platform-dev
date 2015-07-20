@@ -99,6 +99,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
    * Test settings object.
    *
    * @return \stdClass
+   *    Settings object.
    */
   protected function getSettings() {
     $settings = new \stdClass();
