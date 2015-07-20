@@ -116,7 +116,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
   public function getField($name, $language = NULL) {
     $this->language($language);
     $value = $this->{$name}->value();
-    $this->language($this->translationHandler->getDefaultLanguage());
+    $this->language($this->getDefaultLanguage());
     return $value;
   }
 
@@ -132,7 +132,7 @@ class DefaultEntityWrapper extends \EntityDrupalWrapper implements EntityWrapper
    * {@inheritdoc}
    */
   public function getDefaultLanguage() {
-    return $this->translationHandler->getDefaultLanguage();
+    return $this->translationHandler->getLanguage();
   }
 
 }

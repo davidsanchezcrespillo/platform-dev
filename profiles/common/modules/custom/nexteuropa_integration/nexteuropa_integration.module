@@ -57,21 +57,18 @@ function nexteuropa_integration_nexteuropa_integration_producer_field_handler_in
       'alter' => FALSE,
     );
   }
-  return $field_handlers;
 }
 
 /**
- * Implements hook_nexteuropa_integration_producer_info().
+ * Collect and return list of producer field handler definitions.
+ *
+ * @return array
+ *    List of producer field handler definitions.
  */
-function nexteuropa_integration_nexteuropa_integration_producer_info() {
-  return array(
-    'node' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
-    ),
-    'taxonomy_term' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\DefaultProducer',
-    ),
-  );
+function nexteuropa_integration_producer_info_field_handlers() {
+  $field_handlers = module_invoke_all('nexteuropa_integration_producer_field_handler_info');
+  drupal_alter('nexteuropa_integration_producer_field_handler_info', $field_handlers);
+  return $field_handlers;
 }
 
 /**
@@ -79,26 +76,30 @@ function nexteuropa_integration_nexteuropa_integration_producer_info() {
  */
 function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
   $field_handlers = array();
+  $defaults = array('alter' => TRUE);
 
-  $field_types = array(
-    'datetime',
-    'date',
-    'datestamp',
-    'list_float',
-    'list_text',
-    'list_boolean',
-    'number_integer',
-    'number_decimal',
-    'number_float',
-    'text',
-    'text_long',
-    'text_with_summary',
-  );
-  foreach ($field_types as $type) {
-    $default_handlers[$type] = array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
-      'alter' => FALSE,
-    );
-  }
+  $field_handlers['default'] = array(
+    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
+  ) + $defaults;
+
+  $field_handlers['text'] =
+  $field_handlers['text_long'] = array(
+    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+  ) + $defaults;
+
+  $field_handlers['text_with_summary'] = array(
+    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextWithSummaryFieldHandler',
+  ) + $defaults;
+
+  $field_handlers['date'] =
+  $field_handlers['datetime'] =
+  $field_handlers['datestamp'] = array(
+    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
+  ) + $defaults;
+
+  $field_handlers['file'] =
+  $field_handlers['image'] = array(
+    'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
+  ) + $defaults;
   return $field_handlers;
 }
