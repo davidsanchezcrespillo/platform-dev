@@ -34,10 +34,20 @@ abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Return Consumer tests fixtures path.
+   *
+   * @return string
+   *    Fixtures path.
+   */
+  public static function getFixturesPath() {
+    return dirname(__FILE__) . '/fixtures';
+  }
+
+  /**
    * Generate list of fixtures divided by entity type.
    */
   public function buildFixturesList() {
-    $directory = './fixtures';
+    $directory = self::getFixturesPath();
     foreach (array('news', 'articles', 'categories') as $type) {
       foreach (file_scan_directory($directory . '/' . $type, '/(document-.*\.json)$/') as $path => $file) {
         list(, $id) = explode('-', $file->name);
