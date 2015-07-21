@@ -20,7 +20,7 @@ use Drupal\nexteuropa_integration\Producer\NodeProducer;
 class IntegrationTest extends AbstractTest {
 
   /**
-   * Test testMemoryProducer().
+   * Test Memory Backend.
    */
   public function testProducerConsumerChain() {
     $node = $this->getExportedEntityFixture('integration_test', 1);

@@ -23,6 +23,14 @@ abstract class AbstractProducer implements ProducerInterface {
   const SCHEMA_VERSION = 'v1';
 
   /**
+   * Producer settings.
+   *
+   * @var null|object
+   *    Producer settings object.
+   */
+  private $settings = NULL;
+
+  /**
    * Entity wrapper.
    *
    * @var EntityWrapper
@@ -48,12 +56,16 @@ abstract class AbstractProducer implements ProducerInterface {
   /**
    * Constructor.
    *
+   * @param object $settings
+   *    Producer settings.
    * @param EntityWrapper $entity_wrapper
    *    Entity object.
    * @param DocumentInterface $document
    *    Document object.
    */
-  public function __construct(EntityWrapper $entity_wrapper, DocumentInterface $document) {
+  public function __construct($settings, EntityWrapper $entity_wrapper, DocumentInterface $document) {
+    // @todo: make a proper object, in line with what done for the consumer.
+    $this->settings = $settings;
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
     $this->fieldHandlers = nexteuropa_integration_producer_info_field_handlers();
@@ -77,8 +89,7 @@ abstract class AbstractProducer implements ProducerInterface {
    * {@inheritdoc}
    */
   public function getProducerId() {
-    // @todo: fetch this from system settings.
-    return 'temp-producer-id';
+    return $this->settings->name;
   }
 
   /**
@@ -97,7 +108,7 @@ abstract class AbstractProducer implements ProducerInterface {
 
     // Set document metadata.
     $this->getDocument()->setMetadata('type', $this->getDocumentType());
-    $this->getDocument()->setMetadata('producer_id', $this->getProducerId());
+    $this->getDocument()->setMetadata('producer', $this->getProducerId());
     $this->getDocument()->setMetadata('producer_content_id', $this->getProducerContentId());
     $this->getDocument()->setMetadata('created', $this->getDocumentCreationDate());
     $this->getDocument()->setMetadata('updated', $this->getDocumentUpdateDate());

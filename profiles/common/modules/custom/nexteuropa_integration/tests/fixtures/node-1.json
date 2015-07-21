@@ -64,7 +64,7 @@
     }
   },
   "type": "article",
-  "producer_id": "temp-producer-id",
+  "producer_id": "userProducer",
   "producer_content_id": "node-article-1",
   "created": "2015-07-17 12:00:52",
   "updated": "2015-07-17 12:01:27"
