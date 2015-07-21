@@ -14,6 +14,7 @@ use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
 use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
+use Drupal\nexteuropa_integration\Tests\AbstractTest;
 use \Mockery as m;
 
 /**
@@ -21,7 +22,7 @@ use \Mockery as m;
  *
  * @package Drupal\nexteuropa_integration\Tests\Producer\ProducerTest
  */
-class ProducerTest extends \PHPUnit_Framework_TestCase {
+class ProducerTest extends AbstractTest {
 
   /**
    * Entity wrapper mock.
@@ -166,42 +167,6 @@ class ProducerTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertEquals('Title EN', $wrapper->getField('title_field', 'en'));
     $this->assertEquals('Title FR', $wrapper->getField('title_field', 'fr'));
-  }
-
-  /**
-   * Get exported entity from fixture directory.
-   *
-   * @param string $type
-   *    Entity type.
-   * @param int $id
-   *    Entity ID.
-   *
-   * @return \stdClass
-   *    Entity object.
-   */
-  private function getExportedEntityFixture($type, $id) {
-    static $entity_fixtures = array();
-    if (!isset($entity_fixtures[$type][$id])) {
-      $export = new \stdClass();
-      include_once "fixtures/$type-$id.php";
-      $entity_fixtures[$type][$id] = clone $export;
-    }
-    return $entity_fixtures[$type][$id];
-  }
-
-  /**
-   * Get rendered entity from fixture directory.
-   *
-   * @param string $type
-   *    Entity type.
-   * @param int $id
-   *    Entity ID.
-   *
-   * @return \stdClass
-   *    Entity object.
-   */
-  protected function getRenderedEntityFixture($type, $id) {
-    return file_get_contents(dirname(__FILE__) . "/fixtures/$type-$id.json");
   }
 
 }
