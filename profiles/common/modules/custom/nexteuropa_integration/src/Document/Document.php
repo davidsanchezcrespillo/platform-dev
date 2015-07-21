@@ -196,6 +196,21 @@ class Document implements DocumentInterface {
       $fields->{$name}->{$language} = array();
     }
     $values = &$fields->{$name}->{$language};
+    $values = is_array($value) ? $value : array($value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addFieldValue($name, $value) {
+    $language = $this->getCurrentLanguage();
+
+    $fields = &$this->document->fields;
+    if (!isset($fields->{$name}->{$language})) {
+      $fields->{$name}->{$language} = array();
+    }
+    $values = &$fields->{$name}->{$language};
     $values[] = $value;
     return $this;
   }

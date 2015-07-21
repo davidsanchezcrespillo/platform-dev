@@ -36,9 +36,9 @@ class DateFieldHandler extends AbstractFieldHandler {
       }
 
       // Set field values on document.
-      $this->getDocument()->setField($this->fieldName . '_start', $value['value']);
-      $this->getDocument()->setField($this->fieldName . '_end', $value['value2']);
-      $this->getDocument()->setField($this->fieldName . '_timezone', $value['timezone']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_start', $value['value']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_end', $value['value2']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_timezone', $value['timezone']);
     }
   }
 
