@@ -15,6 +15,27 @@ namespace Drupal\nexteuropa_integration\Tests;
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
 
   /**
+   * Get configuration fixture.
+   *
+   * @param string $type
+   *    Configuration type.
+   * @param string $name
+   *    Configuration machine name.
+   *
+   * @return \stdClass
+   *    Configuration settings object.
+   */
+  protected function getConfigurationFixture($type, $name) {
+    static $fixtures = array();
+    if (!isset($fixtures[$type][$name])) {
+      $export = new \stdClass();
+      include_once "fixtures/configuration/$type-$name.php";
+      $fixtures[$type][$name] = clone $export;
+    }
+    return $fixtures[$type][$name];
+  }
+
+  /**
    * Get exported entity from fixture directory.
    *
    * @param string $type
@@ -26,13 +47,13 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
    *    Entity object.
    */
   protected function getExportedEntityFixture($type, $id) {
-    static $entity_fixtures = array();
-    if (!isset($entity_fixtures[$type][$id])) {
+    static $fixtures = array();
+    if (!isset($fixtures[$type][$id])) {
       $export = new \stdClass();
       include_once "fixtures/$type-$id.php";
-      $entity_fixtures[$type][$id] = clone $export;
+      $fixtures[$type][$id] = clone $export;
     }
-    return $entity_fixtures[$type][$id];
+    return $fixtures[$type][$id];
   }
 
   /**
