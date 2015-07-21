@@ -20,10 +20,10 @@ class FileFieldHandler extends AbstractFieldHandler {
   public function processField() {
 
     foreach ($this->getFieldValues() as $value) {
-      $this->getDocument()->setField($this->fieldName . '_path', file_create_url($value['uri']));
-      $this->getDocument()->setField($this->fieldName . '_size', $value['filesize']);
-      $this->getDocument()->setField($this->fieldName . '_mime', $value['filemime']);
-      $this->getDocument()->setField($this->fieldName . '_status', $value['status']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_path', file_create_url($value['uri']));
+      $this->getDocument()->addFieldValue($this->fieldName . '_size', $value['filesize']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_mime', $value['filemime']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_status', $value['status']);
     }
   }
 
