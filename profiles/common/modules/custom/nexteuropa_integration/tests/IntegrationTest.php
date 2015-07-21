@@ -11,6 +11,8 @@ use Drupal\nexteuropa_integration\Backend\MemoryBackend;
 use Drupal\nexteuropa_integration\Backend\RestBackend;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
+use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 
 /**
@@ -79,20 +81,36 @@ class IntegrationTest extends AbstractTest {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
+    $node = node_load(19);
 
-    $backend_settings = $this->getConfigurationFixture('backend', 'local');
-    $node = $this->getExportedEntityFixture('article', 1);
-
+    // Load backend.
+    $backend_settings = RestBackend::loadSettings('demo_backend');
     $backend = new RestBackend($backend_settings->base, $backend_settings->endpoint, new JsonFormatter());
 
-    $producer = $this->getNodeProducerInstance($node);
+    // Load producer.
+    $producer_settings = NodeProducer::loadSettings('userProducer');
+    $producer = new NodeProducer($producer_settings, new EntityWrapper('node', $node), new Document());
+
     $document = $producer->build();
 
-//    $response = $backend->getBackendId($document);
+    $response = $backend->create($document);
+    $this->assertNotNull($response);
 
-//    $response = $backend->create($document);
+    $response = $backend->getBackendId($document);
+    $this->assertNotNull($response);
 
-    return;
+    $response = $backend->read($document);
+    $this->assertNotNull($response);
+
+    $document->setField('field_title', 'Updated English title');
+    $document->setCurrentLanguage('fr');
+    $document->setField('field_title', 'Updated French title');
+    $document->setCurrentLanguage('en');
+    $response = $backend->update($document);
+    $this->assertNotNull($response);
+
+    $response = $backend->delete($document);
+    $this->assertNotNull($response);
   }
 
 }
