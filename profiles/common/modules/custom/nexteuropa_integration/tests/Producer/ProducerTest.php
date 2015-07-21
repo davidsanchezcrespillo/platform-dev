@@ -40,10 +40,9 @@ class ProducerTest extends AbstractTest {
    * Setup PHPUnit hook.
    */
   public function setUp() {
+    parent::setUp();
     $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
     $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
-
-    $GLOBALS['base_url'] = 'http://example.com';
   }
 
   /**
@@ -57,8 +56,9 @@ class ProducerTest extends AbstractTest {
    * Test creation of a producer instance.
    */
   public function testInstance() {
+    $settings = $this->getConfigurationFixture('producer', 'local');
 
-    $producer = new NodeProducer($this->entityWrapper, $this->document);
+    $producer = new NodeProducer($settings, $this->entityWrapper, $this->document);
     $reflection = new \ReflectionClass($producer);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }
@@ -76,7 +76,7 @@ class ProducerTest extends AbstractTest {
     $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('created'));
     $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('updated'));
     $this->assertEquals('en', $document->getMetadata('default_language'));
-    $this->assertEquals('temp-producer-id', $document->getMetadata('producer_id'));
+    $this->assertEquals('userProducer', $document->getMetadata('producer'));
     $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
 
     $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_start'));
