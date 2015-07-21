@@ -8,7 +8,6 @@
 namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
@@ -75,27 +74,11 @@ interface ProducerInterface {
   public function getDocument();
 
   /**
-   * Get Formatter the producer has been instantiated with.
-   *
-   * @return FormatterInterface
-   *    Formatter object.
-   */
-  public function getFormatter();
-
-  /**
    * Build document object using the entity the producer was instantiated with.
    *
    * @return DocumentInterface
    *    Built document object.
    */
   public function build();
-
-  /**
-   * Return rendered document formatted according to the chosen format.
-   *
-   * @return string
-   *    Formatted document.
-   */
-  public function render();
 
 }

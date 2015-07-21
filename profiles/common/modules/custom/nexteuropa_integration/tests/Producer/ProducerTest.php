@@ -10,10 +10,8 @@ namespace Drupal\nexteuropa_integration\Tests\Producer;
 use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
 use Drupal\nexteuropa_integration\Tests\AbstractTest;
 use \Mockery as m;
 
@@ -39,19 +37,11 @@ class ProducerTest extends AbstractTest {
   protected $document;
 
   /**
-   * Formatter mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $formatter;
-
-  /**
    * Setup PHPUnit hook.
    */
   public function setUp() {
     $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
     $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
-    $this->formatter = m::mock('Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface');
 
     $GLOBALS['base_url'] = 'http://example.com';
   }
@@ -68,7 +58,7 @@ class ProducerTest extends AbstractTest {
    */
   public function testInstance() {
 
-    $producer = new NodeProducer($this->entityWrapper, $this->document, $this->formatter);
+    $producer = new NodeProducer($this->entityWrapper, $this->document);
     $reflection = new \ReflectionClass($producer);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }
@@ -84,7 +74,7 @@ class ProducerTest extends AbstractTest {
 
     $this->assertEquals('integration_test', $document->getMetadata('type'));
     $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('created'));
-    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('changed'));
+    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('updated'));
     $this->assertEquals('en', $document->getMetadata('default_language'));
     $this->assertEquals('temp-producer-id', $document->getMetadata('producer_id'));
     $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
@@ -106,22 +96,6 @@ class ProducerTest extends AbstractTest {
     $this->assertContains('http://example.com/sites/default/files/file-french-2.txt', $document->getFieldValue('field_integration_test_files_path'));
     $this->assertContains('<p>French abstract article 1</p>', $document->getFieldValue('body'));
     $this->assertEmpty($document->getFieldValue('body_summary'));
-  }
-
-  /**
-   * Test render method.
-   */
-  public function testRender() {
-    $node = $this->getExportedEntityFixture('node', 1);
-
-    $entity_wrapper = new EntityWrapper('node', $node);
-    $document = new Document();
-    $formatter = new JsonFormatter();
-    $producer = new NodeProducer($entity_wrapper, $document, $formatter);
-    $output = $producer->render();
-
-    $expected = $this->getRenderedEntityFixture('node', 1);
-    $this->assertEquals(json_decode($expected), json_decode($output));
   }
 
   /**

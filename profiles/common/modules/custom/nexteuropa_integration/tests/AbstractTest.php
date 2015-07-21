@@ -9,7 +9,6 @@ namespace Drupal\nexteuropa_integration\Tests;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 
 /**
@@ -92,8 +91,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
   protected function getNodeProducerInstance($node) {
     $entity_wrapper = new EntityWrapper('node', $node);
     $document = new Document();
-    $formatter = new JsonFormatter();
-    return new NodeProducer($entity_wrapper, $document, $formatter);
+    return new NodeProducer($entity_wrapper, $document);
   }
 
   /**
