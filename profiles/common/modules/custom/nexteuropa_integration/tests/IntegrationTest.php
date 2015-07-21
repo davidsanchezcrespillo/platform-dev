@@ -9,6 +9,7 @@ namespace Drupal\nexteuropa_integration\Tests;
 use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
 use Drupal\nexteuropa_integration\Backend\MemoryBackend;
 use Drupal\nexteuropa_integration\Backend\RestBackend;
+use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 
@@ -54,10 +55,44 @@ class IntegrationTest extends AbstractTest {
   }
 
   /**
-   * Test testProducerConsumerChain().
+   * @todo: Fix this after demo.
    */
-  public function testRemoteTests() {
+  public function testLoadSettings() {
+    if (!module_exists('nexteuropa_demo')) {
+      return;
+    }
 
+    $producer_settings = NodeProducer::loadSettings('userProducer');
+    $backend_settings = RestBackend::loadSettings('demo_backend');
+    $consumer_settings = ConsumerConfiguration::loadSettings('demo_consumer');
+
+    $this->assertNotNull($producer_settings);
+    $this->assertNotNull($backend_settings);
+    $this->assertNotNull($consumer_settings);
+  }
+
+
+  /**
+   * Test Rest Backend.
+   */
+  public function testRestBackend() {
+    if (!module_exists('nexteuropa_demo')) {
+      return;
+    }
+
+    $backend_settings = $this->getConfigurationFixture('backend', 'local');
+    $node = $this->getExportedEntityFixture('article', 1);
+
+    $backend = new RestBackend($backend_settings->base, $backend_settings->endpoint, new JsonFormatter());
+
+    $producer = $this->getNodeProducerInstance($node);
+    $document = $producer->build();
+
+//    $response = $backend->getBackendId($document);
+
+//    $response = $backend->create($document);
+
+    return;
   }
 
 }

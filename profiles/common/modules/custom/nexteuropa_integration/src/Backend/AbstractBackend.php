@@ -92,4 +92,17 @@ abstract class AbstractBackend implements BackendInterface {
     $this->formatter = $formatter;
   }
 
+  /**
+   * @todo: Include actual configuration loading.
+   */
+  public static function loadSettings($name) {
+    global $conf;
+    if (isset($conf['integration']['backend'][$name])) {
+      return $conf['integration']['backend'][$name];
+    }
+    else {
+      throw new \InvalidArgumentException("No settings for $name");
+    }
+  }
+
 }

@@ -261,4 +261,17 @@ class ConsumerConfiguration implements ConsumerConfigurationInterface {
     return $instance;
   }
 
+  /**
+   * @todo: Include actual configuration loading.
+   */
+  public static function loadSettings($name) {
+    global $conf;
+    if (isset($conf['integration']['consumer'][$name])) {
+      return $conf['integration']['consumer'][$name];
+    }
+    else {
+      throw new \InvalidArgumentException("No settings for $name");
+    }
+  }
+
 }
