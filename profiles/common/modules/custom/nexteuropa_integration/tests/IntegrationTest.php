@@ -6,6 +6,7 @@
  */
 
 namespace Drupal\nexteuropa_integration\Tests;
+
 use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
 use Drupal\nexteuropa_integration\Backend\MemoryBackend;
 use Drupal\nexteuropa_integration\Backend\RestBackend;

@@ -87,14 +87,14 @@ class ProducerTest extends AbstractTest {
     $this->assertEquals('English title article 1', $document->getFieldValue('title_field'));
     $this->assertContains('http://example.com/sites/default/files/file-english-1.txt', $document->getFieldValue('field_integration_test_files_path'));
     $this->assertContains('http://example.com/sites/default/files/file-english-2.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('<p>English abstract article 1</p>', $document->getFieldValue('body'));
+    $this->assertContains('English abstract article 1', $document->getFieldValue('body'));
     $this->assertEmpty($document->getFieldValue('body_summary'));
 
     $document->setCurrentLanguage('fr');
     $this->assertEquals('French title article 1', $document->getFieldValue('title_field'));
     $this->assertContains('http://example.com/sites/default/files/file-french-1.txt', $document->getFieldValue('field_integration_test_files_path'));
     $this->assertContains('http://example.com/sites/default/files/file-french-2.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('<p>French abstract article 1</p>', $document->getFieldValue('body'));
+    $this->assertContains('French abstract article 1', $document->getFieldValue('body'));
     $this->assertEmpty($document->getFieldValue('body_summary'));
   }
 
