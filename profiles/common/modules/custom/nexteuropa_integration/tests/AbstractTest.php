@@ -19,6 +19,14 @@ use Drupal\nexteuropa_integration\Producer\NodeProducer;
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
 
   /**
+   * Setup PHPUnit hook.
+   */
+  public function setUp() {
+    parent::setUp();
+    $GLOBALS['base_url'] = 'http://example.com';
+  }
+
+  /**
    * Get configuration fixture.
    *
    * @param string $type
@@ -89,9 +97,11 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
    *    Node producer instance.
    */
   protected function getNodeProducerInstance($node) {
+    $settings = $this->getConfigurationFixture('producer', 'local');
+
     $entity_wrapper = new EntityWrapper('node', $node);
     $document = new Document();
-    return new NodeProducer($entity_wrapper, $document);
+    return new NodeProducer($settings, $entity_wrapper, $document);
   }
 
   /**
