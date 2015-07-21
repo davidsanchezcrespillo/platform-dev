@@ -17,6 +17,14 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 interface BackendInterface {
 
   /**
+   * Get full service URI.
+   *
+   * @return string
+   *    Full service URI.
+   */
+  public function getUri();
+
+  /**
    * Create a new document and populate its backend ID.
    *
    * @param DocumentInterface $document

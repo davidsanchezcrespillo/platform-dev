@@ -77,7 +77,7 @@ class IntegrationTest extends AbstractTest {
   /**
    * Test Rest Backend.
    */
-  public function testRestBackend() {
+  public function __testRestBackend() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
@@ -111,6 +111,25 @@ class IntegrationTest extends AbstractTest {
 
     $response = $backend->delete($document);
     $this->assertNotNull($response);
+  }
+
+  /**
+   * Test Consumer.
+   */
+  public function testConsumer() {
+    if (!module_exists('nexteuropa_demo')) {
+      return;
+    }
+
+    // Load backend.
+    $backend = RestBackend::getInstance('demo_backend');
+
+    // Load consumer.
+    $consumer_settings = ConsumerConfiguration::loadSettings('demo_consumer');
+    Consumer::register($consumer_settings);
+    $migration = Consumer::getInstance($consumer_settings->name);
+    $this->assertNotNull($migration);
+
   }
 
 }
