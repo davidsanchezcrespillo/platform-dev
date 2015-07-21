@@ -13,6 +13,7 @@ use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
+use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
@@ -102,6 +103,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     // @todo: add other processors. Maybe implement hook/plugin system for that.
     $this->processTitleFieldMapping($destination_field, $source_field);
     $this->processFileFieldMapping($destination_field, $source_field);
+    $this->processTextWithSummaryMapping($destination_field, $source_field);
 
     return $mapping;
   }
@@ -138,6 +140,21 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     $field_info = field_info_field($destination_field);
     if (in_array($field_info['type'], array('image', 'file'))) {
       parent::addFieldMapping("$destination_field:file_replace")->defaultValue(FILE_EXISTS_REPLACE);
+    }
+  }
+
+  /**
+   * Process text with summary fields mapping.
+   *
+   * @param string $destination_field
+   *    Destination field name.
+   * @param string|null $source_field
+   *    Source field name.
+   */
+  protected function processTextWithSummaryMapping($destination_field, $source_field = NULL) {
+    $field_info = field_info_field($destination_field);
+    if (in_array($field_info['type'], array('text_with_summary'))) {
+      parent::addFieldMapping("$destination_field:format")->defaultValue('full_html');
     }
   }
 
@@ -179,7 +196,6 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     $arguments = array();
     $arguments['consumer']['settings'] = $settings;
     self::validateArguments($arguments);
-    \Migration::deregisterMigration($settings->name);
     \Migration::registerMigration(__CLASS__, $settings->name, $arguments);
   }
 
@@ -207,7 +223,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     $list_path = "$base_path/changes/" .  $backend->getEndpoint();
     $item_path = $backend->getUri() . '/:id';
     $this->setSource(new \MigrateSourceList(
-      new \MigrateListJSON($list_path),
+      new MigrateListJSON($list_path),
       new MigrateItemJSON($item_path, array()),
       array()
     ));
