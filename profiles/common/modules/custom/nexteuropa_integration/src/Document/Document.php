@@ -207,7 +207,8 @@ class Document implements DocumentInterface {
     $language = $this->getCurrentLanguage();
 
     $fields = &$this->document->fields;
-    if (!isset($fields->{$name}->{$language})) {
+    if (!isset($fields->{$name})) {
+      $fields->{$name} = new \stdClass();
       $fields->{$name}->{$language} = array();
     }
     $values = &$fields->{$name}->{$language};
