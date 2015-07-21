@@ -8,9 +8,11 @@
 namespace Drupal\nexteuropa_integration\Consumer;
 
 use Drupal\nexteuropa_integration\Backend\BackendInterface;
+use Drupal\nexteuropa_integration\Backend\RestBackend;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
+use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
@@ -74,6 +76,8 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     // @todo: make the following an option set via UI.
     $this->addFieldMapping('promote')->defaultValue(FALSE);
     $this->addFieldMapping('status')->defaultValue(NODE_NOT_PUBLISHED);
+
+    $this->setBackendSource();
   }
 
   /**
@@ -188,6 +192,25 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
   protected function getMapInstance() {
     $destination_class = $this->getDestinationClass();
     return new \MigrateSQLMap($this->getMachineName(), $this->getSourceKey(), $destination_class::getKeySchema());
+  }
+
+
+  /**
+   * @param $name
+   */
+  public function setBackendSource() {
+    // @todo: properly implement backend configuration loading.
+    $name = $this->getConfiguration()->getBackend();
+    $backend = RestBackend::getInstance($name);
+
+    $base_path = $backend->getBase();
+    $list_path = "$base_path/changes/" .  $backend->getEndpoint();
+    $item_path = $backend->getUri() . '/:id';
+    $this->setSource(new \MigrateSourceList(
+      new \MigrateListJSON($list_path),
+      new MigrateItemJSON($item_path, array()),
+      array()
+    ));
   }
 
   /**

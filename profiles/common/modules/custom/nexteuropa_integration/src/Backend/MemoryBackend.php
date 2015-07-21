@@ -27,6 +27,13 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
+  public function getUri() {
+    return $this->getBase() . '-' . $this->getEndpoint();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function create(DocumentInterface $document) {
     $document->setMetadata('_id', $this->getBackendId($document));
     $this->storage[$document->getId()] = $document->getDocument();
