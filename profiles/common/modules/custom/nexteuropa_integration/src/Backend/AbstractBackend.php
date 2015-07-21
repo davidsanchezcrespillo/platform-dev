@@ -6,6 +6,7 @@
  */
 
 namespace Drupal\nexteuropa_integration\Backend;
+use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
 
 /**
  * Class AbstractBackend.
@@ -103,6 +104,14 @@ abstract class AbstractBackend implements BackendInterface {
     else {
       throw new \InvalidArgumentException("No settings for $name");
     }
+  }
+
+  /**
+   * @todo: Include backend instantiation using hooks, as done on producers.
+   */
+  public static function getInstance($name) {
+    $backend_settings = RestBackend::loadSettings($name);
+    return new RestBackend($backend_settings->base, $backend_settings->endpoint, new JsonFormatter());
   }
 
 }
