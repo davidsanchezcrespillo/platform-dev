@@ -116,13 +116,10 @@ class IntegrationTest extends AbstractTest {
   /**
    * Test Consumer.
    */
-  public function testConsumer() {
+  public function __testConsumer() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
-
-    // Load backend.
-    $backend = RestBackend::getInstance('demo_backend');
 
     // Load consumer.
     $consumer_settings = ConsumerConfiguration::loadSettings('demo_consumer');
@@ -130,6 +127,8 @@ class IntegrationTest extends AbstractTest {
     $migration = Consumer::getInstance($consumer_settings->name);
     $this->assertNotNull($migration);
 
+    $migration->processRollback();
+    $migration->processImport();
   }
 
 }
