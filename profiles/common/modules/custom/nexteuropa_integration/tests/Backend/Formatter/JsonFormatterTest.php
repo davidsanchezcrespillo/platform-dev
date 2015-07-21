@@ -1,18 +1,18 @@
 <?php
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Tests\Document\Formatter.
+ * Contains JsonFormatterTest.
  */
 
 namespace Drupal\nexteuropa_integration\Tests\Document\Formatter;
 
 use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
+use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
 
 /**
- * Class BackendTest.
+ * Class JsonFormatterTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\BackendTest
+ * @package Drupal\nexteuropa_integration\Tests\Document\Formatter
  */
 class JsonFormatterTest extends \PHPUnit_Framework_TestCase {
 
