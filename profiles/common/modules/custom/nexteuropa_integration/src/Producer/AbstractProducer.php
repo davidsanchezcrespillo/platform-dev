@@ -130,4 +130,17 @@ abstract class AbstractProducer implements ProducerInterface {
     return $document;
   }
 
+  /**
+   * @todo: Include actual configuration loading.
+   */
+  public static function loadSettings($name) {
+    global $conf;
+    if (isset($conf['integration']['producers'][$name])) {
+      return $conf['integration']['producers'][$name];
+    }
+    else {
+      throw new \InvalidArgumentException("No settings for $name");
+    }
+  }
+
 }
