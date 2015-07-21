@@ -103,4 +103,20 @@ interface BackendInterface {
    */
   public function setEndpoint($endpoint);
 
+  /**
+   * Get formatter object.
+   *
+   * @return Formatter\FormatterInterface
+   *    Formatter object instance.
+   */
+  public function getFormatter();
+
+  /**
+   * Set formatter object.
+   *
+   * @param Formatter\FormatterInterface $formatter
+   *    Formatter object instance.
+   */
+  public function setFormatter(Formatter\FormatterInterface $formatter);
+
 }
