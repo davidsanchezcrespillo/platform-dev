@@ -104,13 +104,26 @@ interface DocumentInterface {
    *
    * @param string $name
    *    Field name.
+   * @param mixed $value
+   *    Field value, either a string or an array.
+   *
+   * @return DocumentInterface
+   *    Set field value and return document object.
+   */
+  public function setField($name, $value);
+
+  /**
+   * Add a value to a multiple field.
+   *
+   * @param string $name
+   *    Field name.
    * @param string $value
    *    Field value.
    *
    * @return DocumentInterface
    *    Set field value and return document object.
    */
-  public function setField($name, $value);
+  public function addFieldValue($name, $value);
 
   /**
    * Get metadata value.
