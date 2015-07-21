@@ -7,7 +7,6 @@
 
 namespace Drupal\nexteuropa_integration\Backend;
 
-use Drupal\nexteuropa_integration\Producer\ProducerInterface;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
@@ -29,52 +28,53 @@ class RestBackend extends AbstractBackend {
   }
 
   /**
-   * @param $json
-   */
-  public function post($data) {
-    $options = array();
-    $options['method'] = 'POST';
-    $options['data'] = $data;
-    $response = drupal_http_request($this->getUri(), $options);
-
-    return $response;
-  }
-
-
-
-  /**
    * {@inheritdoc}
    */
   public function create(DocumentInterface $document) {
-    // TODO: Implement create() method.
+    $options = array();
+    $options['method'] = 'POST';
+    $options['data'] = $document->getDocument();
+    $response = drupal_http_request($this->getUri(), $options);
+    return $response;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function read($id) {
-    // TODO: Implement read() method.
+  public function read(DocumentInterface $document) {
+    $options = array();
+    $options['method'] = 'GET';
+    $response = drupal_http_request($this->getUri() . '/' . $document->getId(), $options);
+    return $response;
   }
 
   /**
    * {@inheritdoc}
    */
   public function update(DocumentInterface $document) {
-    // TODO: Implement update() method.
+    $options = array();
+    $options['method'] = 'PUT';
+    $options['data'] = $document->getDocument();
+    $response = drupal_http_request($this->getUri(), $options);
+    return $response;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function delete($id) {
-    // TODO: Implement delete() method.
+  public function delete(DocumentInterface $document) {
+    $options = array();
+    $options['method'] = 'DELETE';
+    $response = drupal_http_request($this->getUri() . '/' . $document->getId(), $options);
+    return $response;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getBackendId(ProducerInterface $producer) {
-    return $producer->getProducerContentId();
+  public function getBackendId(DocumentInterface $document) {
+    // @todo: ask service for remote id.
+    return $document->getMetadata('producer_content_id');
   }
 
 }
