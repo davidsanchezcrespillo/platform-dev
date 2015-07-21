@@ -6,6 +6,11 @@
  */
 
 namespace Drupal\nexteuropa_integration\Tests;
+use Drupal\nexteuropa_integration\Consumer\Consumer;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
+use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
+use Drupal\nexteuropa_integration\Producer\NodeProducer;
 
 /**
  * Class AbstractTest.
@@ -29,7 +34,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     static $fixtures = array();
     if (!isset($fixtures[$type][$name])) {
       $export = new \stdClass();
-      include_once "fixtures/configuration/$type-$name.php";
+      include "fixtures/configuration/$type-$name.php";
       $fixtures[$type][$name] = clone $export;
     }
     return $fixtures[$type][$name];
@@ -50,7 +55,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     static $fixtures = array();
     if (!isset($fixtures[$type][$id])) {
       $export = new \stdClass();
-      include_once "fixtures/$type-$id.php";
+      include "fixtures/$type-$id.php";
       $fixtures[$type][$id] = clone $export;
     }
     return $fixtures[$type][$id];
@@ -73,6 +78,36 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
       throw new \InvalidArgumentException("Fixture '$type-$id.json' not found");
     }
     return file_get_contents($filename);
+  }
+
+  /**
+   * Factory method: return node producer instance given a node object.
+   *
+   * @param object $node
+   *    Node object.
+   *
+   * @return NodeProducer
+   *    Node producer instance.
+   */
+  protected function getNodeProducerInstance($node) {
+    $entity_wrapper = new EntityWrapper('node', $node);
+    $document = new Document();
+    $formatter = new JsonFormatter();
+    return new NodeProducer($entity_wrapper, $document, $formatter);
+  }
+
+  /**
+   * Factory method: return consumer instance given its name.
+   *
+   * @param object $settings
+   *    Consumer configuration settings.
+   *
+   * @return Consumer
+   *    Consumer instance.
+   */
+  protected function getConsumerInstance($settings) {
+    Consumer::register($settings);
+    return Consumer::getInstance($settings->name);
   }
 
 }

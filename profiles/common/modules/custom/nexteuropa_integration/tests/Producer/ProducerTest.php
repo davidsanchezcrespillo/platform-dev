@@ -79,10 +79,7 @@ class ProducerTest extends AbstractTest {
   public function testBuild() {
     $node = $this->getExportedEntityFixture('integration_test', 1);
 
-    $entity_wrapper = new EntityWrapper('node', $node);
-    $document = new Document();
-    $formatter = new JsonFormatter();
-    $producer = new NodeProducer($entity_wrapper, $document, $formatter);
+    $producer = $this->getNodeProducerInstance($node);
     $document = $producer->build();
 
     $this->assertEquals('integration_test', $document->getMetadata('type'));
