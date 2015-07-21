@@ -6,8 +6,8 @@
  */
 
 namespace Drupal\nexteuropa_integration\Backend;
+
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\ProducerInterface;
 
 /**
  * Interface BackendInterface.
@@ -63,13 +63,13 @@ interface BackendInterface {
   /**
    * Get backend ID using local producer content ID.
    *
-   * @param ProducerInterface $producer
-   *    Producer object.
+   * @param DocumentInterface $document
+   *    Document object.
    *
    * @return string
    *    Backend ID.
    */
-  public function getBackendId(ProducerInterface $producer);
+  public function getBackendId(DocumentInterface $document);
 
   /**
    * Get backend base path.
