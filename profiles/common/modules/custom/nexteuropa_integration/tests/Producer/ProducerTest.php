@@ -102,7 +102,7 @@ class ProducerTest extends AbstractTest {
    * Test entity wrapper.
    */
   public function testEntityWrapper() {
-    $node = $this->getExportedEntityFixture('node', 1);
+    $node = $this->getExportedEntityFixture('integration_test', 1);
     $wrapper = new EntityWrapper('node', $node);
 
     $properties = array(
@@ -121,13 +121,13 @@ class ProducerTest extends AbstractTest {
       $this->assertTrue($wrapper->isProperty($property));
     }
 
-    $this->assertEquals('article', $wrapper->getProperty('type'));
-    $this->assertEquals('2015-07-17 12:00:52', $wrapper->getProperty('created'));
+    $this->assertEquals('integration_test', $wrapper->getProperty('type'));
+    $this->assertEquals('2015-07-20 06:42:47', $wrapper->getProperty('created'));
 
     $fields = array(
       'body',
-      'field_tags',
-      'field_image',
+      'field_integration_test_dates',
+      'field_integration_test_files',
       'title_field',
     );
     foreach ($fields as $field) {
@@ -136,8 +136,8 @@ class ProducerTest extends AbstractTest {
 
     $this->assertEquals(array('en', 'fr'), $wrapper->getAvailableLanguages());
 
-    $this->assertEquals('Title EN', $wrapper->getField('title_field', 'en'));
-    $this->assertEquals('Title FR', $wrapper->getField('title_field', 'fr'));
+    $this->assertEquals('English title article 1', $wrapper->getField('title_field', 'en'));
+    $this->assertEquals('French title article 1', $wrapper->getField('title_field', 'fr'));
   }
 
 }

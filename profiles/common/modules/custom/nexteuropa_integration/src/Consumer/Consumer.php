@@ -213,10 +213,8 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
     switch ($entity_type) {
       case 'node':
         return '\MigrateDestinationNode';
-
       case 'taxonomy_term':
         return '\MigrateDestinationTerm';
-
       default:
         throw new \InvalidArgumentException("Entity destination $entity_type not supported.");
     }
