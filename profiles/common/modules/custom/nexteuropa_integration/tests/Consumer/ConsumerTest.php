@@ -9,13 +9,14 @@ namespace Drupal\nexteuropa_integration\Tests\Consumer;
 
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
+use Drupal\nexteuropa_integration\Tests\AbstractTest;
 
 /**
  * Class ConsumerTest.
  *
  * @package Drupal\nexteuropa_integration\Tests\Consumer
  */
-class ConsumerTest extends \PHPUnit_Framework_TestCase {
+class ConsumerTest extends AbstractTest {
 
   /**
    * Setup PHPUnit hook.
@@ -37,7 +38,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('article', $configuration->getBundle());
     $this->assertEquals(TRUE, $configuration->getStatus());
 
-    $settings = $this->getSettings();
+    $settings = $this->getConfigurationFixture('consumer', 'test');
 
     $configuration = ConsumerConfiguration::getInstance($settings);
 
@@ -54,7 +55,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
    * Test creation of a consumer instance.
    */
   public function testConsumer() {
-    $settings = $this->getSettings();
+    $settings = $this->getConfigurationFixture('consumer', 'test');
 
     Consumer::register($settings);
 
@@ -69,35 +70,6 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('source_title', $mapping['title_field']->getSourceField());
     $this->assertArrayHasKey('field_integration_test_images:file_replace', $mapping);
     $this->assertArrayHasKey('field_integration_test_files:file_replace', $mapping);
-  }
-
-  /**
-   * Test settings object.
-   *
-   * @return \stdClass
-   *    Settings object.
-   */
-  protected function getSettings() {
-    $settings = new \stdClass();
-    $settings->label = 'Label';
-    $settings->name = 'name';
-    $settings->status = TRUE;
-    $settings->backend = 'backend';
-    $settings->entity_type = 'node';
-    $settings->bundle = 'article';
-    $settings->mapping = array(
-      'title' => 'source_title',
-      'body' => 'source_body',
-      'field_integration_test_images' => 'source_image',
-      'field_integration_test_files' => 'source_files',
-      'field_integration_test_ref' => 'source_reference',
-      'field_integration_test_terms' => 'source_terms',
-    );
-    $settings->options = array(
-      'option1' => 'value1',
-      'option2' => 'value2',
-    );
-    return $settings;
   }
 
 }
