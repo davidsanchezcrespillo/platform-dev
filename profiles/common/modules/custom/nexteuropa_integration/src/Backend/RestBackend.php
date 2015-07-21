@@ -17,14 +17,10 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
  */
 class RestBackend extends AbstractBackend {
 
-
   /**
-   * Get full service URI.
-   *
-   * @return string
-   *    Full service URI.
+   * {@inheritdoc}
    */
-  protected function getUri() {
+  public function getUri() {
     return $this->getBase() . '/' . $this->getEndpoint();
   }
 
