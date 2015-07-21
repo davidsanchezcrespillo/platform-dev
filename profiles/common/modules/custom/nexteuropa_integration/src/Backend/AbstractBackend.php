@@ -29,6 +29,14 @@ abstract class AbstractBackend implements BackendInterface {
   private $endpoint;
 
   /**
+   * Formatter object.
+   *
+   * @var Formatter\FormatterInterface
+   *    Formatter object instance.
+   */
+  private $formatter;
+
+  /**
    * Constructor.
    *
    * @param string $base
@@ -36,9 +44,10 @@ abstract class AbstractBackend implements BackendInterface {
    * @param string $endpoint
    *    Backend endpoint.
    */
-  public function __construct($base, $endpoint) {
+  public function __construct($base, $endpoint, Formatter\FormatterInterface $formatter) {
     $this->setBase($base);
     $this->setEndpoint($endpoint);
+    $this->setFormatter($formatter);
   }
 
   /**
@@ -67,6 +76,20 @@ abstract class AbstractBackend implements BackendInterface {
    */
   public function setEndpoint($endpoint) {
     $this->endpoint = $endpoint;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormatter() {
+    return $this->formatter;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setFormatter(Formatter\FormatterInterface $formatter) {
+    $this->formatter = $formatter;
   }
 
 }
