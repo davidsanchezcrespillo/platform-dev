@@ -7,6 +7,7 @@
 
 namespace Drupal\nexteuropa_integration\Backend;
 
+use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
@@ -35,8 +36,11 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function read($id) {
-    return $this->storage[$id];
+  public function read(DocumentInterface $document) {
+    if (isset($this->storage[$document->getId()])) {
+      return new Document($this->storage[$document->getId()]);
+    }
+    return FALSE;
   }
 
   /**
@@ -50,8 +54,8 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function delete($id) {
-    unset($this->storage[$id]);
+  public function delete(DocumentInterface $document) {
+    unset($this->storage[$document->getId()]);
     return TRUE;
   }
 

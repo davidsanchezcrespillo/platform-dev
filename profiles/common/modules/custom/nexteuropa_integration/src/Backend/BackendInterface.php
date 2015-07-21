@@ -30,13 +30,13 @@ interface BackendInterface {
   /**
    * Get a document from the backend, given its backend ID.
    *
-   * @param string $id
-   *    Backend ID.
+   * @param DocumentInterface $document
+   *    Document object.
    *
    * @return DocumentInterface|false
    *    Document fetched from backend or FALSE if not found.
    */
-  public function read($id);
+  public function read(DocumentInterface $document);
 
   /**
    * Update an existing document.
@@ -52,13 +52,13 @@ interface BackendInterface {
   /**
    * Delete a document from the backend, given its backend ID.
    *
-   * @param string $id
-   *    Backend ID.
+   * @param DocumentInterface $document
+   *    Document object.
    *
    * @return bool
    *    TRUE if deleted FALSE if not found.
    */
-  public function delete($id);
+  public function delete(DocumentInterface $document);
 
   /**
    * Get backend ID using local producer content ID.

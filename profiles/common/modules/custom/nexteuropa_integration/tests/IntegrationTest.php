@@ -45,32 +45,18 @@ class IntegrationTest extends AbstractTest {
     $document = $backend->update($document);
     $this->assertEquals('English title article 1 updated', $document->getFieldValue('title_field'));
 
-//    $result = $backend->delete($document->getId());
-//
-//    $document = $backend->read($document->getId());
+    $document = $backend->read($document);
+    $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
+    $this->assertEquals('English title article 1 updated', $document->getFieldValue('title_field'));
 
+    $backend->delete($document);
+    $this->assertFalse($backend->read($document));
   }
 
   /**
    * Test testProducerConsumerChain().
    */
   public function testRemoteTests() {
-
-//    $settings = $this->getConfigurationFixture('consumer', 'integration_test');
-//    $consumer = $this->getConsumerInstance($settings);
-
-    //    $node = $this->getExportedEntityFixture('node', 1);
-    //    $settings = $this->getConfigurationFixture('consumer', 'articles');
-    //
-    //    $base_url = 'http://userProducer:pass@ilayer.deglise.com/v1';
-    //
-    //
-    //    $backend = new RestBackend($base_url, 'articles');
-    //    $producer = $this->getNodeProducerInstance($node);
-    //
-    //    $consumer = $this->getConsumerInstance($settings);
-    //    $document = $producer->build();
-    return;
 
   }
 
