@@ -57,8 +57,11 @@ class ConsumerTest extends AbstractTest {
   public function testConsumer() {
     $settings = $this->getConfigurationFixture('consumer', 'test');
 
-    Consumer::register($settings);
+    // @todo: fix this. @see ConsumerConfiguration::loadSettings().
+    global $conf;
+    $conf['integration']['backend'][$settings->backend] = $this->getConfigurationFixture('backend', 'local');
 
+    Consumer::register($settings);
     $migration = \Migration::getInstance($settings->name);
     $this->assertNotNull($migration);
 
