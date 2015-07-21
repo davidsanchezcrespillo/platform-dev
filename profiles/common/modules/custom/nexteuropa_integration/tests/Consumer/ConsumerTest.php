@@ -9,12 +9,6 @@ namespace Drupal\nexteuropa_integration\Tests\Consumer;
 
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\JsonFormatter;
-use \Mockery as m;
 
 /**
  * Class ConsumerTest.
@@ -24,34 +18,9 @@ use \Mockery as m;
 class ConsumerTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * Entity wrapper mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $entityWrapper;
-
-  /**
-   * Document mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $document;
-
-  /**
-   * Formatter mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $formatter;
-
-  /**
    * Setup PHPUnit hook.
    */
   public function setUp() {
-    $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
-    $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
-    $this->formatter = m::mock('Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface');
-
     $GLOBALS['base_url'] = 'http://example.com';
   }
 
@@ -85,14 +54,21 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
    * Test creation of a consumer instance.
    */
   public function testConsumer() {
+    $settings = $this->getSettings();
 
-    $arguments = array();
-    $arguments['consumer']['class'] = 'Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration';
-    $arguments['consumer']['settings'] = $this->getSettings();
-    \Migration::registerMigration('Drupal\nexteuropa_integration\Consumer\Consumer', 'test', $arguments);
+    Consumer::register($settings);
 
-    $migration = \Migration::getInstance('test');
+    $migration = \Migration::getInstance($settings->name);
     $this->assertNotNull($migration);
+
+    $mapping = $migration->getFieldMappings();
+    foreach ($settings->mapping as $destination => $source) {
+      $this->assertTrue(isset($mapping[$destination]));
+      $this->assertEquals($source, $mapping[$destination]->getSourceField());
+    }
+    $this->assertEquals('source_title', $mapping['title_field']->getSourceField());
+    $this->assertArrayHasKey('field_integration_test_images:file_replace', $mapping);
+    $this->assertArrayHasKey('field_integration_test_files:file_replace', $mapping);
   }
 
   /**
@@ -110,8 +86,10 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
     $settings->entity_type = 'node';
     $settings->bundle = 'article';
     $settings->mapping = array(
-      'source1' => 'destination1',
-      'source2' => 'destination2',
+      'title' => 'source_title',
+      'body' => 'source_body',
+      'field_integration_test_images' => 'source_image',
+      'field_integration_test_files' => 'source_files',
     );
     $settings->options = array(
       'option1' => 'value1',
