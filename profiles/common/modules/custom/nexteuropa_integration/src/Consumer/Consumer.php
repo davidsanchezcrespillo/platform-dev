@@ -209,13 +209,16 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
    *    Destination class name.
    */
   protected function getDestinationClass() {
-
-    switch ($this->getConfiguration()->getEntityType()) {
+    $entity_type = $this->getConfiguration()->getEntityType();
+    switch ($entity_type) {
       case 'node':
         return '\MigrateDestinationNode';
 
       case 'taxonomy_term':
         return '\MigrateDestinationTerm';
+
+      default:
+        throw new \InvalidArgumentException("Entity destination $entity_type not supported.");
     }
   }
 

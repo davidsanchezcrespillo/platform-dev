@@ -63,7 +63,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
 
     $mapping = $migration->getFieldMappings();
     foreach ($settings->mapping as $destination => $source) {
-      $this->assertTrue(isset($mapping[$destination]));
+      $this->assertArrayHasKey($destination, $mapping);
       $this->assertEquals($source, $mapping[$destination]->getSourceField());
     }
     $this->assertEquals('source_title', $mapping['title_field']->getSourceField());
@@ -90,6 +90,8 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase {
       'body' => 'source_body',
       'field_integration_test_images' => 'source_image',
       'field_integration_test_files' => 'source_files',
+      'field_integration_test_ref' => 'source_reference',
+      'field_integration_test_terms' => 'source_terms',
     );
     $settings->options = array(
       'option1' => 'value1',
