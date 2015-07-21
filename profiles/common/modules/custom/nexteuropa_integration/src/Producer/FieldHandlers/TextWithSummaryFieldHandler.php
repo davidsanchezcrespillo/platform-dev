@@ -20,8 +20,10 @@ class TextWithSummaryFieldHandler extends AbstractFieldHandler {
   public function processField() {
 
     foreach ($this->getFieldValues() as $value) {
-      $this->getDocument()->addFieldValue($this->fieldName, $value['safe_value']);
-      $this->getDocument()->addFieldValue($this->fieldName . '_summary', $value['safe_summary']);
+      $value['value'] = $value ? $value['value'] : '';
+      $value['summary'] = $value ? $value['summary'] : '';
+      $this->getDocument()->addFieldValue($this->fieldName, $value['value']);
+      $this->getDocument()->addFieldValue($this->fieldName . '_summary', $value['summary']);
     }
   }
 
