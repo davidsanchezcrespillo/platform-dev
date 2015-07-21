@@ -56,7 +56,7 @@ class MemoryBackend extends AbstractBackend {
    * {@inheritdoc}
    */
   public function getBackendId(ProducerInterface $producer) {
-    // TODO: Implement getBackendId() method.
+    return $producer->getProducerContentId();
   }
 
 }
