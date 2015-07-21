@@ -42,22 +42,38 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
   private $backend;
 
   /**
+   * Current entity type info array.
+   *
+   * @var array
+   */
+  private $entityInfo = array();
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $arguments) {
-
     // Will throw exceptions if arguments are not valid.
-    $this->validateArguments($arguments);
-
-    $configuration_class = $arguments['consumer']['class'];
-    $configuration = $configuration_class::getInstance($arguments['consumer']['settings']);
-    $this->setConfiguration($configuration);
-
-    // @todo: Set destination.
-    // @todo: Set source classes.
-    // @todo: Set mapping.
-
+    self::validateArguments($arguments);
     parent::__construct($arguments);
+
+    // @todo: make sure the following classes are passed via $argument.
+    $configuration = ConsumerConfiguration::getInstance($arguments['consumer']['settings']);
+    $this->setConfiguration($configuration);
+    $this->entityInfo = entity_get_info($configuration->getEntityType());
+    $this->setMap($this->getMapInstance());
+    $this->setDestination($this->getDestinationInstance());
+
+    // Apply mapping.
+    foreach ($this->getConfiguration()->getMapping() as $destination => $source) {
+      $this->addFieldMapping($destination, $source);
+    }
+
+    // Mapping default language is necessary for correct translation handling.
+    $this->addFieldMapping('language', 'default_language');
+
+    // @todo: make the following an option set via UI.
+    $this->addFieldMapping('promote')->defaultValue(FALSE);
+    $this->addFieldMapping('status')->defaultValue(NODE_NOT_PUBLISHED);
   }
 
   /**
@@ -71,6 +87,54 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
         'not null' => TRUE,
       ),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addFieldMapping($destination_field, $source_field = NULL, $warn_on_override = TRUE) {
+    $mapping = parent::addFieldMapping($destination_field, $source_field, $warn_on_override);
+
+    // @todo: add other processors. Maybe implement hook/plugin system for that.
+    $this->processTitleFieldMapping($destination_field, $source_field);
+    $this->processFileFieldMapping($destination_field, $source_field);
+
+    return $mapping;
+  }
+
+  /**
+   * Handle replacements from Title module when mapping fields.
+   *
+   * @param string $destination_field
+   *    Destination field name.
+   * @param string|null $source_field
+   *    Source field name.
+   */
+  protected function processTitleFieldMapping($destination_field, $source_field = NULL) {
+    // Handle Title replacements.
+    $source_field = !$source_field ? $destination_field : $source_field;
+    $entity_type = $this->getConfiguration()->getEntityType();
+    $bundle = $this->getConfiguration()->getBundle();
+    $legacy_field = $this->entityInfo['entity keys']['label'];
+    if ($destination_field == $legacy_field && title_field_replacement_enabled($entity_type, $bundle, $legacy_field)) {
+      $field_replacement = title_field_replacement_get_label_field($entity_type, $bundle);
+      parent::addFieldMapping($field_replacement['field_name'], $source_field, FALSE);
+    }
+  }
+
+  /**
+   * Process file fields mapping.
+   *
+   * @param string $destination_field
+   *    Destination field name.
+   * @param string|null $source_field
+   *    Source field name.
+   */
+  protected function processFileFieldMapping($destination_field, $source_field = NULL) {
+    $field_info = field_info_field($destination_field);
+    if (in_array($field_info['type'], array('image', 'file'))) {
+      parent::addFieldMapping("$destination_field:file_replace")->defaultValue(FILE_EXISTS_REPLACE);
+    }
   }
 
   /**
@@ -102,27 +166,69 @@ class Consumer extends AbstractMigration implements ConsumerInterface {
   }
 
   /**
+   * Register a new consumer migration given its configuration object.
+   *
+   * @param \stdClass $settings
+   *    Consumer configuration setting.
+   */
+  public static function register(\stdClass $settings) {
+    $arguments = array();
+    $arguments['consumer']['settings'] = $settings;
+    self::validateArguments($arguments);
+    \Migration::deregisterMigration($settings->name);
+    \Migration::registerMigration(__CLASS__, $settings->name, $arguments);
+  }
+
+  /**
+   * Get map object instance depending on entity type setting.
+   *
+   * @return \MigrateMap
+   *    Map object instance.
+   */
+  protected function getMapInstance() {
+    $destination_class = $this->getDestinationClass();
+    return new \MigrateSQLMap($this->getMachineName(), $this->getSourceKey(), $destination_class::getKeySchema());
+  }
+
+  /**
+   * Get destination object instance depending on entity type setting.
+   *
+   * @return \MigrateDestination
+   *    Destination object instance.
+   */
+  protected function getDestinationInstance() {
+    $destination_class = $this->getDestinationClass();
+    $bundle = $this->getConfiguration()->getBundle();
+    return new $destination_class($bundle);
+  }
+
+  /**
+   * Return migration destination class depending on entity type setting.
+   *
+   * @return string
+   *    Destination class name.
+   */
+  protected function getDestinationClass() {
+
+    switch ($this->getConfiguration()->getEntityType()) {
+      case 'node':
+        return '\MigrateDestinationNode';
+
+      case 'taxonomy_term':
+        return '\MigrateDestinationTerm';
+    }
+  }
+
+  /**
    * Make sure required arguments are present and valid.
    *
    * @param array $arguments
    *    Constructor's $arguments array.
    */
-  private function validateArguments(array $arguments) {
+  static private function validateArguments(array $arguments) {
 
-    // Pass class dependencies via the $arguments array.
-    // Since the Consumer class is built via Migration::registerMigration()
-    // this is the only way we can implement some form of dependency injection.
     if (!isset($arguments['consumer'])) {
       throw new \InvalidArgumentException('Argument "consumer" is missing');
-    }
-    if (!isset($arguments['consumer']['class'])) {
-      throw new \InvalidArgumentException('Sub-argument "consumer" class is missing.');
-    }
-    else {
-      $reflection = new \ReflectionClass($arguments['consumer']['class']);
-      if (!$reflection->implementsInterface('Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface')) {
-        throw new \InvalidArgumentException('Sub-argument "consumer" class must implement Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface');
-      }
     }
     if (!isset($arguments['consumer']['settings'])) {
       throw new \InvalidArgumentException('Sub-argument "consumer" settings is missing.');
