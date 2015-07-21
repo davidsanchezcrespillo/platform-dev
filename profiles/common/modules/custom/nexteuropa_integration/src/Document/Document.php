@@ -186,15 +186,7 @@ class Document implements DocumentInterface {
   }
 
   /**
-   * Set field name/value pair on the document object.
-   *
-   * @param string $name
-   *    Field name.
-   * @param string $value
-   *    Field value.
-   *
-   * @return DocumentInterface
-   *    Set field value and return document object.
+   * {@inheritdoc}
    */
   public function setField($name, $value) {
     $language = $this->getCurrentLanguage();

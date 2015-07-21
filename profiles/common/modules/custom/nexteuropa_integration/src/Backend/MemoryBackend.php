@@ -7,7 +7,6 @@
 
 namespace Drupal\nexteuropa_integration\Backend;
 
-use Drupal\nexteuropa_integration\Producer\ProducerInterface;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
@@ -28,35 +27,39 @@ class MemoryBackend extends AbstractBackend {
    * {@inheritdoc}
    */
   public function create(DocumentInterface $document) {
-    // TODO: Implement create() method.
+    $document->setMetadata('_id', $this->getBackendId($document));
+    $this->storage[$document->getId()] = $document->getDocument();
+    return $document;
   }
 
   /**
    * {@inheritdoc}
    */
   public function read($id) {
-    // TODO: Implement read() method.
+    return $this->storage[$id];
   }
 
   /**
    * {@inheritdoc}
    */
   public function update(DocumentInterface $document) {
-    // TODO: Implement update() method.
+    $this->storage[$document->getId()] = $document->getDocument();
+    return $document;
   }
 
   /**
    * {@inheritdoc}
    */
   public function delete($id) {
-    // TODO: Implement delete() method.
+    unset($this->storage[$id]);
+    return TRUE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getBackendId(ProducerInterface $producer) {
-    return $producer->getProducerContentId();
+  public function getBackendId(DocumentInterface $document) {
+    return $document->getMetadata('producer_content_id');
   }
 
 }
