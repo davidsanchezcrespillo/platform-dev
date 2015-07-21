@@ -7,6 +7,7 @@
 
 namespace Drupal\nexteuropa_integration\Tests;
 use Drupal\nexteuropa_integration\Backend\MemoryBackend;
+use Drupal\nexteuropa_integration\Backend\RestBackend;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 
@@ -35,5 +36,29 @@ class IntegrationTest extends AbstractTest {
     $result = $backend->create($document);
 
   }
+
+  /**
+   * Test testProducerConsumerChain().
+   */
+  public function testRemoteTests() {
+
+//    $node = $this->getExportedEntityFixture('node', 1);
+//    $settings = $this->getConfigurationFixture('consumer', 'articles');
+//
+//    $base_url = 'http://userProducer:pass@ilayer.deglise.com/v1';
+//
+//
+//    $backend = new RestBackend($base_url, 'articles');
+//    $producer = $this->getNodeProducerInstance($node);
+//
+//    $consumer = $this->getConsumerInstance($settings);
+//    $document = $producer->build();
+
+    return;
+
+  }
+
+
+
 
 }

@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Document\Formatter.
+ * Contains \Drupal\nexteuropa_integration\Backend\Formatter.
  */
 
-namespace Drupal\nexteuropa_integration\Document\Formatter;
+namespace Drupal\nexteuropa_integration\Backend\Formatter;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Class JsonFormatter.
  *
- * @package Drupal\nexteuropa_integration\Document\Formatter
+ * @package Drupal\nexteuropa_integration\Backend\Formatter
  */
 class JsonFormatter implements FormatterInterface {
 

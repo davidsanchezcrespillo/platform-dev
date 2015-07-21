@@ -8,7 +8,6 @@
 namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Document\Formatter\FormatterInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
@@ -17,6 +16,11 @@ use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
  * @package Drupal\nexteuropa_integration\Producer
  */
 abstract class AbstractProducer implements ProducerInterface {
+
+  /**
+   * Current schema version.
+   */
+  const SCHEMA_VERSION = 'v1';
 
   /**
    * Entity wrapper.
@@ -31,13 +35,6 @@ abstract class AbstractProducer implements ProducerInterface {
    * @var DocumentInterface
    */
   private $document = NULL;
-
-  /**
-   * Formatter instance.
-   *
-   * @var FormatterInterface
-   */
-  private $formatter = NULL;
 
   /**
    * List of field handler definitions keyed by field type.
@@ -55,13 +52,10 @@ abstract class AbstractProducer implements ProducerInterface {
    *    Entity object.
    * @param DocumentInterface $document
    *    Document object.
-   * @param FormatterInterface $formatter
-   *    Formatter object.
    */
-  public function __construct(EntityWrapper $entity_wrapper, DocumentInterface $document, FormatterInterface $formatter) {
+  public function __construct(EntityWrapper $entity_wrapper, DocumentInterface $document) {
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
-    $this->formatter = $formatter;
     $this->fieldHandlers = nexteuropa_integration_producer_info_field_handlers();
   }
 
@@ -77,13 +71,6 @@ abstract class AbstractProducer implements ProducerInterface {
    */
   public function getDocument() {
     return $this->document;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFormatter() {
-    return $this->formatter;
   }
 
   /**
@@ -113,7 +100,8 @@ abstract class AbstractProducer implements ProducerInterface {
     $this->getDocument()->setMetadata('producer_id', $this->getProducerId());
     $this->getDocument()->setMetadata('producer_content_id', $this->getProducerContentId());
     $this->getDocument()->setMetadata('created', $this->getDocumentCreationDate());
-    $this->getDocument()->setMetadata('changed', $this->getDocumentUpdateDate());
+    $this->getDocument()->setMetadata('updated', $this->getDocumentUpdateDate());
+    $this->getDocument()->setMetadata('version', self::SCHEMA_VERSION);
 
     // Set multilingual-related metadata.
     $this->getDocument()->setMetadata('languages', $this->getEntityWrapper()->getAvailableLanguages());
@@ -129,14 +117,6 @@ abstract class AbstractProducer implements ProducerInterface {
     $document = $this->getDocument();
     drupal_alter('nexteuropa_integration_producer_document_build', $document);
     return $document;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function render() {
-    $document = $this->build();
-    return $this->formatter->format($document);
   }
 
 }
