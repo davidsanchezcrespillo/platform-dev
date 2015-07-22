@@ -74,9 +74,20 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
    * {@inheritdoc}
    */
   public function getFieldValues() {
-    // Normalize single-value field to ease value processing.
-    $value = $this->getEntityWrapper()->getField($this->fieldName, $this->language);
-    return ($this->fieldInfo['cardinality'] == 1) ? array($value) : $value;
+    $values = $this->getEntityWrapper()->getField($this->fieldName, $this->language);
+    if ($values) {
+      // Normalize single-value field to ease value processing.
+      $values = ($this->fieldInfo['cardinality'] == 1) ? array($values) : $values;
+    }
+    else {
+      // Set empty values for each of the field's columns.
+      // Since fields will be exploded in self::processField() this ensure we
+      // will always have fields set in the documents, even if empty.
+      foreach (array_keys($this->fieldInfo['columns']) as $column) {
+        $values[$column] = '';
+      }
+    }
+    return $values;
   }
 
   /**
