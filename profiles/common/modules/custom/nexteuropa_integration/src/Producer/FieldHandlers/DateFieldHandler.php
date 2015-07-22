@@ -31,8 +31,8 @@ class DateFieldHandler extends AbstractFieldHandler {
 
       // Make sure we convert timestamp into default date format.
       if ($value['date_type'] == 'datestamp') {
-        $value['value'] = date(DEFAULT_DATE_FORMAT, $value['value']);
-        $value['value2'] = date(DEFAULT_DATE_FORMAT, $value['value2']);
+        $value['value'] = date(self::DEFAULT_DATE_FORMAT, $value['value']);
+        $value['value2'] = date(self::DEFAULT_DATE_FORMAT, $value['value2']);
       }
 
       // Set field values on document.
