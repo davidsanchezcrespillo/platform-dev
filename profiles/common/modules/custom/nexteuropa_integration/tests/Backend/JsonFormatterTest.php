@@ -4,7 +4,7 @@
  * Contains JsonFormatterTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Document\Formatter;
+namespace Drupal\nexteuropa_integration\Tests\Backend;
 
 use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
@@ -12,7 +12,7 @@ use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
 /**
  * Class JsonFormatterTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Document\Formatter
+ * @package Drupal\nexteuropa_integration\Tests\Backend
  */
 class JsonFormatterTest extends \PHPUnit_Framework_TestCase {
 
