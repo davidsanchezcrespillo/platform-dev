@@ -9,8 +9,8 @@ namespace Drupal\nexteuropa_integration\Consumer;
 
 use Drupal\nexteuropa_integration\Backend\BackendInterface;
 use Drupal\nexteuropa_integration\Backend\RestBackend;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface;
+use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
+use Drupal\nexteuropa_integration\Consumer\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
@@ -21,7 +21,7 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
  *
  * @package Drupal\nexteuropa_integration\Consumer
  */
-class Consumer extends AbstractMigration implements ConsumerInterface {
+class Consumer extends AbstractMigration implements ConsumerInterface, ConfigurableInterface {
 
   /**
    * Configuration object.
