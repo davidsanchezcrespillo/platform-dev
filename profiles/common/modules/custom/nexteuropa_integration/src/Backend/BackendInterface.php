@@ -17,6 +17,38 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 interface BackendInterface {
 
   /**
+   * Get response object.
+   *
+   * @return Response\ResponseInterface
+   *    Response object instance.
+   */
+  public function getResponseHandler();
+
+  /**
+   * Set response object.
+   *
+   * @param Response\ResponseInterface $response
+   *    Response object instance.
+   */
+  public function setResponseHandler($response);
+
+  /**
+   * Get formatter object.
+   *
+   * @return Formatter\FormatterInterface
+   *    Formatter object instance.
+   */
+  public function getFormatter();
+
+  /**
+   * Set formatter object.
+   *
+   * @param Formatter\FormatterInterface $formatter
+   *    Formatter object instance.
+   */
+  public function setFormatter(Formatter\FormatterInterface $formatter);
+
+  /**
    * Get full service URI.
    *
    * @return string
@@ -78,53 +110,5 @@ interface BackendInterface {
    *    Backend ID.
    */
   public function getBackendId(DocumentInterface $document);
-
-  /**
-   * Get backend base path.
-   *
-   * @return string
-   *     Backend base path.
-   */
-  public function getBase();
-
-  /**
-   * Set backend base path.
-   *
-   * @param string $base
-   *    Backend base path.
-   */
-  public function setBase($base);
-
-  /**
-   * Get backend endpoint.
-   *
-   * @return string
-   *    Endpoint value.
-   */
-  public function getEndpoint();
-
-  /**
-   * Set backend endpoint.
-   *
-   * @param string $endpoint
-   *    Backend base path.
-   */
-  public function setEndpoint($endpoint);
-
-  /**
-   * Get formatter object.
-   *
-   * @return Formatter\FormatterInterface
-   *    Formatter object instance.
-   */
-  public function getFormatter();
-
-  /**
-   * Set formatter object.
-   *
-   * @param Formatter\FormatterInterface $formatter
-   *    Formatter object instance.
-   */
-  public function setFormatter(Formatter\FormatterInterface $formatter);
 
 }
