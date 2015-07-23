@@ -13,6 +13,8 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 /**
  * Class RestBackend.
  *
+ * Simple REST backend using standard drupal_http_request(), without overrides.
+ *
  * @package Drupal\nexteuropa_integration\Backend
  */
 class RestBackend extends AbstractBackend {
@@ -32,7 +34,11 @@ class RestBackend extends AbstractBackend {
     $options['method'] = 'POST';
     $options['data'] = $this->getFormatter()->format($document);
     $response = $this->httpRequest($this->getUri(), $options);
-    return $response;
+
+    $this->getResponseHandler()->setResponse($response);
+    if (!$this->getResponseHandler()->hasErrors()) {
+      return new Document($this->getResponseHandler()->getData());
+    }
   }
 
   /**
@@ -43,12 +49,9 @@ class RestBackend extends AbstractBackend {
     $options['method'] = 'GET';
     $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
-    if ($response->code == 200) {
-      $data = json_decode($response->data);
-      return new Document($data);
-    }
-    else {
-      return NULL;
+    $this->getResponseHandler()->setResponse($response);
+    if (!$this->getResponseHandler()->hasErrors()) {
+      return new Document($this->getResponseHandler()->getData());
     }
   }
 
@@ -61,11 +64,9 @@ class RestBackend extends AbstractBackend {
     $options['data'] = $this->getFormatter()->format($document);
     $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
-    if ($response->code == 200) {
-      return $this->read($document);
-    }
-    else {
-      return NULL;
+    $this->getResponseHandler()->setResponse($response);
+    if (!$this->getResponseHandler()->hasErrors()) {
+      return new Document($this->getResponseHandler()->getData());
     }
   }
 
@@ -77,12 +78,9 @@ class RestBackend extends AbstractBackend {
     $options['method'] = 'DELETE';
     $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
-    if ($response->code == 200) {
-      // @todo: backend sets deleted_by_producer = true.
+    $this->getResponseHandler()->setResponse($response);
+    if (!$this->getResponseHandler()->hasErrors()) {
       return TRUE;
-    }
-    else {
-      return NULL;
     }
   }
 
@@ -94,17 +92,14 @@ class RestBackend extends AbstractBackend {
     $options['method'] = 'GET';
     $producer = $document->getMetadata('producer');
     $producer_content_id = $document->getMetadata('producer_content_id');
-    if (!$producer || !$producer_content_id) {
-      return NULL;
-    }
-    $response = $this->httpRequest($this->getConfiguration()->getBasePath() . '/uuid/' . $producer . '/' . $producer_content_id, $options);
+    if ($producer && $producer_content_id) {
+      $response = $this->httpRequest($this->getConfiguration()->getBasePath() . '/uuid/' . $producer . '/' . $producer_content_id, $options);
 
-    if ($response->code == 200) {
-      $data = json_decode($response->data);
-      return $data->rows[0]->id;
-    }
-    else {
-      return NULL;
+      $this->getResponseHandler()->setResponse($response);
+      if (!$this->getResponseHandler()->hasErrors()) {
+        $data = $this->getResponseHandler()->getData();
+        return $data->rows[0]->id;
+      }
     }
   }
 
@@ -122,6 +117,9 @@ class RestBackend extends AbstractBackend {
    * @see drupal_http_request()
    */
   protected function httpRequest($url, array $options = array()) {
+    global $conf;
+    // Make sure we use standard drupal_http_request(), without overrides.
+    $conf['drupal_http_request_function'] = FALSE;
     return drupal_http_request($url, $options);
   }
 

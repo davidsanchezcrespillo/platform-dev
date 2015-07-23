@@ -24,9 +24,6 @@ interface ResponseInterface {
 
   /**
    * Set raw response.
-   *
-   * @return mixed
-   *    Raw response object, array or string.
    */
   public function setResponse($response);
 
@@ -37,6 +34,14 @@ interface ResponseInterface {
    *    TRUE if errors, FALSE otherwise.
    */
   public function hasErrors();
+
+  /**
+   * Get error message, if any.
+   *
+   * @return string
+   *    Error message.
+   */
+  public function getErrorMessage();
 
   /**
    * Return current response status code.
@@ -50,12 +55,12 @@ interface ResponseInterface {
   public function getStatusCode();
 
   /**
-   * Get error message, if any.
+   * Get status message.
    *
    * @return string
    *    Error message.
    */
-  public function getErrorMessage();
+  public function getStatusMessage();
 
   /**
    * Get response data.
