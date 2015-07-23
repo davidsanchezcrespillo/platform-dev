@@ -25,7 +25,12 @@ abstract class AbstractResponse implements ResponseInterface {
    * {@inheritdoc}
    */
   public function getResponse() {
-    return $this->response;
+    if (isset($this->response)) {
+      return $this->response;
+    }
+    else {
+      throw new \InvalidArgumentException(t('Response object not set on @class', array('@class' => ___CLASS__)));
+    }
   }
 
   /**

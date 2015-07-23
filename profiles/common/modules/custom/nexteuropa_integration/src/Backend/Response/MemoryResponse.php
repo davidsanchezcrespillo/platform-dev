@@ -2,57 +2,53 @@
 
 /**
  * @file
- * Contains HttpRequestResponse
+ * Contains MemoryResponse
  */
 
 namespace Drupal\nexteuropa_integration\Backend\Response;
 
 /**
- * Class HttpRequestResponse.
+ * Class MemoryResponse.
  *
- * Parse response returned by standard drupal_http_request(), without overrides.
+ * To be used together with MemoryBackend, always returns success.
  *
  * @package Drupal\nexteuropa_integration\Backend\Response
  */
-class HttpRequestResponse extends AbstractResponse {
+class MemoryResponse extends AbstractResponse {
 
   /**
    * {@inheritdoc}
    */
   public function hasErrors() {
-    return $this->getStatusCode() != 200;
+    return FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getErrorMessage() {
-    if ($this->hasErrors()) {
-      return $this->getResponse()->error;
-    }
+    return '';
   }
 
   /**
    * {@inheritdoc}
    */
   public function getStatusCode() {
-    return $this->getResponse()->code;
+    return 200;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getStatusMessage() {
-    return $this->getResponse()->status_message;
+    return 'OK';
   }
 
   /**
    * {@inheritdoc}
    */
   public function getData() {
-    if (!$this->hasErrors()) {
-      return $this->getResponse()->data;
-    }
+    return $this->getResponse();
   }
 
 }
