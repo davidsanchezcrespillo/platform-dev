@@ -6,77 +6,80 @@
  */
 
 namespace Drupal\nexteuropa_integration\Backend;
-use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
+
+use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
+use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
 
 /**
  * Class AbstractBackend.
  *
  * @package Drupal\nexteuropa_integration\Backend
  */
-abstract class AbstractBackend implements BackendInterface {
+abstract class AbstractBackend implements BackendInterface, ConfigurableInterface {
 
   /**
-   * Backend base path.
+   * Configuration object.
    *
-   * @var string
+   * @var Configuration\BackendConfiguration
    */
-  private $base;
+  private $configuration;
 
   /**
-   * Set backend endpoint.
+   * Response handler object.
    *
-   * @var string
+   * @var Response\ResponseInterface
    */
-  private $endpoint;
+  private $response;
 
   /**
    * Formatter object.
    *
    * @var Formatter\FormatterInterface
-   *    Formatter object instance.
    */
   private $formatter;
 
   /**
    * Constructor.
    *
-   * @param string $base
-   *    Backend base path.
-   * @param string $endpoint
-   *    Backend endpoint.
+   * @param Configuration\BackendConfiguration $configuration
+   *    Configuration object.
+   * @param Response\ResponseInterface $response
+   *    Response handler object.
+   * @param Formatter\FormatterInterface $formatter
+   *    Formatter object.
    */
-  public function __construct($base, $endpoint, Formatter\FormatterInterface $formatter) {
-    $this->setBase($base);
-    $this->setEndpoint($endpoint);
+  public function __construct(Configuration\BackendConfiguration $configuration, Response\ResponseInterface $response, Formatter\FormatterInterface $formatter) {
+    $this->setConfiguration($configuration);
+    $this->setResponseHandler($response);
     $this->setFormatter($formatter);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getBase() {
-    return $this->base;
+  public function getConfiguration() {
+    return $this->configuration;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBase($base) {
-    $this->base = $base;
+  public function setConfiguration(AbstractConfiguration $configuration) {
+    $this->configuration = $configuration;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getEndpoint() {
-    return $this->endpoint;
+  public function getResponseHandler() {
+    return $this->response;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setEndpoint($endpoint) {
-    $this->endpoint = $endpoint;
+  public function setResponseHandler($response) {
+    $this->response = $response;
   }
 
   /**
@@ -91,27 +94,6 @@ abstract class AbstractBackend implements BackendInterface {
    */
   public function setFormatter(Formatter\FormatterInterface $formatter) {
     $this->formatter = $formatter;
-  }
-
-  /**
-   * @todo: Include actual configuration loading.
-   */
-  public static function loadSettings($name) {
-    global $conf;
-    if (isset($conf['integration']['backend'][$name])) {
-      return $conf['integration']['backend'][$name];
-    }
-    else {
-      throw new \InvalidArgumentException("No settings for $name");
-    }
-  }
-
-  /**
-   * @todo: Include backend instantiation using hooks, as done on producers.
-   */
-  public static function getInstance($name) {
-    $backend_settings = RestBackend::loadSettings($name);
-    return new RestBackend($backend_settings->base, $backend_settings->endpoint, new JsonFormatter());
   }
 
 }

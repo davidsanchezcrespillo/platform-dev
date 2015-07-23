@@ -21,7 +21,7 @@ class RestBackend extends AbstractBackend {
    * {@inheritdoc}
    */
   public function getUri() {
-    return $this->getBase() . '/' . $this->getEndpoint();
+    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getEndpoint();
   }
 
   /**
@@ -31,7 +31,7 @@ class RestBackend extends AbstractBackend {
     $options = array();
     $options['method'] = 'POST';
     $options['data'] = $this->getFormatter()->format($document);
-    $response = drupal_http_request($this->getUri(), $options);
+    $response = $this->httpRequest($this->getUri(), $options);
     return $response;
   }
 
@@ -41,7 +41,7 @@ class RestBackend extends AbstractBackend {
   public function read(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'GET';
-    $response = drupal_http_request($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
     if ($response->code == 200) {
       $data = json_decode($response->data);
@@ -59,7 +59,7 @@ class RestBackend extends AbstractBackend {
     $options = array();
     $options['method'] = 'PUT';
     $options['data'] = $this->getFormatter()->format($document);
-    $response = drupal_http_request($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
     if ($response->code == 200) {
       return $this->read($document);
@@ -75,7 +75,7 @@ class RestBackend extends AbstractBackend {
   public function delete(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'DELETE';
-    $response = drupal_http_request($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
 
     if ($response->code == 200) {
       // @todo: backend sets deleted_by_producer = true.
@@ -97,7 +97,7 @@ class RestBackend extends AbstractBackend {
     if (!$producer || !$producer_content_id) {
       return NULL;
     }
-    $response = drupal_http_request($this->getBase() . '/uuid/' . $producer . '/' . $producer_content_id, $options);
+    $response = $this->httpRequest($this->getConfiguration()->getBasePath() . '/uuid/' . $producer . '/' . $producer_content_id, $options);
 
     if ($response->code == 200) {
       $data = json_decode($response->data);
@@ -106,6 +106,23 @@ class RestBackend extends AbstractBackend {
     else {
       return NULL;
     }
+  }
+
+  /**
+   * Forwards HTTP requests to drupal_http_request().
+   *
+   * @param $url
+   *    A string containing a fully qualified URI.
+   * @param array $options
+   *    Array of options.
+   *
+   * @return object
+   *    Response object, as returned by drupal_http_request().
+   *
+   * @see drupal_http_request()
+   */
+  protected function httpRequest($url, array $options = array()) {
+    return drupal_http_request($url, $options);
   }
 
 }
