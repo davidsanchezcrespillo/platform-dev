@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains BackendTest.
+ * Contains HttpRestBackendTest.
  */
 
 namespace Drupal\nexteuropa_integration\Tests\Backend;
@@ -15,29 +15,55 @@ use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Tests\AbstractTest;
 
 /**
- * Class BackendTest.
+ * Class HttpRestBackendTest.
  *
  * @package Drupal\nexteuropa_integration\Tests\Backend
  */
-class BackendTest extends AbstractTest {
+class HttpRestBackendTest extends AbstractTest {
 
   /**
-   * Test HTTP Backend.
+   * Test create method.
    */
-  public function testHttpRestBackend() {
+  public function testCreate() {
+    $response = new \stdClass();
+    $response->code = 200;
+    $response->data = (object) array('_id' => '123');
 
-    $backend = $this->getMockedHttpBackendInstance('test_configuration');
-    $backend->shouldAllowMockingProtectedMethods()
-      ->shouldReceive('httpRequest')
-      ->andReturn('my-mocked-response');
+    $backend = $this->getMockedHttpBackendInstance('test_configuration', $response);
 
     /** @var RestBackend $backend */
-    $document = new Document();
-    $document->setMetadata('producer', 'producer-name');
-    $document->setMetadata('producer_content_id', 'node-article-1');
+    $document = $backend->create(new Document());
+    $this->assertEquals('123', $document->getId());
+  }
 
-    $response = $backend->create($document);
-    $this->assertEquals('my-mocked-response', $response);
+  /**
+   * Test update method.
+   */
+  public function testUpdate() {
+    $response = new \stdClass();
+    $response->code = 200;
+    $response->data = (object) array('_id' => '123');
+
+    $backend = $this->getMockedHttpBackendInstance('test_configuration', $response);
+
+    /** @var RestBackend $backend */
+    $document = $backend->update(new Document());
+    $this->assertEquals('123', $document->getId());
+  }
+
+  /**
+   * Test delete method.
+   */
+  public function testDelete() {
+    $response = new \stdClass();
+    $response->code = 200;
+    $response->data = (object) array('_id' => '123');
+
+    $backend = $this->getMockedHttpBackendInstance('test_configuration', $response);
+
+    /** @var RestBackend $backend */
+    $return = $backend->delete(new Document());
+    $this->assertTrue($return);
   }
 
   /**
@@ -45,11 +71,13 @@ class BackendTest extends AbstractTest {
    *
    * @param $configuration_name
    *    Machine name of backend configuration, available as fixture.
+   * @param $returned_response
+   *    Response that it's going to be returned by the backend.
    *
    * @return \Mockery\MockInterface
    *    Mocked object.
    */
-  protected function getMockedHttpBackendInstance($configuration_name) {
+  protected function getMockedHttpBackendInstance($configuration_name, $returned_response) {
 
     /** @var BackendConfiguration $configuration */
     $data = $this->getConfigurationFixture('backend', 'test_configuration');
@@ -58,6 +86,11 @@ class BackendTest extends AbstractTest {
     $formatter = new JsonFormatter();
 
     $arguments = array($configuration, $response, $formatter);
-    return \Mockery::mock('Drupal\nexteuropa_integration\Backend\RestBackend[httpRequest]', $arguments);
+    $backend = \Mockery::mock('Drupal\nexteuropa_integration\Backend\RestBackend[httpRequest]', $arguments);
+    $backend->shouldAllowMockingProtectedMethods()
+      ->shouldReceive('httpRequest')
+      ->andReturn($returned_response);
+    return $backend;
   }
+
 }
