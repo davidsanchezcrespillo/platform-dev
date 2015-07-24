@@ -75,4 +75,16 @@ interface ConfigurationInterface {
    */
   public function isFixed();
 
+  /**
+   * Return value of an entity key value.
+   *
+   * @param $name
+   *    Entity key name.
+   * @return mixed|bool
+   *    Entity key value if set, FALSE otherwise.
+   *
+   * @see entity_get_info()
+   */
+  public function getEntityKey($name);
+
 }
