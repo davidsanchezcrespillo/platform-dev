@@ -15,6 +15,37 @@ namespace Drupal\nexteuropa_integration\Configuration;
 abstract class AbstractConfiguration extends \Entity implements ConfigurationInterface {
 
   /**
+   * Configuration human readable name.
+   *
+   * @var string
+   */
+  protected $name;
+
+  /**
+   * Configuration machine name.
+   *
+   * @var string
+   */
+  protected $machine_name;
+
+  /**
+   * Weather the configuration is enabled or not.
+   *
+   * @var bool
+   */
+  protected $enabled;
+
+  /**
+   * Configuration export status.
+   *
+   * @var string
+   *
+   * @see nexteuropa_integration_configuration_status_options_list()
+   */
+  protected $status;
+
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -68,6 +99,13 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    */
   public function isFixed() {
     return $this->getStatus() == ENTITY_FIXED;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntityKey($name) {
+    return isset($this->entityInfo['entity keys'][$name]) ? $this->entityInfo['entity keys'][$name] : FALSE;
   }
 
 }

@@ -1,13 +1,12 @@
 name = NextEuropa Integration
-description = Integration Layer plugin for NextEuropa.
+description = Integration Layer plugin.
 core = 7.x
 package = NextEuropa
 version = 7.x-1.0-dev
 project = nexteuropa_integration
 
 dependencies[] = entity
-dependencies[] = entity_translation
-dependencies[] = migrate
 dependencies[] = registry_autoload
+dependencies[] = entity_translation
 dependencies[] = title
 registry_autoload[] = PSR-4
