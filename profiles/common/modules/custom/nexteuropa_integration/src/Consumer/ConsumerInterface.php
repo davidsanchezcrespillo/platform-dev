@@ -27,22 +27,6 @@ interface ConsumerInterface {
   public function getSourceKey();
 
   /**
-   * Get configuration object.
-   *
-   * @return ConsumerConfigurationInterface
-   *    Configuration object.
-   */
-  public function getConfiguration();
-
-  /**
-   * Set configuration object.
-   *
-   * @param ConsumerConfigurationInterface $configuration
-   *    Configuration object.
-   */
-  public function setConfiguration(ConsumerConfigurationInterface $configuration);
-
-  /**
    * Get backend object.
    *
    * @return BackendInterface

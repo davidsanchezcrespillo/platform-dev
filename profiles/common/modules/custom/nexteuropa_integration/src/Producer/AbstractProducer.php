@@ -7,6 +7,7 @@
 
 namespace Drupal\nexteuropa_integration\Producer;
 
+use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
@@ -15,7 +16,7 @@ use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
  *
  * @package Drupal\nexteuropa_integration\Producer
  */
-abstract class AbstractProducer implements ProducerInterface {
+abstract class AbstractProducer implements ProducerInterface, ConfigurableInterface {
 
   /**
    * Current schema version.

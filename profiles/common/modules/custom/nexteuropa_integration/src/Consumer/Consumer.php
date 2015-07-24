@@ -8,13 +8,14 @@
 namespace Drupal\nexteuropa_integration\Consumer;
 
 use Drupal\nexteuropa_integration\Backend\BackendInterface;
-use Drupal\nexteuropa_integration\Backend\RestBackend;
+use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
 use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
-use Drupal\nexteuropa_integration\Consumer\ConsumerConfiguration;
+use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
+use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Interface ConsumerInterface.
@@ -24,32 +25,34 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 class Consumer extends AbstractMigration implements ConsumerInterface, ConfigurableInterface {
 
   /**
+   * List supported entity destinations so far. To be expanded soon.
+   * @var array
+   */
+  protected $supportedDestinations = array(
+    'node' => '\MigrateDestinationNode',
+    'taxonomy_term' => '\MigrateDestinationTerm',
+  );
+
+  /**
    * Configuration object.
    *
    * @var ConsumerConfiguration
    */
-  private $configuration;
-
-  /**
-   * Document object.
-   *
-   * @var DocumentInterface
-   */
-  private $document;
+  protected $configuration;
 
   /**
    * Backend object.
    *
    * @var BackendInterface
    */
-  private $backend;
+  protected $backend;
 
   /**
    * Current entity type info array.
    *
    * @var array
    */
-  private $entityInfo = array();
+  protected $entityInfo = array();
 
   /**
    * {@inheritdoc}
@@ -60,9 +63,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     parent::__construct($arguments);
 
     // @todo: make sure the following classes are passed via $argument.
-    $configuration = ConsumerConfiguration::getInstance($arguments['consumer']['settings']);
+    $configuration = ConfigurationFactory::load('integration_consumer', $arguments['consumer']['configuration']);
     $this->setConfiguration($configuration);
-    $this->entityInfo = entity_get_info($configuration->getEntityType());
+    $this->entityInfo = $configuration->entityInfo();
+
     $this->setMap($this->getMapInstance());
     $this->setDestination($this->getDestinationInstance());
 
@@ -119,9 +123,11 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   protected function processTitleFieldMapping($destination_field, $source_field = NULL) {
     // Handle Title replacements.
     $source_field = !$source_field ? $destination_field : $source_field;
-    $entity_type = $this->getConfiguration()->getEntityType();
-    $bundle = $this->getConfiguration()->getBundle();
-    $legacy_field = $this->entityInfo['entity keys']['label'];
+
+    $entity_type = $this->getConfiguration()->entityType();
+    $bundle = $this->getConfiguration()->bundle();
+    $legacy_field = $this->getConfiguration()->getEntityKey('label');
+
     if ($destination_field == $legacy_field && title_field_replacement_enabled($entity_type, $bundle, $legacy_field)) {
       $field_replacement = title_field_replacement_get_label_field($entity_type, $bundle);
       parent::addFieldMapping($field_replacement['field_name'], $source_field, FALSE);
@@ -168,7 +174,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   /**
    * {@inheritdoc}
    */
-  public function setConfiguration(ConsumerConfigurationInterface $configuration) {
+  public function setConfiguration(AbstractConfiguration $configuration) {
     $this->configuration = $configuration;
   }
 
@@ -206,6 +212,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    *    Map object instance.
    */
   protected function getMapInstance() {
+    /** @var \MigrateDestinationNode $destination_class */
     $destination_class = $this->getDestinationClass();
     return new \MigrateSQLMap($this->getMachineName(), $this->getSourceKey(), $destination_class::getKeySchema());
   }
@@ -217,9 +224,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   public function setBackendSource() {
     // @todo: properly implement backend configuration loading.
     $name = $this->getConfiguration()->getBackend();
-    $backend = RestBackend::getInstance($name);
+    /** @var BackendConfiguration $backend */
+    $backend = ConfigurationFactory::load('integration_backend', $name);
 
-    $base_path = $backend->getBase();
+    $base_path = $backend->getBasePath();
     $list_path = "$base_path/changes/" .  $backend->getEndpoint();
     $item_path = $backend->getUri() . '/:id';
     $this->setSource(new \MigrateSourceList(
@@ -237,7 +245,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    */
   protected function getDestinationInstance() {
     $destination_class = $this->getDestinationClass();
-    $bundle = $this->getConfiguration()->getBundle();
+    $bundle = $this->getConfiguration()->bundle();
     return new $destination_class($bundle);
   }
 
@@ -248,15 +256,11 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    *    Destination class name.
    */
   protected function getDestinationClass() {
-    $entity_type = $this->getConfiguration()->getEntityType();
-    switch ($entity_type) {
-      case 'node':
-        return '\MigrateDestinationNode';
-      case 'taxonomy_term':
-        return '\MigrateDestinationTerm';
-      default:
-        throw new \InvalidArgumentException("Entity destination $entity_type not supported.");
+    $entity_type = $this->getConfiguration()->entityType();
+    if (isset($this->supportedDestinations[$entity_type])) {
+      return $this->supportedDestinations[$entity_type];
     }
+    throw new \InvalidArgumentException("Entity destination $entity_type not supported.");
   }
 
   /**
@@ -268,13 +272,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   static private function validateArguments(array $arguments) {
 
     if (!isset($arguments['consumer'])) {
-      throw new \InvalidArgumentException('Argument "consumer" is missing');
+      throw new \InvalidArgumentException(t('Consumer argument missing: "consumer".'));
     }
-    if (!isset($arguments['consumer']['settings'])) {
-      throw new \InvalidArgumentException('Sub-argument "consumer" settings is missing.');
-    }
-    elseif (!ConsumerConfiguration::validate($arguments['consumer']['settings'])) {
-      throw new \InvalidArgumentException('Sub-argument "consumer" settings does not validate.');
+    if (!isset($arguments['consumer']['configuration'])) {
+      throw new \InvalidArgumentException('Consumer sub-argument missing: "configuration".');
     }
   }
 
