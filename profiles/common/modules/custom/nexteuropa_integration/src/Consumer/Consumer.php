@@ -7,8 +7,8 @@
 
 namespace Drupal\nexteuropa_integration\Consumer;
 
+use Drupal\nexteuropa_integration\Backend\BackendFactory;
 use Drupal\nexteuropa_integration\Backend\BackendInterface;
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
 use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
 use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
 use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
@@ -58,11 +58,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    * {@inheritdoc}
    */
   public function __construct(array $arguments) {
-    // Will throw exceptions if arguments are not valid.
+
     self::validateArguments($arguments);
     parent::__construct($arguments);
 
-    // @todo: make sure the following classes are passed via $argument.
     $configuration = ConfigurationFactory::load('integration_consumer', $arguments['consumer']['configuration']);
     $this->setConfiguration($configuration);
     $this->entityInfo = $configuration->entityInfo();
@@ -82,7 +81,12 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     $this->addFieldMapping('promote')->defaultValue(FALSE);
     $this->addFieldMapping('status')->defaultValue(NODE_NOT_PUBLISHED);
 
-    $this->setBackendSource();
+    $backend = BackendFactory::getInstance($this->getConfiguration()->getBackend());
+    $this->setSource(new \MigrateSourceList(
+      new MigrateListJSON($backend->getListUri()),
+      new MigrateItemJSON($backend->getResourceUri(), array()),
+      array()
+    ));
   }
 
   /**
@@ -96,6 +100,33 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
         'not null' => TRUE,
       ),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(AbstractConfiguration $configuration) {
+    $this->configuration = $configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function register($name) {
+    $configuration = ConfigurationFactory::load('integration_consumer', $name);
+
+    $arguments = array();
+    $arguments['consumer']['configuration'] = $configuration;
+
+    self::validateArguments($arguments);
+    \Migration::registerMigration(__CLASS__, $configuration->getName(), $arguments);
   }
 
   /**
@@ -165,47 +196,6 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function getConfiguration() {
-    return $this->configuration;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setConfiguration(AbstractConfiguration $configuration) {
-    $this->configuration = $configuration;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBackend() {
-    return $this->backend;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setBackend(BackendInterface $backend) {
-    $this->backend = $backend;
-  }
-
-  /**
-   * Register a new consumer migration given its configuration object.
-   *
-   * @param \stdClass $settings
-   *    Consumer configuration setting.
-   */
-  public static function register(\stdClass $settings) {
-    $arguments = array();
-    $arguments['consumer']['settings'] = $settings;
-    self::validateArguments($arguments);
-    \Migration::registerMigration(__CLASS__, $settings->name, $arguments);
-  }
-
-  /**
    * Get map object instance depending on entity type setting.
    *
    * @return \MigrateMap
@@ -215,26 +205,6 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     /** @var \MigrateDestinationNode $destination_class */
     $destination_class = $this->getDestinationClass();
     return new \MigrateSQLMap($this->getMachineName(), $this->getSourceKey(), $destination_class::getKeySchema());
-  }
-
-
-  /**
-   * @param $name
-   */
-  public function setBackendSource() {
-    // @todo: properly implement backend configuration loading.
-    $name = $this->getConfiguration()->getBackend();
-    /** @var BackendConfiguration $backend */
-    $backend = ConfigurationFactory::load('integration_backend', $name);
-
-    $base_path = $backend->getBasePath();
-    $list_path = "$base_path/changes/" .  $backend->getEndpoint();
-    $item_path = $backend->getUri() . '/:id';
-    $this->setSource(new \MigrateSourceList(
-      new MigrateListJSON($list_path),
-      new MigrateItemJSON($item_path, array()),
-      array()
-    ));
   }
 
   /**
