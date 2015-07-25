@@ -6,12 +6,10 @@
  */
 
 $export = new \stdClass();
-$export->label = 'Label';
-$export->name = 'test';
-$export->status = TRUE;
-$export->backend = 'local';
-$export->entity_type = 'node';
-$export->bundle = 'integration_test';
+$export->name = 'Test configuration';
+$export->machine_name = 'test_configuration';
+$export->description = 'Test configuration description.';
+$export->backend = 'test_configuration';
 $export->mapping = array(
   'title' => 'source_title',
   'body' => 'source_body',
@@ -24,3 +22,6 @@ $export->options = array(
   'option1' => 'value1',
   'option2' => 'value2',
 );
+$export->enabled = 1;
+$export->status = 1;
+$export->module = 'nexteuropa_integration_test';
