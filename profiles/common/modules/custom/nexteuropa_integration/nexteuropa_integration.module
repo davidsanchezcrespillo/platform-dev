@@ -5,109 +5,7 @@
  * Module file.
  */
 
-/**
- * Implements hook_entity_info().
- */
-function nexteuropa_integration_entity_info() {
-  $info['integration_backend'] = array(
-    'label' => t('Backend'),
-    'controller class' => 'EntityAPIControllerExportable',
-    'metadata controller class' => FALSE,
-    'entity class' => 'Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration',
-    'base table' => 'nexteuropa_integration_backend',
-    'uri callback' => 'nexteuropa_integration_backend_url',
-    'access callback' => 'nexteuropa_integration_backend_access',
-    'module' => 'nexteuropa_integration',
-    'exportable' => TRUE,
-    'bundles' => array(),
-    'entity keys' => array(
-      'id' => 'id',
-      'label' => 'name',
-      'name' => 'machine_name',
-    ),
-  );
-  return $info;
-}
-
-/**
- * Implements hook_entity_property_info().
- */
-function nexteuropa_integration_entity_property_info() {
-  $info['integration_backend']['properties'] = array(
-    'id' => array(
-      'label' => t('ID'),
-      'type' => 'integer',
-      'description' => t('The primary identifier for a backend.'),
-      'schema field' => 'id',
-      'validation callback' => 'entity_metadata_validate_integer_positive',
-    ),
-    'name' => array(
-      'label' => t('Name'),
-      'type' => 'text',
-      'description' => t('The displayed name for a backend.'),
-      'schema field' => 'name',
-      'required' => TRUE,
-    ),
-    'machine_name' => array(
-      'label' => t('Machine name'),
-      'type' => 'token',
-      'description' => t('The machine name for a backend.'),
-      'schema field' => 'machine_name',
-      'required' => TRUE,
-    ),
-    'description' => array(
-      'label' => t('Description'),
-      'type' => 'text',
-      'description' => t('The displayed description for a backend.'),
-      'schema field' => 'description',
-      'sanitize' => 'filter_xss',
-    ),
-    'type' => array(
-      'label' => t('Backend type'),
-      'type' => 'text',
-      'description' => t('The ID of the backend plugin to use.'),
-      'schema field' => 'type',
-      'required' => TRUE,
-    ),
-    'enabled' => array(
-      'label' => t('Enabled'),
-      'type' => 'boolean',
-      'description' => t('A flag indicating whether the backend is enabled.'),
-      'schema field' => 'enabled',
-    ),
-    'status' => array(
-      'label' => t('Status'),
-      'type' => 'integer',
-      'description' => t('The exportable status of the backend.'),
-      'schema field' => 'status',
-      'options list' => 'nexteuropa_integration_configuration_status_options_list',
-    ),
-    'module' => array(
-      'label' => t('Module'),
-      'type' => 'text',
-      'description' => t('The name of the module from which this backend originates.'),
-      'schema field' => 'module',
-    ),
-  );
-  return $info;
-}
-
-/**
- * Returns an options list for the "status" property.
- *
- * Used as an options list callback in nexteuropa_integration_entity_property_info().
- *
- * @return array
- *   An array of options, as defined by hook_options_list().
- */
-function nexteuropa_integration_configuration_status_options_list() {
-  return array(
-    ENTITY_CUSTOM => t('Custom'),
-    ENTITY_IN_CODE => t('Default'),
-    ENTITY_OVERRIDDEN => t('Overridden'),
-    ENTITY_FIXED => t('Fixed'),
-  );
-}
+include_once 'includes/nexteuropa_integration.entity.inc';
 
 /**
  * Implements hook_nexteuropa_integration_producer_info().
@@ -115,7 +13,7 @@ function nexteuropa_integration_configuration_status_options_list() {
 function nexteuropa_integration_nexteuropa_integration_producer_info() {
   $prefix = '\Drupal\nexteuropa_integration\Producer';
   return array(
-    'node'          => array('class' => $prefix . '\NodeProducer'),
+    'node' => array('class' => $prefix . '\NodeProducer'),
     'taxonomy_term' => array('class' => $prefix . '\TaxonomyTermProducer'),
   );
 }
@@ -126,66 +24,14 @@ function nexteuropa_integration_nexteuropa_integration_producer_info() {
 function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
   $prefix = '\Drupal\nexteuropa_integration\Producer\FieldHandlers';
   return array(
-    'default'           => array('class' => $prefix . '\DefaultFieldHandler'),
-    'text'              => array('class' => $prefix . '\TextFieldHandler'),
-    'text_long'         => array('class' => $prefix . '\TextFieldHandler'),
+    'default' => array('class' => $prefix . '\DefaultFieldHandler'),
+    'text' => array('class' => $prefix . '\TextFieldHandler'),
+    'text_long' => array('class' => $prefix . '\TextFieldHandler'),
     'text_with_summary' => array('class' => $prefix . '\TextWithSummaryFieldHandler'),
-    'date'              => array('class' => $prefix . '\DateFieldHandler'),
-    'datetime'          => array('class' => $prefix . '\DateFieldHandler'),
-    'datestamp'         => array('class' => $prefix . '\DateFieldHandler'),
-    'file'              => array('class' => $prefix . '\FileFieldHandler'),
-    'image'             => array('class' => $prefix . '\FileFieldHandler'),
+    'date' => array('class' => $prefix . '\DateFieldHandler'),
+    'datetime' => array('class' => $prefix . '\DateFieldHandler'),
+    'datestamp' => array('class' => $prefix . '\DateFieldHandler'),
+    'file' => array('class' => $prefix . '\FileFieldHandler'),
+    'image' => array('class' => $prefix . '\FileFieldHandler'),
   );
-}
-
-/**
- * Implements hook_nexteuropa_integration_producer_field_handler_info().
- */
-function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
-  $field_handlers = array();
-
-  $field_types = array(
-    'datetime',
-    'date',
-    'datestamp',
-    'list_float',
-    'list_text',
-    'list_boolean',
-    'number_integer',
-    'number_decimal',
-    'number_float',
-    'text',
-    'text_long',
-    'text_with_summary',
-  );
-  foreach ($field_types as $type) {
-    $field_handlers[$type] = array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
-      'alter' => FALSE,
-    );
-  }
-}
-
-/**
- * Collect and return list of producer field handler definitions.
- *
- * @return array
- *    List of producer field handler definitions.
- */
-function nexteuropa_integration_producer_info_field_handlers() {
-  $field_handlers = module_invoke_all('nexteuropa_integration_producer_field_handler_info');
-  drupal_alter('nexteuropa_integration_producer_field_handler_info', $field_handlers);
-  return $field_handlers;
-}
-
-/**
- * Collect and return list of producer definitions.
- *
- * @return array
- *    List of producer definitions.
- */
-function nexteuropa_integration_producer_info_producers() {
-  $producers = module_invoke_all('nexteuropa_integration_producer_info');
-  drupal_alter('nexteuropa_integration_producer_info', $producers);
-  return $producers;
 }
