@@ -48,7 +48,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
   /**
    * List of field handler definitions keyed by field type.
    *
-   * @see nexteuropa_integration_producer_info_field_handlers()
+   * @see nexteuropa_integration_producer_get_field_handlers()
    *
    * @var array[FieldHandlerInterface]
    */
@@ -69,7 +69,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
     $this->settings = $settings;
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
-    $this->fieldHandlers = nexteuropa_integration_producer_info_field_handlers();
+    $this->fieldHandlers = nexteuropa_integration_producer_get_field_handlers();
   }
 
   /**
