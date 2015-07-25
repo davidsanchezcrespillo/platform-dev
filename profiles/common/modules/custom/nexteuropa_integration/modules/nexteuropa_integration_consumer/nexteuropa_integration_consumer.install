@@ -36,10 +36,17 @@ function nexteuropa_integration_consumer_schema() {
         'type' => 'text',
         'not null' => FALSE,
       ),
-      'type' => array(
-        'description' => 'The id of the consumer plugin to use.',
+      'backend' => array(
+        'description' => 'The machine name of the backend plugin to use.',
         'type' => 'varchar',
         'length' => 50,
+        'not null' => TRUE,
+      ),
+      'mapping' => array(
+        'description' => 'The field mapping used byt the consumer object.',
+        'type' => 'text',
+        'size' => 'medium',
+        'serialize' => TRUE,
         'not null' => TRUE,
       ),
       'options' => array(

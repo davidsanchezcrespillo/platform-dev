@@ -19,21 +19,21 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    *
    * @var string
    */
-  protected $name;
+  public $name;
 
   /**
    * Configuration machine name.
    *
    * @var string
    */
-  protected $machine_name;
+  public $machine_name;
 
   /**
    * Weather the configuration is enabled or not.
    *
    * @var bool
    */
-  protected $enabled;
+  public $enabled;
 
   /**
    * Configuration export status.
@@ -42,7 +42,7 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    *
    * @see nexteuropa_integration_configuration_status_options_list()
    */
-  protected $status;
+  public $status;
 
 
   /**
