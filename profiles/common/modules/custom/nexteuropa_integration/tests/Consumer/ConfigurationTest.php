@@ -48,8 +48,8 @@ class ConfigurationTest extends AbstractTest {
     $machine_name = $configuration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_consumer', $machine_name));
 
-    $this->assertEquals($backend_configuration->getBasePath(), $configuration->getBackend()->getBasePath());
-    $this->assertEquals($backend_configuration->getEndpoint(), $configuration->getBackend()->getEndpoint());
+    $this->assertEquals($backend_configuration->getBasePath(), $configuration->getBackendConfiguration()->getBasePath());
+    $this->assertEquals($backend_configuration->getEndpoint(), $configuration->getBackendConfiguration()->getEndpoint());
 
     $configuration->delete();
     $backend_configuration->delete();
@@ -83,7 +83,6 @@ class ConfigurationTest extends AbstractTest {
    * @return array
    */
   public function configurationProvider() {
-
     return array(
       array($this->getConfigurationFixture('consumer', 'test_configuration')),
     );
