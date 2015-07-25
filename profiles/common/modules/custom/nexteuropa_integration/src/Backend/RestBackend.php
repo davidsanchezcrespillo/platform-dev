@@ -22,8 +22,15 @@ class RestBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function getUri() {
+  public function getResourceUri() {
     return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getEndpoint();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getListUri() {
+    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getListEndpoint();
   }
 
   /**
@@ -33,7 +40,7 @@ class RestBackend extends AbstractBackend {
     $options = array();
     $options['method'] = 'POST';
     $options['data'] = $this->getFormatter()->format($document);
-    $response = $this->httpRequest($this->getUri(), $options);
+    $response = $this->httpRequest($this->getResourceUri(), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -47,7 +54,7 @@ class RestBackend extends AbstractBackend {
   public function read(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'GET';
-    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -62,7 +69,7 @@ class RestBackend extends AbstractBackend {
     $options = array();
     $options['method'] = 'PUT';
     $options['data'] = $this->getFormatter()->format($document);
-    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -76,7 +83,7 @@ class RestBackend extends AbstractBackend {
   public function delete(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'DELETE';
-    $response = $this->httpRequest($this->getUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {

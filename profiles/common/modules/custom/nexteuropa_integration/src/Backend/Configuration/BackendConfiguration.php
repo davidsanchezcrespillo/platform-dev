@@ -55,13 +55,33 @@ class BackendConfiguration extends AbstractConfiguration {
   }
 
   /**
-   * Set backend endpoint.
+   * Set resource endpoint.
    *
    * @param string $endpoint
-   *    Backend base path.
+   *    Backend resource endpoint.
    */
   public function setEndpoint($endpoint) {
     $this->options['endpoint'] = $endpoint;
+  }
+
+  /**
+   * Get backend resource list endpoint.
+   *
+   * @return string
+   *    List endpoint.
+   */
+  public function getListEndpoint() {
+    return $this->options['list'];
+  }
+
+  /**
+   * Set backend resource list endpoint.
+   *
+   * @param string $list
+   *    List endpoint.
+   */
+  public function setListEndpoint($list) {
+    $this->options['list'] = $list;
   }
 
 }
