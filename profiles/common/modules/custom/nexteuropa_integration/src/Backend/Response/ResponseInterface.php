@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains ResponseInterface
+ * Contains ResponseInterface.
  */
 
 namespace Drupal\nexteuropa_integration\Backend\Response;

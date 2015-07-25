@@ -34,12 +34,17 @@ interface ConfigurationInterface {
    * Return a flag indicating whether the backend is enabled.
    *
    * @return int
+   *    Flag indicating whether the backend is enabled.
    */
   public function getEnabled();
 
   /**
+   * Return the exportable status of the backend.
+   *
    * @return string
-   *    List
+   *    Exportable status of the backend.
+   *
+   * @see nexteuropa_integration_configuration_status_options_list()
    */
   public function getStatus();
 
@@ -78,8 +83,9 @@ interface ConfigurationInterface {
   /**
    * Return value of an entity key value.
    *
-   * @param $name
+   * @param string $name
    *    Entity key name.
+   *
    * @return mixed|bool
    *    Entity key value if set, FALSE otherwise.
    *

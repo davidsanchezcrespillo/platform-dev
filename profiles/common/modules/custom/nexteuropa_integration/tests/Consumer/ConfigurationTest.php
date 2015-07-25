@@ -81,6 +81,7 @@ class ConfigurationTest extends AbstractTest {
    * Data provider.
    *
    * @return array
+   *    Configuration objects.
    */
   public function configurationProvider() {
     return array(
@@ -91,7 +92,7 @@ class ConfigurationTest extends AbstractTest {
   /**
    * Make sure backend entity exists before creating related consumer entity.
    *
-   * @param $data
+   * @param object $data
    *    Consumer configuration data.
    *
    * @return BackendConfiguration
@@ -103,4 +104,5 @@ class ConfigurationTest extends AbstractTest {
     $backend->save();
     return $backend;
   }
+
 }
