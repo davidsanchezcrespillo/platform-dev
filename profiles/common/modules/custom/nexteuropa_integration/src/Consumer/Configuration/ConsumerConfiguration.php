@@ -75,7 +75,7 @@ class ConsumerConfiguration extends AbstractConfiguration {
   /**
    * Return destination field given source field.
    *
-   * @param $destination_field
+   * @param string $destination_field
    *    Destination field.
    *
    * @return null
@@ -88,7 +88,7 @@ class ConsumerConfiguration extends AbstractConfiguration {
   /**
    * Return source field given destination field.
    *
-   * @param $source_field
+   * @param string $source_field
    *    Source field.
    *
    * @return null

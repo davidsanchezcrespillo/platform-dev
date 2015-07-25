@@ -69,9 +69,9 @@ class HttpRestBackendTest extends AbstractTest {
   /**
    * Get mocked backend instance.
    *
-   * @param $configuration_name
+   * @param string $configuration_name
    *    Machine name of backend configuration, available as fixture.
-   * @param $returned_response
+   * @param string $returned_response
    *    Response that it's going to be returned by the backend.
    *
    * @return \Mockery\MockInterface

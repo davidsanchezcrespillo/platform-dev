@@ -58,27 +58,9 @@ class IntegrationTest extends AbstractTest {
   }
 
   /**
-   * @todo: Fix this after demo.
-   */
-  public function testLoadSettings() {
-    if (!module_exists('nexteuropa_demo')) {
-      return;
-    }
-
-    $producer_settings = NodeProducer::loadSettings('userProducer');
-    $backend_settings = RestBackend::loadSettings('demo_backend');
-    $consumer_settings = ConsumerConfiguration::loadSettings('demo_consumer');
-
-    $this->assertNotNull($producer_settings);
-    $this->assertNotNull($backend_settings);
-    $this->assertNotNull($consumer_settings);
-  }
-
-
-  /**
    * Test Rest Backend.
    */
-  public function __testRestBackend() {
+  public function testRestBackend() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
@@ -117,7 +99,7 @@ class IntegrationTest extends AbstractTest {
   /**
    * Test Consumer.
    */
-  public function __testConsumer() {
+  public function testConsumer() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }

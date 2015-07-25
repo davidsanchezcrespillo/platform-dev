@@ -113,7 +113,7 @@ class RestBackend extends AbstractBackend {
   /**
    * Forwards HTTP requests to drupal_http_request().
    *
-   * @param $url
+   * @param string $url
    *    A string containing a fully qualified URI.
    * @param array $options
    *    Array of options.
