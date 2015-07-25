@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains AbstractResponse
+ * Contains AbstractResponse.
  */
 
 namespace Drupal\nexteuropa_integration\Backend\Response;

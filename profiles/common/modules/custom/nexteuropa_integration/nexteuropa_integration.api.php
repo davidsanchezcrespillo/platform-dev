@@ -4,4 +4,3 @@
  * @file
  * Contains API documentation.
  */
-

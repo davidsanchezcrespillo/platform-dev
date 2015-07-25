@@ -22,13 +22,6 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
   public $name;
 
   /**
-   * Configuration machine name.
-   *
-   * @var string
-   */
-  public $machine_name;
-
-  /**
    * Weather the configuration is enabled or not.
    *
    * @var bool

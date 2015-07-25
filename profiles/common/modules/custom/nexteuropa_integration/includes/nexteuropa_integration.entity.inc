@@ -95,7 +95,7 @@ function nexteuropa_integration_entity_property_info() {
 /**
  * Returns an options list for the "status" property.
  *
- * Used as an options list callback in nexteuropa_integration_entity_property_info().
+ * Options list callback used in hook_entity_property_info().
  *
  * @return array
  *   An array of options, as defined by hook_options_list().

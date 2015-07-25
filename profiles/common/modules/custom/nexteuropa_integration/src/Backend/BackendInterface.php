@@ -30,7 +30,7 @@ interface BackendInterface {
    * @param Response\ResponseInterface $response
    *    Response object instance.
    */
-  public function setResponseHandler($response);
+  public function setResponseHandler(Response\ResponseInterface $response);
 
   /**
    * Get formatter object.

@@ -35,4 +35,3 @@ function nexteuropa_integration_nexteuropa_integration_producer_field_handler_in
     'image' => array('class' => $prefix . '\FileFieldHandler'),
   );
 }
-

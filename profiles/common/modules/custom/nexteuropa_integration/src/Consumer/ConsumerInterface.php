@@ -33,4 +33,5 @@ interface ConsumerInterface {
    *    Consumer configuration machine name.
    */
   public static function register($configuration);
+
 }
