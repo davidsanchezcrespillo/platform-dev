@@ -19,7 +19,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
    */
   public function testInfoProducers() {
 
-    $producers = nexteuropa_integration_producer_info_producers();
+    $producers = nexteuropa_integration_producer_get_producers();
     $expected = array(
       'node' => 'NodeProducer',
       'taxonomy_term' => 'TaxonomyTermProducer',
