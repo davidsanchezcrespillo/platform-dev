@@ -27,19 +27,10 @@ interface ConsumerInterface {
   public function getSourceKey();
 
   /**
-   * Get backend object.
+   * Register a new consumer migration given its configuration.
    *
-   * @return BackendInterface
-   *    Backend object.
+   * @param string $configuration
+   *    Consumer configuration machine name.
    */
-  public function getBackend();
-
-  /**
-   * Set configuration object.
-   *
-   * @param BackendInterface $backend
-   *    Backend object.
-   */
-  public function setBackend(BackendInterface $backend);
-
+  public static function register($configuration);
 }
