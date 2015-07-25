@@ -17,9 +17,8 @@ function nexteuropa_integration_consumer_entity_info() {
     'base table' => 'nexteuropa_integration_consumer',
     'uri callback' => 'nexteuropa_integration_consumer_url',
     'access callback' => 'nexteuropa_integration_consumer_access',
-    'module' => 'nexteuropa_integration',
+    'module' => 'nexteuropa_integration_consumer',
     'exportable' => TRUE,
-    'bundles' => array(),
     'entity keys' => array(
       'id' => 'id',
       'label' => 'name',
@@ -62,11 +61,11 @@ function nexteuropa_integration_consumer_entity_property_info() {
       'schema field' => 'description',
       'sanitize' => 'filter_xss',
     ),
-    'type' => array(
-      'label' => t('Backend type'),
-      'type' => 'text',
+    'backend' => array(
+      'label' => t('Backend'),
+      'type' => 'integration_backend',
       'description' => t('The ID of the consumer plugin to use.'),
-      'schema field' => 'type',
+      'schema field' => 'backend',
       'required' => TRUE,
     ),
     'enabled' => array(
