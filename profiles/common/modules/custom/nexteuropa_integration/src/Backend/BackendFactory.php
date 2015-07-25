@@ -17,13 +17,17 @@ use Drupal\nexteuropa_integration\Backend\AbstractBackend;
 class BackendFactory {
 
   /**
-   * @param $configuration_name
+   * Instantiate and return a backend object given its configuration.
+   *
+   * @param string $configuration_name
+   *    Backend configuration machine name.
    *
    * @return AbstractBackend
+   *    Backend instance.
    */
   static public function getInstance($configuration_name) {
     // @todo invoke hook and get which response and formatters are associated.
-    return null;
+    return NULL;
   }
 
 }

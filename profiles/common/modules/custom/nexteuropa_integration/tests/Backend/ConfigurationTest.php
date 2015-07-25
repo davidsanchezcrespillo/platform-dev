@@ -47,6 +47,9 @@ class ConfigurationTest extends AbstractTest {
   /**
    * Test export entity.
    *
+   * @param object $data
+   *    Configuration data.
+   *
    * @dataProvider configurationProvider
    */
   public function testExportImport($data) {
@@ -69,11 +72,12 @@ class ConfigurationTest extends AbstractTest {
    * Data provider.
    *
    * @return array
+   *    Configuration objects.
    */
   public function configurationProvider() {
-
     return array(
       array($this->getConfigurationFixture('backend', 'test_configuration')),
     );
   }
+
 }

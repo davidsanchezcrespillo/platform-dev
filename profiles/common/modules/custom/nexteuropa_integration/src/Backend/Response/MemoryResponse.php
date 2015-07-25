@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains MemoryResponse
+ * Contains MemoryResponse.
  */
 
 namespace Drupal\nexteuropa_integration\Backend\Response;

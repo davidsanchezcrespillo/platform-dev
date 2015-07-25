@@ -26,6 +26,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
 
   /**
    * List supported entity destinations so far. To be expanded soon.
+   *
    * @var array
    */
   protected $supportedDestinations = array(

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains HttpRequestResponse
+ * Contains HttpRequestResponse.
  */
 
 namespace Drupal\nexteuropa_integration\Backend\Response;
