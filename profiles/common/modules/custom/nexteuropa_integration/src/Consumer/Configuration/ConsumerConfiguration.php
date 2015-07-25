@@ -43,11 +43,22 @@ class ConsumerConfiguration extends AbstractConfiguration {
   public $options = array();
 
   /**
+   * Return backend configuration machine name.
+   *
+   * @return string
+   *    Backend configuration machine name.
+   */
+  public function getBackend() {
+    return $this->backend;
+  }
+
+  /**
    * Return wrapped backend configuration entity.
    *
    * @return BackendConfiguration
+   *    Backend configuration entity.
    */
-  public function getBackend() {
+  public function getBackendConfiguration() {
     return ConfigurationFactory::load('integration_backend', $this->backend);
   }
 
