@@ -26,11 +26,14 @@ class ConfigurationFactory {
    * @param string $machine_name
    *    Configuration entity machine name.
    *
-   * @return AbstractConfiguration
+   * @return AbstractConfiguration|false
    *    Loaded configuration entity.
    */
   public static function load($type, $machine_name) {
-    return entity_load_single($type, $machine_name);
+    if ($configuration = entity_load_single($type, $machine_name)) {
+      return $configuration;
+    }
+    return FALSE;
   }
 
 }
