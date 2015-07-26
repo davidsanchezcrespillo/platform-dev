@@ -69,6 +69,13 @@ function nexteuropa_integration_producer_entity_property_info() {
       'schema field' => 'type',
       'required' => TRUE,
     ),
+    'producer_id' => array(
+      'label' => t('Producer ID'),
+      'type' => 'text',
+      'description' => t('The ID of the producer.'),
+      'schema field' => 'producer_id',
+      'required' => TRUE,
+    ),
     'enabled' => array(
       'label' => t('Enabled'),
       'type' => 'boolean',
