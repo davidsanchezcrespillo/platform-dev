@@ -45,7 +45,7 @@ function nexteuropa_integration_nexteuropa_integration_producer_response_handler
 }
 
 /**
- * Implements hook_nexteuropa_integration_producer_info().
+ * Implements hook_nexteuropa_integration_producer_field_handler_info().
  */
 function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
   return array(
