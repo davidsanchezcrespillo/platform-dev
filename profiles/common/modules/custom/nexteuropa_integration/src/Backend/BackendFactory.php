@@ -7,7 +7,6 @@
 
 namespace Drupal\nexteuropa_integration\Backend;
 
-use Drupal\nexteuropa_integration\Backend\AbstractBackend;
 use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
 use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
 use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
@@ -36,11 +35,15 @@ class BackendFactory {
     $response_info = nexteuropa_integration_backend_get_response_handler_info();
     $formatter_info = nexteuropa_integration_backend_get_formatter_handler_info();
 
-    // @todo: Throw exceptions if necessary.
     $backend_class = $backend_info[$configuration->getType()]['class'];
     $response_class = $response_info[$configuration->getResponse()]['class'];
     $formatter_class = $formatter_info[$configuration->getFormatter()]['class'];
 
+    foreach (array($backend_class, $response_class, $formatter_class) as $class) {
+      if (!class_exists($class)) {
+        throw new \InvalidArgumentException("Class $class does not exists");
+      }
+    }
     return new $backend_class($configuration, new $response_class(), new $formatter_class());
   }
 
