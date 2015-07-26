@@ -17,11 +17,13 @@ use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
 class BackendConfiguration extends AbstractConfiguration {
 
   /**
-   * Contains backend options.
+   * Backend type plugin.
    *
-   * @var array
+   * @see nexteuropa_integration_backend_info()
+   *
+   * @var string
    */
-  public $options = array();
+  public $type = '';
 
   /**
    * Formatter handler machine name.
@@ -40,6 +42,33 @@ class BackendConfiguration extends AbstractConfiguration {
    * @var string
    */
   public $response = '';
+
+  /**
+   * Contains backend options.
+   *
+   * @var array
+   */
+  public $options = array();
+
+  /**
+   * Get backend type.
+   *
+   * @return string
+   *    Backend type.
+   */
+  public function getType() {
+    return $this->type;
+  }
+
+  /**
+   * Set backend type.
+   *
+   * @param string $type
+   *    Backend type.
+   */
+  public function setType($type) {
+    $this->type = $type;
+  }
 
   /**
    * Get formatter handler name.

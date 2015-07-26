@@ -69,6 +69,20 @@ function nexteuropa_integration_entity_property_info() {
       'schema field' => 'type',
       'required' => TRUE,
     ),
+    'response' => array(
+      'label' => t('Response'),
+      'type' => 'text',
+      'description' => t('The ID of the response plugin to use.'),
+      'schema field' => 'response',
+      'required' => TRUE,
+    ),
+    'formatter' => array(
+      'label' => t('Formatter'),
+      'type' => 'text',
+      'description' => t('The ID of the response plugin to use.'),
+      'schema field' => 'formatter',
+      'required' => TRUE,
+    ),
     'enabled' => array(
       'label' => t('Enabled'),
       'type' => 'boolean',
