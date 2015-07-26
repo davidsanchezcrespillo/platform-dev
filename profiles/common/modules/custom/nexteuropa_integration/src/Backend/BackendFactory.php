@@ -37,11 +37,11 @@ class BackendFactory {
     $formatter_info = nexteuropa_integration_backend_get_formatter_handler_info();
 
     // @todo: Throw exceptions if necessary.
-    $backend_class = $backend_info[$configuration->getName()];
-    $response_class = $response_info[$configuration->getResponse()];
-    $formatter_class = $formatter_info[$configuration->getFormatter()];
+    $backend_class = $backend_info[$configuration->getType()]['class'];
+    $response_class = $response_info[$configuration->getResponse()]['class'];
+    $formatter_class = $formatter_info[$configuration->getFormatter()]['class'];
 
-    return NULL;
+    return new $backend_class($configuration, new $response_class(), new $formatter_class());
   }
 
   /**
@@ -56,6 +56,5 @@ class BackendFactory {
   static public function loadConfiguration($machine_name) {
     return ConfigurationFactory::load('integration_backend', $machine_name);
   }
-
 
 }
