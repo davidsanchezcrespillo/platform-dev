@@ -6,32 +6,3 @@
  */
 
 include_once 'includes/nexteuropa_integration.entity.inc';
-
-/**
- * Implements hook_nexteuropa_integration_producer_info().
- */
-function nexteuropa_integration_nexteuropa_integration_producer_info() {
-  $prefix = '\Drupal\nexteuropa_integration\Producer';
-  return array(
-    'node' => array('class' => $prefix . '\NodeProducer'),
-    'taxonomy_term' => array('class' => $prefix . '\TaxonomyTermProducer'),
-  );
-}
-
-/**
- * Implements hook_nexteuropa_integration_producer_info().
- */
-function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
-  $prefix = '\Drupal\nexteuropa_integration\Producer\FieldHandlers';
-  return array(
-    'default' => array('class' => $prefix . '\DefaultFieldHandler'),
-    'text' => array('class' => $prefix . '\TextFieldHandler'),
-    'text_long' => array('class' => $prefix . '\TextFieldHandler'),
-    'text_with_summary' => array('class' => $prefix . '\TextWithSummaryFieldHandler'),
-    'date' => array('class' => $prefix . '\DateFieldHandler'),
-    'datetime' => array('class' => $prefix . '\DateFieldHandler'),
-    'datestamp' => array('class' => $prefix . '\DateFieldHandler'),
-    'file' => array('class' => $prefix . '\FileFieldHandler'),
-    'image' => array('class' => $prefix . '\FileFieldHandler'),
-  );
-}
