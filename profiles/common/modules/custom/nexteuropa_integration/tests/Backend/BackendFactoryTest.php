@@ -28,8 +28,13 @@ class BackendFactoryTest extends AbstractTest {
     $configuration = entity_create('integration_backend', (array) $data);
     $configuration->save();
 
+    $backend_info = nexteuropa_integration_backend_get_backend_info();
+    $backend_class = $backend_info[$configuration->getType()]['class'];
+
     $backend = BackendFactory::getInstance('test_configuration');
 
+    $reflection = new \ReflectionClass($backend);
+    $this->assertEquals($backend_class, $reflection->getName());
 
     $configuration->delete();
   }

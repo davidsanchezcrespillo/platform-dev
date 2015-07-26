@@ -78,7 +78,7 @@ abstract class AbstractBackend implements BackendInterface, ConfigurableInterfac
   /**
    * {@inheritdoc}
    */
-  public function setResponseHandler($response) {
+  public function setResponseHandler(Response\ResponseInterface $response) {
     $this->response = $response;
   }
 
