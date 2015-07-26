@@ -14,7 +14,7 @@ include_once 'includes/nexteuropa_integration_producer.hooks.inc';
  * @return array
  *    List of producer definitions.
  */
-function nexteuropa_integration_producer_get_producers() {
+function nexteuropa_integration_producer_get_producer_info() {
   $producers = module_invoke_all('nexteuropa_integration_producer_info');
   drupal_alter('nexteuropa_integration_producer_info', $producers);
   return $producers;
@@ -26,32 +26,8 @@ function nexteuropa_integration_producer_get_producers() {
  * @return array
  *    List of producer field handler definitions.
  */
-function nexteuropa_integration_producer_get_field_handlers() {
+function nexteuropa_integration_producer_get_field_handler_info() {
   $field_handlers = module_invoke_all('nexteuropa_integration_producer_field_handler_info');
   drupal_alter('nexteuropa_integration_producer_field_handler_info', $field_handlers);
   return $field_handlers;
-}
-
-/**
- * Collect and return list of response handler definitions.
- *
- * @return array
- *    List of response handler definitions.
- */
-function nexteuropa_integration_producer_get_response_handlers() {
-  $response_handlers = module_invoke_all('nexteuropa_integration_producer_response_handler_info');
-  drupal_alter('nexteuropa_integration_producer_response_handler_info', $response_handlers);
-  return $response_handlers;
-}
-
-/**
- * Collect and return list of formatter definitions.
- *
- * @return array
- *    List of formatter definitions.
- */
-function nexteuropa_integration_producer_get_formatter_handlers() {
-  $formatter_handlers = module_invoke_all('nexteuropa_integration_producer_formatter_handler_info');
-  drupal_alter('nexteuropa_integration_producer_formatter_handler_info', $formatter_handlers);
-  return $formatter_handlers;
 }
