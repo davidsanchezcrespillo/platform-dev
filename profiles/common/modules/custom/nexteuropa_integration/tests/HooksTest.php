@@ -21,8 +21,8 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
 
     $hook_response = nexteuropa_integration_producer_get_producer_info();
     $expected = array(
-      'node' => '\Drupal\nexteuropa_integration\Producer\NodeProducer',
-      'taxonomy_term' => '\Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
+      'node' => 'Drupal\nexteuropa_integration\Producer\NodeProducer',
+      'taxonomy_term' => 'Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -37,8 +37,8 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
 
     $hook_response = nexteuropa_integration_backend_get_backend_info();
     $expected = array(
-      'rest_backend' => '\Drupal\nexteuropa_integration\Backend\RestBackend',
-      'memory_backend' => '\Drupal\nexteuropa_integration\Backend\MemoryBackend',
+      'rest_backend' => 'Drupal\nexteuropa_integration\Backend\RestBackend',
+      'memory_backend' => 'Drupal\nexteuropa_integration\Backend\MemoryBackend',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -53,7 +53,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
 
     $hook_response = nexteuropa_integration_backend_get_formatter_handler_info();
     $expected = array(
-      'json_formatter' => '\Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
+      'json_formatter' => 'Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -68,8 +68,8 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
 
     $hook_response = nexteuropa_integration_backend_get_response_handler_info();
     $expected = array(
-      'http_response' => '\Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
-      'memory_response' => '\Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
+      'http_response' => 'Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
+      'memory_response' => 'Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -84,9 +84,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
 
     $hook_response = nexteuropa_integration_producer_get_field_handler_info();
     $expected = array(
-      'default' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
-      'text' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
-      'text_long' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+      'default' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
+      'text' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+      'text_long' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));

@@ -11,10 +11,10 @@
 function nexteuropa_integration_nexteuropa_integration_producer_info() {
   return array(
     'node' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\NodeProducer',
+      'class' => 'Drupal\nexteuropa_integration\Producer\NodeProducer',
     ),
     'taxonomy_term' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
+      'class' => 'Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
     ),
   );
 }
@@ -25,7 +25,7 @@ function nexteuropa_integration_nexteuropa_integration_producer_info() {
 function nexteuropa_integration_nexteuropa_integration_producer_formatter_handler_info() {
   return array(
     'json_formatter' => array(
-      'class' => '\Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
+      'class' => 'Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
     ),
   );
 }
@@ -36,10 +36,10 @@ function nexteuropa_integration_nexteuropa_integration_producer_formatter_handle
 function nexteuropa_integration_nexteuropa_integration_producer_response_handler_info() {
   return array(
     'http_response' => array(
-      'class' => '\Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
+      'class' => 'Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
     ),
     'memory_response' => array(
-      'class' => '\Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
+      'class' => 'Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
     ),
   );
 }
@@ -50,31 +50,31 @@ function nexteuropa_integration_nexteuropa_integration_producer_response_handler
 function nexteuropa_integration_nexteuropa_integration_producer_field_handler_info() {
   return array(
     'default' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
     ),
     'text' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
     ),
     'text_long' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
     ),
     'text_with_summary' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\TextWithSummaryFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextWithSummaryFieldHandler',
     ),
     'date' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
     ),
     'datetime' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
     ),
     'datestamp' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DateFieldHandler',
     ),
     'file' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
     ),
     'image' => array(
-      'class' => '\Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
     ),
   );
 }
