@@ -69,7 +69,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
     $this->settings = $settings;
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
-    $this->fieldHandlers = nexteuropa_integration_producer_get_field_handlers();
+    $this->fieldHandlers = nexteuropa_integration_producer_get_field_handler_info();
   }
 
   /**

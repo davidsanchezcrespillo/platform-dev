@@ -6,3 +6,40 @@
  */
 
 include_once 'includes/nexteuropa_integration.entity.inc';
+include_once 'includes/nexteuropa_integration.hooks.inc';
+
+/**
+ * Collect and return list of backend definitions.
+ *
+ * @return array
+ *    List of backend definitions.
+ */
+function nexteuropa_integration_backend_get_backend_info() {
+  $info = module_invoke_all('nexteuropa_integration_backend_info');
+  drupal_alter('nexteuropa_integration_backend_info', $info);
+  return $info;
+}
+
+/**
+ * Collect and return list of response handler definitions.
+ *
+ * @return array
+ *    List of response handler definitions.
+ */
+function nexteuropa_integration_backend_get_response_handler_info() {
+  $info = module_invoke_all('nexteuropa_integration_backend_response_handler_info');
+  drupal_alter('nexteuropa_integration_backend_response_handler_info', $info);
+  return $info;
+}
+
+/**
+ * Collect and return list of formatter definitions.
+ *
+ * @return array
+ *    List of formatter definitions.
+ */
+function nexteuropa_integration_backend_get_formatter_handler_info() {
+  $info = module_invoke_all('nexteuropa_integration_backend_formatter_handler_info');
+  drupal_alter('nexteuropa_integration_backend_formatter_handler_info', $info);
+  return $info;
+}
