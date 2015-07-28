@@ -30,10 +30,10 @@ class CategoriesMigrationTest extends AbstractMigrateTest {
   public function testContentMigration() {
     $migration = \Migration::getInstance('NextEuropaIntegrationTestCategories');
 
-    foreach ($this->fixtures['taxonomy_term'] as $id => $fixture) {
+    foreach ($this->fixtures['categories'] as $id => $fixture) {
       $mapping_row = $migration->getMap()->getRowBySource(array('_id' => $id));
 
-      $raw_document = $this->getDocument('taxonomy_term', $id);
+      $raw_document = $this->getDocument('categories', $id);
       $source = new Document($raw_document);
 
       $taxonomy_term = taxonomy_term_load($mapping_row['destid1']);
