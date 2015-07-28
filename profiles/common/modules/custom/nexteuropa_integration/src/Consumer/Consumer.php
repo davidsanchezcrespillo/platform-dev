@@ -49,13 +49,6 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   protected $backend;
 
   /**
-   * Current entity type info array.
-   *
-   * @var array
-   */
-  protected $entityInfo = array();
-
-  /**
    * {@inheritdoc}
    */
   public function __construct(array $arguments) {
@@ -63,9 +56,9 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     self::validateArguments($arguments);
     parent::__construct($arguments);
 
+    /** @var ConsumerConfiguration $configuration */
     $configuration = ConfigurationFactory::load('integration_consumer', $arguments['consumer']['configuration']);
     $this->setConfiguration($configuration);
-    $this->entityInfo = $configuration->entityInfo();
 
     $this->setMap($this->getMapInstance());
     $this->setDestination($this->getDestinationInstance());
@@ -124,10 +117,10 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     $configuration = ConfigurationFactory::load('integration_consumer', $name);
 
     $arguments = array();
-    $arguments['consumer']['configuration'] = $configuration;
+    $arguments['consumer']['configuration'] = $configuration->getMachineName();
 
     self::validateArguments($arguments);
-    \Migration::registerMigration(__CLASS__, $configuration->getName(), $arguments);
+    \Migration::registerMigration(__CLASS__, $configuration->getMachineName(), $arguments);
   }
 
   /**
@@ -156,12 +149,12 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     // Handle Title replacements.
     $source_field = !$source_field ? $destination_field : $source_field;
 
-    $entity_type = $this->getConfiguration()->entityType();
-    $bundle = $this->getConfiguration()->bundle();
-    $legacy_field = $this->getConfiguration()->getEntityKey('label');
+    $entity_type = $this->getConfiguration()->getEntityType();
+    $bundle = $this->getConfiguration()->getEntityBundle();
+    $field_replacement = title_field_replacement_get_label_field($entity_type, $bundle);
+    $legacy_field = title_field_replacement_get_legacy_field($entity_type, $field_replacement['field_name']);
 
     if ($destination_field == $legacy_field && title_field_replacement_enabled($entity_type, $bundle, $legacy_field)) {
-      $field_replacement = title_field_replacement_get_label_field($entity_type, $bundle);
       parent::addFieldMapping($field_replacement['field_name'], $source_field, FALSE);
     }
   }
@@ -216,7 +209,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    */
   protected function getDestinationInstance() {
     $destination_class = $this->getDestinationClass();
-    $bundle = $this->getConfiguration()->bundle();
+    $bundle = $this->getConfiguration()->getEntityBundle();
     return new $destination_class($bundle);
   }
 
@@ -227,7 +220,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    *    Destination class name.
    */
   protected function getDestinationClass() {
-    $entity_type = $this->getConfiguration()->entityType();
+    $entity_type = $this->getConfiguration()->getEntityType();
     if (isset($this->supportedDestinations[$entity_type])) {
       return $this->supportedDestinations[$entity_type];
     }
