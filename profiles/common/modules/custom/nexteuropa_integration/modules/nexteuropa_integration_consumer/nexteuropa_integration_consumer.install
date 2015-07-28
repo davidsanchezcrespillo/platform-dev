@@ -42,6 +42,18 @@ function nexteuropa_integration_consumer_schema() {
         'length' => 50,
         'not null' => TRUE,
       ),
+      'entity_type' => array(
+        'description' => 'Entity type machine name.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
+      'entity_bundle' => array(
+        'description' => 'Entity bundle machine name.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
       'mapping' => array(
         'description' => 'The field mapping used byt the consumer object.',
         'type' => 'text',

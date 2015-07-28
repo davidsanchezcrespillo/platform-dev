@@ -68,6 +68,20 @@ function nexteuropa_integration_consumer_entity_property_info() {
       'schema field' => 'backend',
       'required' => TRUE,
     ),
+    'entity_type' => array(
+      'label' => t('Entity type'),
+      'type' => 'text',
+      'description' => t('Entity type machine name.'),
+      'schema field' => 'entity_type',
+      'required' => TRUE,
+    ),
+    'entity_bundle' => array(
+      'label' => t('Entity bundle'),
+      'type' => 'text',
+      'description' => t('Entity bundle machine name.'),
+      'schema field' => 'entity_bundle',
+      'required' => TRUE,
+    ),
     'enabled' => array(
       'label' => t('Enabled'),
       'type' => 'boolean',
