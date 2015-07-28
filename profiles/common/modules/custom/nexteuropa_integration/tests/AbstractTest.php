@@ -6,10 +6,14 @@
  */
 
 namespace Drupal\nexteuropa_integration\Tests;
+
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
+use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
+
 
 /**
  * Class AbstractTest.
@@ -19,11 +23,44 @@ use Drupal\nexteuropa_integration\Producer\NodeProducer;
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
 
   /**
+   * Reference to backend configuration object.
+   *
+   * @var BackendConfiguration
+   */
+  public $backend_configuration = NULL;
+
+  /**
+   * Reference to backend configuration object.
+   *
+   * @var ConsumerConfiguration
+   */
+  public $consumer_configuration = NULL;
+
+
+  /**
    * Setup PHPUnit hook.
    */
   public function setUp() {
     parent::setUp();
     $GLOBALS['base_url'] = 'http://example.com';
+
+    $data = $this->getConfigurationFixture('backend', 'test_configuration');
+    $this->backend_configuration = entity_create('integration_backend', (array) $data);
+    $this->backend_configuration->save();
+
+    $data = $this->getConfigurationFixture('consumer', 'test_configuration');
+    $this->consumer_configuration = entity_create('integration_consumer', (array) $data);
+    $this->consumer_configuration->save();
+  }
+
+  /**
+   * PHPUnit hook.
+   */
+  public function tearDown() {
+    parent::tearDown();
+
+    $this->backend_configuration->delete();
+    $this->consumer_configuration->delete();
   }
 
   /**

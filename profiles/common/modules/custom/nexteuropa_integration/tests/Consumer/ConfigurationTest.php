@@ -24,35 +24,28 @@ class ConfigurationTest extends AbstractTest {
    *
    * @dataProvider configurationProvider
    */
-  public function testConfigurationEntityCrud($data, $backend) {
-    $backend_configuration = $this->ensureBackend($data);
-
-    /** @var ConsumerConfiguration $configuration */
-    $configuration = entity_create('integration_consumer', (array) $data);
-    $configuration->save();
-
-    $reflection = new \ReflectionClass($configuration);
+  public function testConfigurationEntityCrud($data) {
+    $reflection = new \ReflectionClass($this->consumer_configuration);
     $this->assertEquals('Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration', $reflection->getName());
 
-    $this->assertEquals($data->machine_name, $configuration->identifier());
-    $this->assertEquals(ENTITY_CUSTOM, $configuration->getStatus());
+    $this->assertEquals($data->machine_name, $this->consumer_configuration->identifier());
+    $this->assertEquals(ENTITY_CUSTOM, $this->consumer_configuration->getStatus());
 
-    $this->assertNotEmpty($configuration->getMapping());
+    $this->assertNotEmpty($this->consumer_configuration->getMapping());
 
     $flipped = array_flip($data->mapping);
-    foreach ($configuration->getMapping() as $destination => $source) {
-      $this->assertEquals($data->mapping[$destination], $configuration->getMappingSource($destination));
-      $this->assertEquals($flipped[$source], $configuration->getMappingDestination($source));
+    foreach ($this->consumer_configuration->getMapping() as $destination => $source) {
+      $this->assertEquals($data->mapping[$destination], $this->consumer_configuration->getMappingSource($destination));
+      $this->assertEquals($flipped[$source], $this->consumer_configuration->getMappingDestination($source));
     }
 
-    $machine_name = $configuration->identifier();
+    $machine_name = $this->consumer_configuration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_consumer', $machine_name));
 
-    $this->assertEquals($backend_configuration->getBasePath(), $configuration->getBackendConfiguration()->getBasePath());
-    $this->assertEquals($backend_configuration->getEndpoint(), $configuration->getBackendConfiguration()->getEndpoint());
+    $this->assertEquals($this->backend_configuration->getBasePath(), $this->consumer_configuration->getBackendConfiguration()->getBasePath());
+    $this->assertEquals($this->backend_configuration->getEndpoint(), $this->consumer_configuration->getBackendConfiguration()->getEndpoint());
 
-    $configuration->delete();
-    $backend_configuration->delete();
+    $this->consumer_configuration->delete();
     $this->assertFalse(ConfigurationFactory::load('integration_consumer', $machine_name));
   }
 
@@ -66,15 +59,14 @@ class ConfigurationTest extends AbstractTest {
     /** @var ConsumerConfiguration $configuration */
     $configuration = entity_create('integration_backend', (array) $data);
 
-    $json = entity_export('integration_backend', $configuration);
+    $json = entity_export('integration_consumer', $configuration);
     $decoded = json_decode($json);
     $this->assertNotNull($decoded);
     $this->assertEquals($data->machine_name, $decoded->machine_name);
 
-    $entity = entity_import('integration_backend', $json);
+    /** @var ConsumerConfiguration $entity */
+    $entity = entity_import('integration_consumer', $json);
     $this->assertEquals($data->machine_name, $entity->identifier());
-    $this->assertEquals($data->options['endpoint'], $entity->getEndpoint());
-    $this->assertEquals($data->options['base_path'], $entity->getBasePath());
   }
 
   /**
@@ -87,22 +79,6 @@ class ConfigurationTest extends AbstractTest {
     return array(
       array($this->getConfigurationFixture('consumer', 'test_configuration')),
     );
-  }
-
-  /**
-   * Make sure backend entity exists before creating related consumer entity.
-   *
-   * @param object $data
-   *    Consumer configuration data.
-   *
-   * @return BackendConfiguration
-   *    Backend entity.
-   */
-  protected function ensureBackend($data) {
-    $backend_data = $this->getConfigurationFixture('backend', $data->backend);
-    $backend = entity_create('integration_backend', (array) $backend_data);
-    $backend->save();
-    return $backend;
   }
 
 }

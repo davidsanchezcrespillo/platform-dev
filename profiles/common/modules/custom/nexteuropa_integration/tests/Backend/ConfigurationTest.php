@@ -25,22 +25,18 @@ class ConfigurationTest extends AbstractTest {
    */
   public function testConfigurationEntityCrud($data) {
 
-    /** @var BackendConfiguration $configuration */
-    $configuration = entity_create('integration_backend', (array) $data);
-    $configuration->save();
-
-    $reflection = new \ReflectionClass($configuration);
+    $reflection = new \ReflectionClass($this->backend_configuration);
     $this->assertEquals('Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration', $reflection->getName());
 
-    $this->assertEquals($data->machine_name, $configuration->identifier());
-    $this->assertEquals(ENTITY_CUSTOM, $configuration->getStatus());
-    $this->assertEquals($data->options['endpoint'], $configuration->getEndpoint());
-    $this->assertEquals($data->options['base_path'], $configuration->getBasePath());
+    $this->assertEquals($data->machine_name, $this->backend_configuration->identifier());
+    $this->assertEquals(ENTITY_CUSTOM, $this->backend_configuration->getStatus());
+    $this->assertEquals($data->options['endpoint'], $this->backend_configuration->getEndpoint());
+    $this->assertEquals($data->options['base_path'], $this->backend_configuration->getBasePath());
 
-    $machine_name = $configuration->identifier();
+    $machine_name = $this->backend_configuration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_backend', $machine_name));
 
-    $configuration->delete();
+    $this->backend_configuration->delete();
     $this->assertFalse(ConfigurationFactory::load('integration_backend', $machine_name));
   }
 
@@ -62,6 +58,7 @@ class ConfigurationTest extends AbstractTest {
     $this->assertNotNull($decoded);
     $this->assertEquals($data->machine_name, $decoded->machine_name);
 
+    /** @var BackendConfiguration $entity */
     $entity = entity_import('integration_backend', $json);
     $this->assertEquals($data->machine_name, $entity->identifier());
     $this->assertEquals($data->options['endpoint'], $entity->getEndpoint());
