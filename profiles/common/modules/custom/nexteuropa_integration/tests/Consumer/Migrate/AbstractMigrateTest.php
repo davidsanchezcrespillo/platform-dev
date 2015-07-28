@@ -40,7 +40,7 @@ abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
    *    Fixtures path.
    */
   public static function getFixturesPath() {
-    return dirname(__FILE__) . '/fixtures';
+    return drupal_get_path('module', 'nexteuropa_integration_test') . '/fixtures';
   }
 
   /**
