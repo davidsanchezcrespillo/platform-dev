@@ -6,3 +6,16 @@
  */
 
 include_once 'includes/nexteuropa_integration_consumer.entity.inc';
+include_once 'includes/nexteuropa_integration_consumer.hooks.inc';
+
+/**
+ * Collect and return list of mapping handler definitions.
+ *
+ * @return array
+ *    List of mapping handler definitions.
+ */
+function nexteuropa_integration_producer_get_consumer_mapping_handler_info() {
+  $info = module_invoke_all('nexteuropa_integration_consumer_mapping_handler_info');
+  drupal_alter('nexteuropa_integration_consumer_mapping_handler_info', $info);
+  return $info;
+}
