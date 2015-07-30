@@ -102,7 +102,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
    * {@inheritdoc}
    */
   public function getProducerId() {
-    return $this->getConfiguration()->getMachineName();
+    return $this->getConfiguration()->getProducerId();
   }
 
 

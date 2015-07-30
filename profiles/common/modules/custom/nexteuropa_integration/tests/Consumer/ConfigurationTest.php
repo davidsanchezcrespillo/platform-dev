@@ -57,7 +57,7 @@ class ConfigurationTest extends AbstractTest {
   public function testExportImport($data) {
 
     /** @var ConsumerConfiguration $configuration */
-    $configuration = entity_create('integration_backend', (array) $data);
+    $configuration = entity_create('integration_consumer', (array) $data);
 
     $json = entity_export('integration_consumer', $configuration);
     $decoded = json_decode($json);
