@@ -35,6 +35,16 @@ class ProducerConfiguration extends AbstractConfiguration {
   }
 
   /**
+   * Get producer entity type setting parameter.
+   *
+   * @return string
+   *    Entity type.
+   */
+  public function getType() {
+    return $this->type;
+  }
+
+  /**
    * Get option value given its name.
    *
    * @param string $name
