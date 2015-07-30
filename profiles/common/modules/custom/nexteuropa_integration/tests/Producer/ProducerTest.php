@@ -21,44 +21,16 @@ use \Mockery as m;
  * @package Drupal\nexteuropa_integration\Tests\Producer\ProducerTest
  */
 class ProducerTest extends AbstractTest {
-
-  /**
-   * Entity wrapper mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $entityWrapper;
-
-  /**
-   * Document mock.
-   *
-   * @var \Mockery\MockInterface
-   */
-  protected $document;
-
-  /**
-   * Setup PHPUnit hook.
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->entityWrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
-    $this->document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
-  }
-
-  /**
-   * Tear down PHPUnit hook.
-   */
-  public function tearDown() {
-    m::close();
-  }
-
+  
   /**
    * Test creation of a producer instance.
    */
   public function testInstance() {
-    $settings = $this->getConfigurationFixture('producer', 'local');
 
-    $producer = new NodeProducer($settings, $this->entityWrapper, $this->document);
+    $entity_wrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
+    $document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
+
+    $producer = new NodeProducer($this->producer_configuration, $entity_wrapper, $document);
     $reflection = new \ReflectionClass($producer);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }
@@ -66,8 +38,8 @@ class ProducerTest extends AbstractTest {
   /**
    * Test build method.
    */
-  public function testBuild() {
-    $node = $this->getExportedEntityFixture('integration_test', 1);
+  public function __testBuild() {
+    $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
 
     $producer = $this->getNodeProducerInstance($node);
     $document = $producer->build();
@@ -102,7 +74,7 @@ class ProducerTest extends AbstractTest {
    * Test entity wrapper.
    */
   public function testEntityWrapper() {
-    $node = $this->getExportedEntityFixture('integration_test', 1);
+    $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
     $wrapper = new EntityWrapper('node', $node);
 
     $properties = array(
@@ -110,19 +82,13 @@ class ProducerTest extends AbstractTest {
       'vid',
       'type',
       'title',
-      'language',
-      'status',
       'promote',
-      'created',
-      'changed',
-      'author',
     );
     foreach ($properties as $property) {
       $this->assertTrue($wrapper->isProperty($property));
+      $this->assertEquals($node->{$property}, $wrapper->getProperty($property));
     }
-
-    $this->assertEquals('integration_test', $wrapper->getProperty('type'));
-    $this->assertEquals('2015-07-20 06:42:47', $wrapper->getProperty('created'));
+    $this->assertEquals(date(EntityWrapper::DEFAULT_DATE_FORMAT, $node->created), $wrapper->getProperty('created'));
 
     $fields = array(
       'body',
@@ -135,9 +101,9 @@ class ProducerTest extends AbstractTest {
     }
 
     $this->assertEquals(array('en', 'fr'), $wrapper->getAvailableLanguages());
-
-    $this->assertEquals('English title article 1', $wrapper->getField('title_field', 'en'));
-    $this->assertEquals('French title article 1', $wrapper->getField('title_field', 'fr'));
+    foreach (array('en', 'fr') as $language) {
+      $this->assertEquals($node->title_field[$language][0]['value'], $wrapper->getField('title_field', $language));
+    }
   }
 
 }

@@ -13,6 +13,7 @@ use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
 
 
 /**
@@ -28,6 +29,13 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
    * @var BackendConfiguration
    */
   public $backend_configuration = NULL;
+
+  /**
+   * Reference to producer configuration object.
+   *
+   * @var ProducerConfiguration
+   */
+  public $producer_configuration = NULL;
 
   /**
    * Reference to backend configuration object.
@@ -48,6 +56,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     $this->backend_configuration = entity_create('integration_backend', (array) $data);
     $this->backend_configuration->save();
 
+    $data = $this->getConfigurationFixture('producer', 'test_configuration');
+    $this->producer_configuration = entity_create('integration_producer', (array) $data);
+    $this->producer_configuration->save();
+
     $data = $this->getConfigurationFixture('consumer', 'test_configuration');
     $this->consumer_configuration = entity_create('integration_consumer', (array) $data);
     $this->consumer_configuration->save();
@@ -60,6 +72,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     parent::tearDown();
 
     $this->backend_configuration->delete();
+    $this->producer_configuration->delete();
     $this->consumer_configuration->delete();
   }
 
@@ -87,19 +100,21 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
   /**
    * Get exported entity from fixture directory.
    *
-   * @param string $type
+   * @param string $entity_type
    *    Entity type.
+   * @param string $bundle
+   *    Bundle.
    * @param int $id
    *    Entity ID.
    *
    * @return \stdClass
    *    Entity object.
    */
-  protected function getExportedEntityFixture($type, $id) {
+  protected function getExportedEntityFixture($entity_type, $bundle, $id) {
     static $fixtures = array();
     if (!isset($fixtures[$type][$id])) {
       $export = new \stdClass();
-      include "fixtures/$type-$id.php";
+      include "fixtures/entities/$entity_type-$bundle-$id.php";
       $fixtures[$type][$id] = clone $export;
     }
     return $fixtures[$type][$id];
