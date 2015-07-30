@@ -41,7 +41,9 @@ class ConsumerTest extends AbstractTest {
    * @see \MigrationBase::displayMessage()
    */
   static public function migrateException($message, $level = 'error') {
-    throw new \MigrateException($message, $level = 'error');
+    if ($level == 'error') {
+      throw new \MigrateException($message, $level);
+    }
   }
 
   /**
