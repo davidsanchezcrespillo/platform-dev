@@ -16,6 +16,7 @@ use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
+use Drupal\nexteuropa_integration\Consumer\MappingHandler\AbstractMappingHandler;
 
 /**
  * Interface ConsumerInterface.
@@ -63,17 +64,18 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     $this->setMap($this->getMapInstance());
     $this->setDestination($this->getDestinationInstance());
 
-    // Apply mapping.
-    foreach ($this->getConfiguration()->getMapping() as $destination => $source) {
-      $this->addFieldMapping($destination, $source);
-    }
-
     // Mapping default language is necessary for correct translation handling.
     $this->addFieldMapping('language', 'default_language');
 
-    // @todo: make the following an option set via UI.
+    // @todo: Make the following an option set via UI.
     $this->addFieldMapping('promote')->defaultValue(FALSE);
     $this->addFieldMapping('status')->defaultValue(NODE_NOT_PUBLISHED);
+
+    // Apply mapping.
+    foreach ($this->getConfiguration()->getMapping() as $destination => $source) {
+      $this->addFieldMapping($destination, $source);
+      $this->processMappingHandlers($destination, $source);
+    }
 
     $backend = BackendFactory::getInstance($this->getConfiguration()->getBackend());
     $this->setSource(new \MigrateSourceList(
@@ -124,68 +126,20 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function addFieldMapping($destination_field, $source_field = NULL, $warn_on_override = TRUE) {
-    $mapping = parent::addFieldMapping($destination_field, $source_field, $warn_on_override);
-
-    // @todo: add other processors. Maybe implement hook/plugin system for that.
-    $this->processTitleFieldMapping($destination_field, $source_field);
-    $this->processFileFieldMapping($destination_field, $source_field);
-    $this->processTextWithSummaryMapping($destination_field, $source_field);
-
-    return $mapping;
-  }
-
-  /**
-   * Handle replacements from Title module when mapping fields.
+   * Process field mapping handlers.
    *
    * @param string $destination_field
    *    Destination field name.
    * @param string|null $source_field
    *    Source field name.
    */
-  protected function processTitleFieldMapping($destination_field, $source_field = NULL) {
-    // Handle Title replacements.
-    $source_field = !$source_field ? $destination_field : $source_field;
+  protected function processMappingHandlers($destination_field, $source_field = NULL) {
 
-    $entity_type = $this->getConfiguration()->getEntityType();
-    $bundle = $this->getConfiguration()->getEntityBundle();
-    $field_replacement = title_field_replacement_get_label_field($entity_type, $bundle);
-    $legacy_field = title_field_replacement_get_legacy_field($entity_type, $field_replacement['field_name']);
-
-    if ($destination_field == $legacy_field && title_field_replacement_enabled($entity_type, $bundle, $legacy_field)) {
-      parent::addFieldMapping($field_replacement['field_name'], $source_field, FALSE);
-    }
-  }
-
-  /**
-   * Process file fields mapping.
-   *
-   * @param string $destination_field
-   *    Destination field name.
-   * @param string|null $source_field
-   *    Source field name.
-   */
-  protected function processFileFieldMapping($destination_field, $source_field = NULL) {
-    $field_info = field_info_field($destination_field);
-    if (in_array($field_info['type'], array('image', 'file'))) {
-      parent::addFieldMapping("$destination_field:file_replace")->defaultValue(FILE_EXISTS_REPLACE);
-    }
-  }
-
-  /**
-   * Process text with summary fields mapping.
-   *
-   * @param string $destination_field
-   *    Destination field name.
-   * @param string|null $source_field
-   *    Source field name.
-   */
-  protected function processTextWithSummaryMapping($destination_field, $source_field = NULL) {
-    $field_info = field_info_field($destination_field);
-    if (in_array($field_info['type'], array('text_with_summary'))) {
-      parent::addFieldMapping("$destination_field:format")->defaultValue('full_html');
+    $handlers = nexteuropa_integration_producer_get_consumer_mapping_handler_info();
+    foreach ($handlers as $name => $info) {
+      /** @var AbstractMappingHandler $handler */
+      $handler = new $info['class']($this);
+      $handler->process($destination_field, $source_field);
     }
   }
 
