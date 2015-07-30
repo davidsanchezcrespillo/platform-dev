@@ -24,10 +24,17 @@ use Drupal\nexteuropa_integration\Producer\NodeProducer;
 class IntegrationTest extends AbstractTest {
 
   /**
+   * Smoke test.
+   */
+  public function testSmoke() {
+    $this->assertTrue(TRUE);
+  }
+
+  /**
    * Test Memory Backend.
    */
-  public function testProducerConsumerChain() {
-    $node = $this->getExportedEntityFixture('integration_test', 1);
+  public function __testProducerConsumerChain() {
+    $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
     $backend = new MemoryBackend('node', 'integration_test', new JsonFormatter());
 
     $producer = $this->getNodeProducerInstance($node);
@@ -60,7 +67,7 @@ class IntegrationTest extends AbstractTest {
   /**
    * Test Rest Backend.
    */
-  public function testRestBackend() {
+  public function __testRestBackend() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
@@ -99,7 +106,7 @@ class IntegrationTest extends AbstractTest {
   /**
    * Test Consumer.
    */
-  public function testConsumer() {
+  public function __testConsumer() {
     if (!module_exists('nexteuropa_demo')) {
       return;
     }
