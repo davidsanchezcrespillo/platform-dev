@@ -12,6 +12,7 @@ use Drupal\nexteuropa_integration\Producer\NodeProducer;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
+use Drupal\nexteuropa_integration\Producer\ProducerFactory;
 use Drupal\nexteuropa_integration\Tests\AbstractTest;
 use \Mockery as m;
 
@@ -38,17 +39,17 @@ class ProducerTest extends AbstractTest {
   /**
    * Test build method.
    */
-  public function __testBuild() {
-    $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
+  public function testBuild() {
+    $node = $this->getExportedEntityFixture('node', 'integration_test', 3);
+    $producer = ProducerFactory::getInstance('test_configuration', $node);
 
-    $producer = $this->getNodeProducerInstance($node);
     $document = $producer->build();
 
     $this->assertEquals('integration_test', $document->getMetadata('type'));
-    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('created'));
-    $this->assertEquals('2015-07-20 06:42:47', $document->getMetadata('updated'));
+    $this->assertEquals('2015-07-28 09:04:40', $document->getMetadata('created'));
+    $this->assertEquals('2015-07-28 09:04:40', $document->getMetadata('updated'));
     $this->assertEquals('en', $document->getMetadata('default_language'));
-    $this->assertEquals('userProducer', $document->getMetadata('producer'));
+    $this->assertEquals('producer-id', $document->getMetadata('producer'));
     $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
 
     $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_start'));
