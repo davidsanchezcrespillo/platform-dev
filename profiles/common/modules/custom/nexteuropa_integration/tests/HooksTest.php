@@ -94,4 +94,21 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   * Test hook_nexteuropa_integration_consumer_mapping_handler_info().
+   */
+  public function testConsumerMappingHandlersInfo() {
+
+    $hook_response = nexteuropa_integration_producer_get_consumer_mapping_handler_info();
+    $expected = array(
+      'title_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\TitleMappingHandler',
+      'file_field_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\FileFieldMappingHandler',
+      'text_with_summary_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\TextWithSummaryMappingHandler',
+    );
+    foreach ($expected as $key => $value) {
+      $this->assertTrue(isset($hook_response[$key]));
+      $this->assertEquals($value, $hook_response[$key]['class']);
+    }
+  }
+
 }
