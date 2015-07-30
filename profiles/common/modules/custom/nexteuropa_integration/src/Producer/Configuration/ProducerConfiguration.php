@@ -24,4 +24,26 @@ class ProducerConfiguration extends AbstractConfiguration {
    */
   public $options = array();
 
+  /**
+   * Get producer ID setting parameter.
+   *
+   * @return string
+   *    Producer ID.
+   */
+  public function getProducerId() {
+    return $this->producer_id;
+  }
+
+  /**
+   * Get option value given its name.
+   *
+   * @param string $name
+   *    Option name.
+   * @return string
+   *    Option value.
+   */
+  public function getOptionValue($name) {
+    return isset($this->options[$name]) ? $this->options[$name] : '';
+  }
+
 }
