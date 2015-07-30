@@ -33,6 +33,7 @@ class ConfigurationTest extends AbstractTest {
 
     $this->assertEquals($data->options['username'], $this->producer_configuration->getOptionValue('username'));
     $this->assertEquals($data->options['password'], $this->producer_configuration->getOptionValue('password'));
+    $this->assertEquals($data->type, $this->producer_configuration->getType());
 
     $machine_name = $this->producer_configuration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_producer', $machine_name));
