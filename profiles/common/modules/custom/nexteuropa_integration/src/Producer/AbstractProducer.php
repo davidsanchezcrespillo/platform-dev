@@ -9,7 +9,7 @@ namespace Drupal\nexteuropa_integration\Producer;
 
 use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
+use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
 
 /**
  * Class AbstractProducer.
@@ -24,17 +24,16 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
   const SCHEMA_VERSION = 'v1';
 
   /**
-   * Producer settings.
+   * Configuration object.
    *
-   * @var null|object
-   *    Producer settings object.
+   * @var Configuration\ProducerConfiguration
    */
-  private $settings = NULL;
+  private $configuration;
 
   /**
    * Entity wrapper.
    *
-   * @var EntityWrapper
+   * @var EntityWrapper\EntityWrapper
    */
   private $entityWrapper = NULL;
 
@@ -57,19 +56,32 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
   /**
    * Constructor.
    *
-   * @param object $settings
-   *    Producer settings.
-   * @param EntityWrapper $entity_wrapper
+   * @param Configuration\ProducerConfiguration $configuration
+   *    Configuration object.
+   * @param EntityWrapper\EntityWrapper $entity_wrapper
    *    Entity object.
    * @param DocumentInterface $document
    *    Document object.
    */
-  public function __construct($settings, EntityWrapper $entity_wrapper, DocumentInterface $document) {
-    // @todo: make a proper object, in line with what done for the consumer.
-    $this->settings = $settings;
+  public function __construct(Configuration\ProducerConfiguration $configuration, EntityWrapper\EntityWrapper $entity_wrapper, DocumentInterface $document) {
+    $this->setConfiguration($configuration);
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
     $this->fieldHandlers = nexteuropa_integration_producer_get_field_handler_info();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(AbstractConfiguration $configuration) {
+    $this->configuration = $configuration;
   }
 
   /**
@@ -90,11 +102,19 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
    * {@inheritdoc}
    */
   public function getProducerId() {
-    return $this->settings->name;
+    return $this->getConfiguration()->getMachineName();
   }
 
+
   /**
-   * {@inheritdoc}
+   * Return field handler object given field name and language.
+   *
+   * @param string $field_name
+   *    Field machine name.
+   * @param string $language
+   *    Field language.
+   * @return FieldHandlers\AbstractFieldHandler
+   *    Field handler object.
    */
   protected function getFieldHandler($field_name, $language) {
     $field_info = field_info_field($field_name);
