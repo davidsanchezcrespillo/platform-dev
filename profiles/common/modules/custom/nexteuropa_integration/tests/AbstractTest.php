@@ -140,23 +140,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Factory method: return node producer instance given a node object.
-   *
-   * @param object $node
-   *    Node object.
-   *
-   * @return NodeProducer
-   *    Node producer instance.
-   */
-  protected function getNodeProducerInstance($node) {
-    $settings = $this->getConfigurationFixture('producer', 'local');
-
-    $entity_wrapper = new EntityWrapper('node', $node);
-    $document = new Document();
-    return new NodeProducer($settings, $entity_wrapper, $document);
-  }
-
-  /**
    * Factory method: return consumer instance given its name.
    *
    * @param object $settings
