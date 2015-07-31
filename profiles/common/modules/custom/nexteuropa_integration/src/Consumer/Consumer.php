@@ -126,6 +126,14 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   }
 
   /**
+   * {@inheritdoc}
+   */
+  static public function getInstance($machine_name) {
+    self::register($machine_name);
+    return parent::getInstance($machine_name);
+  }
+
+  /**
    * Process field mapping handlers.
    *
    * @param string $destination_field
