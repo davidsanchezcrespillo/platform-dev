@@ -5,7 +5,8 @@
  * Contains API documentation.
  */
 
-use \Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
  * Implements hook_nexteuropa_integration_producer_info().
@@ -47,6 +48,8 @@ function hook_nexteuropa_integration_producer_field_handler_info_alter(&$field_h
 /**
  * Implements hook_nexteuropa_integration_producer_document_build_alter().
  */
-function hook_nexteuropa_integration_producer_document_build_alter(DocumentInterface &$document) {
-  $document->setMetadata('tag', 'My custom tag');
+function hook_nexteuropa_integration_producer_document_build_alter(EntityWrapper $entity_wrapper, DocumentInterface $document) {
+  if ($entity_wrapper->type() == 'node') {
+    $document->setMetadata('original-type', $entity_wrapper->getBundle());
+  }
 }
