@@ -146,8 +146,9 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
       }
     }
 
+    $entity_wrapper = $this->getEntityWrapper();
     $document = $this->getDocument();
-    drupal_alter('nexteuropa_integration_producer_document_build', $document);
+    drupal_alter('nexteuropa_integration_producer_document_build', $entity_wrapper, $document);
     return $document;
   }
 
