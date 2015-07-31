@@ -52,7 +52,6 @@ class ConsumerTest extends AbstractTest {
   public function testConsumer() {
 
     /** @var Consumer $migration */
-    Consumer::register('test_configuration');
     $migration = Consumer::getInstance('test_configuration');
 
     $this->assertNotNull($migration);
