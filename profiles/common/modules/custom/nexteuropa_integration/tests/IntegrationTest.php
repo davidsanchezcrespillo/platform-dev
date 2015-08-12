@@ -10,6 +10,9 @@ namespace Drupal\nexteuropa_integration\Tests;
 use Drupal\nexteuropa_integration\Backend\BackendFactory;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\ProducerFactory;
+use Drupal\nexteuropa_integration\Backend\AbstractBackend;
+use Drupal\nexteuropa_integration\Producer\AbstractProducer;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Class IntegrationTest.
@@ -19,49 +22,99 @@ use Drupal\nexteuropa_integration\Producer\ProducerFactory;
 class IntegrationTest extends AbstractTest {
 
   /**
+   * @var AbstractBackend
+   */
+  protected $backend;
+
+  /**
+   * @var AbstractProducer
+   */
+  protected $producer;
+
+  /**
+   * @var Consumer
+   */
+  protected $consumer;
+
+  /**
+   * @var \stdClass
+   */
+  protected $node;
+
+  /**
+   * Setup PHPUnit hook.
+   */
+  public function setUp() {
+    parent::setUp();
+
+    $this->node = $this->getExportedEntityFixture('node', 'integration_test', 1);
+
+    // Get backend, producer and consumer instances.
+    $this->backend = BackendFactory::getInstance('test_configuration');
+    $this->producer = ProducerFactory::getInstance('test_configuration', $this->node);
+    $this->consumer = Consumer::getInstance('test_configuration');
+  }
+
+
+  /**
    * Test producer-consumer workflow.
    */
   public function testProducerConsumerWorkflow() {
-    $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
 
-    // Get backend, producer and consumer instances.
-    $backend = BackendFactory::getInstance('test_configuration');
-    $producer = ProducerFactory::getInstance('test_configuration', $node);
-    $consumer = Consumer::getInstance('test_configuration');
-
-    // Build document, at this point it still does not have a remote ID.
-    $document = $producer->build();
+    // Build document: at this point it should not have a remote ID.
+    $document = $this->producer->build();
     $this->assertNull($document->getId());
 
     // Each backend is responsible for fetching a document's remote ID.
-    $this->assertEquals('node-integration-test-' . $node->nid, $backend->getBackendId($document));
+    $this->assertEquals($this->expectedDocumentId(), $this->backend->getBackendId($document));
 
     // Test backend create method.
-    $document = $backend->create($document);
-    $this->assertEquals('node-integration-test-' . $node->nid, $document->getId());
-    $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
-    foreach (array('en', 'fr') as $language) {
-      $document->setCurrentLanguage($language);
-      $this->assertEquals($node->title_field[$language][0]['value'], $document->getFieldValue('title_field'));
-    }
+    $document = $this->backend->create($document);
+
+    // Test that backend create does assign an ID to a document.
+    $this->assertEquals($this->expectedDocumentId(), $document->getId());
+
+    // Test that other proprieties are set correctly on a document.
+    $this->assertDocumentConsistency($document);
 
     // Test backend read method.
-    $document = $backend->read($document);
+    $document = $this->backend->read($document);
+
+    // Test that other proprieties are set correctly on a document.
+    $this->assertDocumentConsistency($document);
+
+    // Test backend update method.
+    $document->setCurrentLanguage('en')->setField('title_field', 'English title updated');
+    $updated_document = $this->backend->update($document);
+    $this->assertEquals('English title updated', $updated_document->getFieldValue('title_field'));
+
+    // Test backend delete method.
+    $this->backend->delete($updated_document);
+    $this->assertFalse($this->backend->read($updated_document));
+  }
+
+  /**
+   * Assert that document properties are set correctly.
+   *
+   * @param DocumentInterface $document
+   *    Document object.
+   */
+  protected function assertDocumentConsistency(DocumentInterface $document) {
     $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
     foreach (array('en', 'fr') as $language) {
       $document->setCurrentLanguage($language);
-      $this->assertEquals($node->title_field[$language][0]['value'], $document->getFieldValue('title_field'));
+      $this->assertEquals($this->node->title_field[$language][0]['value'], $document->getFieldValue('title_field'));
     }
+  }
 
-    // Test backend update method.
-    $document->setCurrentLanguage('en');
-    $document->setField('title_field', 'English title updated');
-    $document = $backend->update($document);
-    $this->assertEquals('English title updated', $document->getFieldValue('title_field'));
-
-    // Test backend delete method.
-    $backend->delete($document);
-    $this->assertFalse($backend->read($document));
+  /**
+   * Return expected document ID.
+   *
+   * @return string
+   *    Expected document ID.
+   */
+  protected function expectedDocumentId() {
+    return 'node-integration-test-' . $this->node->nid;
   }
 
 }
