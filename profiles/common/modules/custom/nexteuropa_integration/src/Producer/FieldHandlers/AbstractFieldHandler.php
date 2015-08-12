@@ -77,7 +77,7 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
     $values = $this->getEntityWrapper()->getField($this->fieldName, $this->language);
     if ($values) {
       // Normalize single-value field to ease value processing.
-      $values = ($this->fieldInfo['cardinality'] == 1) ? array($values) : $values;
+      return ($this->fieldInfo['cardinality'] == 1) ? array($values) : $values;
     }
     else {
       // Set empty values for each of the field's columns.
@@ -86,8 +86,8 @@ abstract class AbstractFieldHandler implements FieldHandlerInterface {
       foreach (array_keys($this->fieldInfo['columns']) as $column) {
         $values[$column] = '';
       }
+      return array($values);
     }
-    return $values;
   }
 
   /**

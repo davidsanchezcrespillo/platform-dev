@@ -23,9 +23,16 @@ class IntegrationTest extends AbstractTest {
 
   /**
    * Test producer-consumer workflow.
+   *
+   * @param string $bundle
+   *    Node bundle.
+   * @param int $id
+   *    Node ID.
+   *
+   * @dataProvider nodeFixturesProvider
    */
-  public function testProducerConsumerWorkflow() {
-    $node = $this->getExportedEntityFixture('node', 'integration_test', 3);
+  public function testProducerConsumerWorkflow($bundle, $id) {
+    $node = $this->getExportedEntityFixture('node', $bundle, $id);
 
     // Get backend, producer and consumer instances.
     $backend = BackendFactory::getInstance('test_configuration');
@@ -95,7 +102,9 @@ class IntegrationTest extends AbstractTest {
 
       // Assert that images are imported correctly.
       foreach ($document->getFieldValue('field_integration_test_images_path') as $key => $value) {
-        $this->assertContains($node->field_integration_test_images[$language][$key]['filename'], urldecode($value));
+        if ($value) {
+          $this->assertContains($node->field_integration_test_images[$language][$key]['filename'], urldecode($value));
+        }
       }
 
       // Assert that image alt field is imported correctly.
@@ -110,10 +119,13 @@ class IntegrationTest extends AbstractTest {
 
       // Assert that files are imported correctly.
       foreach ($document->getFieldValue('field_integration_test_files_path') as $key => $value) {
-        $this->assertContains($node->field_integration_test_files[$language][$key]['filename'], $value);
+        if ($value) {
+          $this->assertContains($node->field_integration_test_files[$language][$key]['filename'], $value);
+        }
       }
 
       // Assert that date field has been imported correctly.
+      $r = $document->getFieldValue('field_integration_test_dates_start');
       $this->assertEquals($document->getFieldValue('field_integration_test_dates_start'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value']);
       $this->assertEquals($document->getFieldValue('field_integration_test_dates_end'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value2']);
     }
@@ -130,6 +142,20 @@ class IntegrationTest extends AbstractTest {
    */
   protected function expectedDocumentId($node) {
     return 'node-integration-test-' . $node->nid;
+  }
+
+  /**
+   * Node fixture data provider.
+   *
+   * @return array
+   *    List of fixtures types and IDs.
+   */
+  public function nodeFixturesProvider() {
+    return array(
+      array('integration_test', 1),
+      array('integration_test', 2),
+      array('integration_test', 3),
+    );
   }
 
 }
