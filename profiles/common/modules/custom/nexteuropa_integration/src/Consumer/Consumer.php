@@ -17,6 +17,7 @@ use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
 use Drupal\nexteuropa_integration\Consumer\MappingHandler\AbstractMappingHandler;
+use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateSourceBackend;
 
 /**
  * Interface ConsumerInterface.
@@ -77,12 +78,9 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
       $this->processMappingHandlers($destination, $source);
     }
 
+    // Set migration source backend.
     $backend = BackendFactory::getInstance($this->getConfiguration()->getBackend());
-    $this->setSource(new \MigrateSourceList(
-      new MigrateListJSON($backend->getListUri()),
-      new MigrateItemJSON($backend->getResourceUri(), array()),
-      array()
-    ));
+    $this->setSource(new MigrateSourceBackend($backend));
   }
 
   /**
