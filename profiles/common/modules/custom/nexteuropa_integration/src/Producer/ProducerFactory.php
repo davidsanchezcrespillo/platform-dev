@@ -24,7 +24,7 @@ class ProducerFactory {
    *
    * @param string $machine_name
    *    Producer configuration machine name.
-   * @param $entity
+   * @param object $entity
    *    Entity object.
    *
    * @return AbstractProducer

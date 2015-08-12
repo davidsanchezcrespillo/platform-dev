@@ -113,6 +113,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
    *    Field machine name.
    * @param string $language
    *    Field language.
+   *
    * @return FieldHandlers\AbstractFieldHandler
    *    Field handler object.
    */

@@ -43,4 +43,3 @@ function nexteuropa_integration_nexteuropa_integration_backend_response_handler_
     ),
   );
 }
-

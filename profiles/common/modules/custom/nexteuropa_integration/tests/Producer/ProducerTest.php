@@ -22,7 +22,7 @@ use \Mockery as m;
  * @package Drupal\nexteuropa_integration\Tests\Producer\ProducerTest
  */
 class ProducerTest extends AbstractTest {
-  
+
   /**
    * Test creation of a producer instance.
    */
@@ -31,7 +31,7 @@ class ProducerTest extends AbstractTest {
     $entity_wrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
     $document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
 
-    $producer = new NodeProducer($this->producer_configuration, $entity_wrapper, $document);
+    $producer = new NodeProducer($this->producerConfiguration, $entity_wrapper, $document);
     $reflection = new \ReflectionClass($producer);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\MappingHandler\TitleMappingHandler
+ * Contains TitleMappingHandler.
  */
 
 namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\MappingHandler\TextWithSummaryMappingHandler
+ * Contains TextWithSummaryMappingHandler.
  */
 
 namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;

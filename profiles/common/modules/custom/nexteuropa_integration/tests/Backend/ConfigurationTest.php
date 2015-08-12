@@ -25,18 +25,18 @@ class ConfigurationTest extends AbstractTest {
    */
   public function testConfigurationEntityCrud($data) {
 
-    $reflection = new \ReflectionClass($this->backend_configuration);
+    $reflection = new \ReflectionClass($this->backendConfiguration);
     $this->assertEquals('Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration', $reflection->getName());
 
-    $this->assertEquals($data->machine_name, $this->backend_configuration->identifier());
-    $this->assertEquals(ENTITY_CUSTOM, $this->backend_configuration->getStatus());
-    $this->assertEquals($data->options['endpoint'], $this->backend_configuration->getEndpoint());
-    $this->assertEquals($data->options['base_path'], $this->backend_configuration->getBasePath());
+    $this->assertEquals($data->machine_name, $this->backendConfiguration->identifier());
+    $this->assertEquals(ENTITY_CUSTOM, $this->backendConfiguration->getStatus());
+    $this->assertEquals($data->options['endpoint'], $this->backendConfiguration->getEndpoint());
+    $this->assertEquals($data->options['base_path'], $this->backendConfiguration->getBasePath());
 
-    $machine_name = $this->backend_configuration->identifier();
+    $machine_name = $this->backendConfiguration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_backend', $machine_name));
 
-    $this->backend_configuration->delete();
+    $this->backendConfiguration->delete();
     $this->assertFalse(ConfigurationFactory::load('integration_backend', $machine_name));
   }
 
