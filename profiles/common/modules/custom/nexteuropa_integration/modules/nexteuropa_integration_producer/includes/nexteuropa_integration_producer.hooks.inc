@@ -49,7 +49,7 @@ function nexteuropa_integration_producer_nexteuropa_integration_producer_field_h
       'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
     ),
     'image' => array(
-      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler',
+      'class' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\ImageFieldHandler',
     ),
   );
 }
