@@ -17,7 +17,7 @@ use Drupal\nexteuropa_integration\Consumer\Consumer;
 abstract class AbstractMappingHandler implements MappingHandlerInterface {
 
   /**
-   * Current consumer object
+   * Current consumer object.
    *
    * @var Consumer
    */

@@ -76,7 +76,11 @@ class HttpRestBackendTest extends AbstractTest {
    */
   protected function getMockedHttpBackendInstance($returned_response) {
 
-    $arguments = array($this->backend_configuration, new HttpRequestResponse(), new JsonFormatter());
+    $arguments = array(
+      $this->backendConfiguration,
+      new HttpRequestResponse(),
+      new JsonFormatter(),
+    );
     $backend = \Mockery::mock('Drupal\nexteuropa_integration\Backend\RestBackend[httpRequest]', $arguments);
     $backend->shouldAllowMockingProtectedMethods()
       ->shouldReceive('httpRequest')

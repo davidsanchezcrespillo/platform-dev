@@ -21,5 +21,3 @@ function nexteuropa_integration_consumer_nexteuropa_integration_consumer_mapping
     ),
   );
 }
-
-
