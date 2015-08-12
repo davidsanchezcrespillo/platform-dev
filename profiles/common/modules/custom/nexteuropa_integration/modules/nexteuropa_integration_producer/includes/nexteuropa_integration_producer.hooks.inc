@@ -20,31 +20,6 @@ function nexteuropa_integration_producer_nexteuropa_integration_producer_info() 
 }
 
 /**
- * Implements hook_nexteuropa_integration_producer_formatter_handler_info().
- */
-function nexteuropa_integration_producer_nexteuropa_integration_producer_formatter_handler_info() {
-  return array(
-    'json_formatter' => array(
-      'class' => 'Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
-    ),
-  );
-}
-
-/**
- * Implements hook_nexteuropa_integration_producer_response_handler_info().
- */
-function nexteuropa_integration_producer_nexteuropa_integration_producer_response_handler_info() {
-  return array(
-    'http_response' => array(
-      'class' => 'Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
-    ),
-    'memory_response' => array(
-      'class' => 'Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
-    ),
-  );
-}
-
-/**
  * Implements hook_nexteuropa_integration_producer_field_handler_info().
  */
 function nexteuropa_integration_producer_nexteuropa_integration_producer_field_handler_info() {
