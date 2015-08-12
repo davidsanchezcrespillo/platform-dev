@@ -26,8 +26,9 @@ class DateFieldHandler extends AbstractFieldHandler {
 
     foreach ($this->getFieldValues() as $value) {
 
-      // Make sure we always have an end date, same as start date if none given.
-      $value['value2'] = isset($value['value2']) ? $value['value'] : NULL;
+      // Set default values if none given.
+      $value['value2'] = isset($value['value2']) ? $value['value'] : '';
+      $value['timezone'] = isset($value['timezone']) ? $value['timezone'] : '';
 
       // Make sure we convert timestamp into default date format.
       if ($value['date_type'] == 'datestamp') {
