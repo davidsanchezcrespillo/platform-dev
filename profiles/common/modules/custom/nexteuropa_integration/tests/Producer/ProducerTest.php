@@ -38,37 +38,73 @@ class ProducerTest extends AbstractTest {
 
   /**
    * Test build method.
+   *
+   * @param string $bundle
+   *    Node bundle.
+   * @param int $id
+   *    Node ID.
+   *
+   * @dataProvider nodeFixturesProvider
    */
-  public function testBuild() {
-    $node = $this->getExportedEntityFixture('node', 'integration_test', 3);
+  public function testBuild($bundle, $id) {
+    $node = $this->getExportedEntityFixture('node', $bundle, $id);
     $producer = ProducerFactory::getInstance('test_configuration', $node);
 
     $document = $producer->build();
 
-    $this->assertEquals('integration_test', $document->getMetadata('type'));
-    $this->assertEquals('2015-07-28 09:04:40', $document->getMetadata('created'));
-    $this->assertEquals('2015-07-28 09:04:40', $document->getMetadata('updated'));
-    $this->assertEquals('en', $document->getMetadata('default_language'));
-    $this->assertEquals('producer-id', $document->getMetadata('producer'));
+    // Assert document metadata.
+    $this->assertEquals($node->language, $document->getDefaultLanguage());
+    $this->assertEquals($node->language, $document->getMetadata('default_language'));
+    $this->assertEquals($bundle, $document->getMetadata('type'));
+    $this->assertEquals(date(EntityWrapper::DEFAULT_DATE_FORMAT, $node->created), $document->getMetadata('created'));
+    $this->assertEquals(date(EntityWrapper::DEFAULT_DATE_FORMAT, $node->changed), $document->getMetadata('updated'));
+    $this->assertEquals($producer->getConfiguration()->getProducerId(), $document->getMetadata('producer'));
+
+    // Assert that available languages have been set correctly.
     $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
 
-    $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_start'));
-    $this->assertEquals('2015-03-16 15:30:45', $document->getFieldValue('field_integration_test_dates_end'));
-    $this->assertEquals('UTC', $document->getFieldValue('field_integration_test_dates_timezone'));
+    foreach (array('en', 'fr') as $language) {
+      $document->setCurrentLanguage($language);
 
-    $document->setCurrentLanguage('en');
-    $this->assertEquals('English title article 1', $document->getFieldValue('title_field'));
-    $this->assertContains('http://example.com/sites/default/files/file-english-1.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('http://example.com/sites/default/files/file-english-2.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('English abstract article 1', $document->getFieldValue('body'));
-    $this->assertEmpty($document->getFieldValue('body_summary'));
+      // Assert that title has been imported correctly.
+      $this->assertEquals($node->title_field[$language][0]['value'], $document->getFieldValue('title_field'));
 
-    $document->setCurrentLanguage('fr');
-    $this->assertEquals('French title article 1', $document->getFieldValue('title_field'));
-    $this->assertContains('http://example.com/sites/default/files/file-french-1.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('http://example.com/sites/default/files/file-french-2.txt', $document->getFieldValue('field_integration_test_files_path'));
-    $this->assertContains('French abstract article 1', $document->getFieldValue('body'));
-    $this->assertEmpty($document->getFieldValue('body_summary'));
+      // Assert that body has been imported correctly.
+      $this->assertEquals($node->body[$language][0]['value'], $document->getFieldValue('body'));
+
+      // Assert that list field has been imported correctly.
+      foreach ($document->getFieldValue('field_integration_test_text') as $key => $value) {
+        $this->assertEquals($node->field_integration_test_text[$language][$key]['value'], $value);
+      }
+
+      // Assert that images are imported correctly.
+      foreach ($document->getFieldValue('field_integration_test_images_path') as $key => $value) {
+        if ($value) {
+          $this->assertContains($node->field_integration_test_images[$language][$key]['filename'], urldecode($value));
+        }
+      }
+
+      // Assert that image alt field is imported correctly.
+      foreach ($document->getFieldValue('field_integration_test_images_alt') as $key => $value) {
+        $this->assertEquals($node->field_integration_test_images[$language][$key]['alt'], $value);
+      }
+
+      // Assert that image title field is imported correctly.
+      foreach ($document->getFieldValue('field_integration_test_images_title') as $key => $value) {
+        $this->assertEquals($node->field_integration_test_images[$language][$key]['title'], $value);
+      }
+
+      // Assert that files are imported correctly.
+      foreach ($document->getFieldValue('field_integration_test_files_path') as $key => $value) {
+        if ($value) {
+          $this->assertContains($node->field_integration_test_files[$language][$key]['filename'], $value);
+        }
+      }
+
+      // Assert that date field has been imported correctly.
+      $this->assertEquals($document->getFieldValue('field_integration_test_dates_start'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value']);
+      $this->assertEquals($document->getFieldValue('field_integration_test_dates_end'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value2']);
+    }
   }
 
   /**
@@ -105,6 +141,20 @@ class ProducerTest extends AbstractTest {
     foreach (array('en', 'fr') as $language) {
       $this->assertEquals($node->title_field[$language][0]['value'], $wrapper->getField('title_field', $language));
     }
+  }
+
+  /**
+   * Node fixture data provider.
+   *
+   * @return array
+   *    List of fixtures types and IDs.
+   */
+  public function nodeFixturesProvider() {
+    return array(
+      array('integration_test', 1),
+      array('integration_test', 2),
+      array('integration_test', 3),
+    );
   }
 
 }

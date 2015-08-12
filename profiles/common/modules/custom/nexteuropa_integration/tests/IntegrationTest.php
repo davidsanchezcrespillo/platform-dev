@@ -52,14 +52,8 @@ class IntegrationTest extends AbstractTest {
     // Test that backend create does assign an ID to a document.
     $this->assertEquals($this->expectedDocumentId($node), $document->getId());
 
-    // Test that other proprieties are set correctly on a document.
-    $this->assertDocumentConsistency($document, $node);
-
     // Test backend read method.
     $document = $backend->read($document);
-
-    // Test that other proprieties are set correctly on a document.
-    $this->assertDocumentConsistency($document, $node);
 
     // Test backend update method.
     $document->setCurrentLanguage('en')->setField('title_field', 'English title updated');
@@ -69,66 +63,6 @@ class IntegrationTest extends AbstractTest {
     // Test backend delete method.
     $backend->delete($updated_document);
     $this->assertFalse($backend->read($updated_document));
-  }
-
-  /**
-   * Assert that document properties are set correctly.
-   *
-   * @param DocumentInterface $document
-   *    Document object.
-   * @param object $node
-   *    Node object.
-   */
-  protected function assertDocumentConsistency(DocumentInterface $document, $node) {
-    // Assert that default language has been imported correctly.
-    $this->assertEquals($document->getDefaultLanguage(), $node->language);
-
-    // Assert that available languages have been set correctly.
-    $this->assertEquals(array('en', 'fr'), $document->getAvailableLanguages());
-
-    foreach (array('en', 'fr') as $language) {
-      $document->setCurrentLanguage($language);
-
-      // Assert that title has been imported correctly.
-      $this->assertEquals($node->title_field[$language][0]['value'], $document->getFieldValue('title_field'));
-
-      // Assert that body has been imported correctly.
-      $this->assertEquals($node->body[$language][0]['value'], $document->getFieldValue('body'));
-
-      // Assert that list field has been imported correctly.
-      foreach ($document->getFieldValue('field_integration_test_text') as $key => $value) {
-        $this->assertEquals($node->field_integration_test_text[$language][$key]['value'], $value);
-      }
-
-      // Assert that images are imported correctly.
-      foreach ($document->getFieldValue('field_integration_test_images_path') as $key => $value) {
-        if ($value) {
-          $this->assertContains($node->field_integration_test_images[$language][$key]['filename'], urldecode($value));
-        }
-      }
-
-      // Assert that image alt field is imported correctly.
-      foreach ($document->getFieldValue('field_integration_test_images_alt') as $key => $value) {
-        $this->assertEquals($node->field_integration_test_images[$language][$key]['alt'], $value);
-      }
-
-      // Assert that image title field is imported correctly.
-      foreach ($document->getFieldValue('field_integration_test_images_title') as $key => $value) {
-        $this->assertEquals($node->field_integration_test_images[$language][$key]['title'], $value);
-      }
-
-      // Assert that files are imported correctly.
-      foreach ($document->getFieldValue('field_integration_test_files_path') as $key => $value) {
-        if ($value) {
-          $this->assertContains($node->field_integration_test_files[$language][$key]['filename'], $value);
-        }
-      }
-
-      // Assert that date field has been imported correctly.
-      $r = $document->getFieldValue('field_integration_test_dates_start');
-      $this->assertEquals($document->getFieldValue('field_integration_test_dates_start'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value']);
-      $this->assertEquals($document->getFieldValue('field_integration_test_dates_end'), $node->field_integration_test_dates[LANGUAGE_NONE][0]['value2']);
-    }
   }
 
   /**
