@@ -24,21 +24,21 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
    *
    * @var BackendConfiguration
    */
-  public $backend_configuration = NULL;
+  public $backendConfiguration = NULL;
 
   /**
    * Reference to producer configuration object.
    *
    * @var ProducerConfiguration
    */
-  public $producer_configuration = NULL;
+  public $producerConfiguration = NULL;
 
   /**
    * Reference to backend configuration object.
    *
    * @var ConsumerConfiguration
    */
-  public $consumer_configuration = NULL;
+  public $consumerConfiguration = NULL;
 
 
   /**
@@ -49,16 +49,16 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     $GLOBALS['base_url'] = 'http://example.com';
 
     $data = $this->getConfigurationFixture('backend', 'test_configuration');
-    $this->backend_configuration = entity_create('integration_backend', (array) $data);
-    $this->backend_configuration->save();
+    $this->backendConfiguration = entity_create('integration_backend', (array) $data);
+    $this->backendConfiguration->save();
 
     $data = $this->getConfigurationFixture('producer', 'test_configuration');
-    $this->producer_configuration = entity_create('integration_producer', (array) $data);
-    $this->producer_configuration->save();
+    $this->producerConfiguration = entity_create('integration_producer', (array) $data);
+    $this->producerConfiguration->save();
 
     $data = $this->getConfigurationFixture('consumer', 'test_configuration');
-    $this->consumer_configuration = entity_create('integration_consumer', (array) $data);
-    $this->consumer_configuration->save();
+    $this->consumerConfiguration = entity_create('integration_consumer', (array) $data);
+    $this->consumerConfiguration->save();
   }
 
   /**
@@ -67,9 +67,9 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
   public function tearDown() {
     parent::tearDown();
 
-    $this->backend_configuration->delete();
-    $this->producer_configuration->delete();
-    $this->consumer_configuration->delete();
+    $this->backendConfiguration->delete();
+    $this->producerConfiguration->delete();
+    $this->consumerConfiguration->delete();
   }
 
   /**

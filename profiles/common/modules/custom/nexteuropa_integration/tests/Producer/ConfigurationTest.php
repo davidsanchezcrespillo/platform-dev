@@ -24,21 +24,21 @@ class ConfigurationTest extends AbstractTest {
    * @dataProvider configurationProvider
    */
   public function testConfigurationEntityCrud($data) {
-    $reflection = new \ReflectionClass($this->producer_configuration);
+    $reflection = new \ReflectionClass($this->producerConfiguration);
     $this->assertEquals('Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration', $reflection->getName());
 
-    $this->assertEquals($data->machine_name, $this->producer_configuration->identifier());
-    $this->assertEquals(ENTITY_CUSTOM, $this->producer_configuration->getStatus());
-    $this->assertEquals($data->producer_id, $this->producer_configuration->getProducerId());
+    $this->assertEquals($data->machine_name, $this->producerConfiguration->identifier());
+    $this->assertEquals(ENTITY_CUSTOM, $this->producerConfiguration->getStatus());
+    $this->assertEquals($data->producer_id, $this->producerConfiguration->getProducerId());
 
-    $this->assertEquals($data->options['username'], $this->producer_configuration->getOptionValue('username'));
-    $this->assertEquals($data->options['password'], $this->producer_configuration->getOptionValue('password'));
-    $this->assertEquals($data->type, $this->producer_configuration->getType());
+    $this->assertEquals($data->options['username'], $this->producerConfiguration->getOptionValue('username'));
+    $this->assertEquals($data->options['password'], $this->producerConfiguration->getOptionValue('password'));
+    $this->assertEquals($data->type, $this->producerConfiguration->getType());
 
-    $machine_name = $this->producer_configuration->identifier();
+    $machine_name = $this->producerConfiguration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_producer', $machine_name));
 
-    $this->producer_configuration->delete();
+    $this->producerConfiguration->delete();
     $this->assertFalse(ConfigurationFactory::load('integration_producer', $machine_name));
   }
 

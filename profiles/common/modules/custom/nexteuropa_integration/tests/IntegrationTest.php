@@ -22,21 +22,29 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 class IntegrationTest extends AbstractTest {
 
   /**
+   * Backend instance.
+   *
    * @var AbstractBackend
    */
   protected $backend;
 
   /**
+   * Producer instance.
+   *
    * @var AbstractProducer
    */
   protected $producer;
 
   /**
+   * Consumer instance.
+   *
    * @var Consumer
    */
   protected $consumer;
 
   /**
+   * Node object.
+   *
    * @var \stdClass
    */
   protected $node;

@@ -9,6 +9,8 @@ namespace Drupal\nexteuropa_integration\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Document\Document;
 
+// @codingStandardsIgnoreStart
+
 /**
  * Class MigrateListJSON.
  *
@@ -30,3 +32,4 @@ class MigrateListJSON extends \MigrateListJSON {
   }
 
 }
+// @codingStandardsIgnoreEnd

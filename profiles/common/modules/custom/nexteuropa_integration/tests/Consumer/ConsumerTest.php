@@ -36,6 +36,7 @@ class ConsumerTest extends AbstractTest {
    *    Exception level.
    *
    * @throws \MigrateException
+   *    Throws Migrate exception only on "error" error level.
    *
    * @see \MigrationBase::$displayFunction
    * @see \MigrationBase::displayMessage()
@@ -63,10 +64,6 @@ class ConsumerTest extends AbstractTest {
     }
     $this->assertArrayHasKey('title_field', $mapping);
     $this->assertEquals('source_title', $mapping['title_field']->getSourceField());
-//    $this->assertArrayHasKey('field_integration_test_images:file_replace', $mapping);
-//    $this->assertArrayHasKey('field_integration_test_files:file_replace', $mapping);
-
-    return;
   }
 
 }

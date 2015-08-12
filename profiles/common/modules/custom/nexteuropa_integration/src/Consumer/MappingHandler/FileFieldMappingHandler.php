@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\MappingHandler\FileFieldMappingHandler
+ * Contains FileFieldMappingHandler.
  */
 
 namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;
