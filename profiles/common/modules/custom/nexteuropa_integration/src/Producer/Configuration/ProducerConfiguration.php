@@ -49,6 +49,7 @@ class ProducerConfiguration extends AbstractConfiguration {
    *
    * @param string $name
    *    Option name.
+   *
    * @return string
    *    Option value.
    */

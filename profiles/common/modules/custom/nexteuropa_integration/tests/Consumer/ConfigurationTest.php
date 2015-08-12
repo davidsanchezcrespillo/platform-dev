@@ -25,27 +25,27 @@ class ConfigurationTest extends AbstractTest {
    * @dataProvider configurationProvider
    */
   public function testConfigurationEntityCrud($data) {
-    $reflection = new \ReflectionClass($this->consumer_configuration);
+    $reflection = new \ReflectionClass($this->consumerConfiguration);
     $this->assertEquals('Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration', $reflection->getName());
 
-    $this->assertEquals($data->machine_name, $this->consumer_configuration->identifier());
-    $this->assertEquals(ENTITY_CUSTOM, $this->consumer_configuration->getStatus());
+    $this->assertEquals($data->machine_name, $this->consumerConfiguration->identifier());
+    $this->assertEquals(ENTITY_CUSTOM, $this->consumerConfiguration->getStatus());
 
-    $this->assertNotEmpty($this->consumer_configuration->getMapping());
+    $this->assertNotEmpty($this->consumerConfiguration->getMapping());
 
     $flipped = array_flip($data->mapping);
-    foreach ($this->consumer_configuration->getMapping() as $destination => $source) {
-      $this->assertEquals($data->mapping[$destination], $this->consumer_configuration->getMappingSource($destination));
-      $this->assertEquals($flipped[$source], $this->consumer_configuration->getMappingDestination($source));
+    foreach ($this->consumerConfiguration->getMapping() as $destination => $source) {
+      $this->assertEquals($data->mapping[$destination], $this->consumerConfiguration->getMappingSource($destination));
+      $this->assertEquals($flipped[$source], $this->consumerConfiguration->getMappingDestination($source));
     }
 
-    $machine_name = $this->consumer_configuration->identifier();
+    $machine_name = $this->consumerConfiguration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_consumer', $machine_name));
 
-    $this->assertEquals($this->backend_configuration->getBasePath(), $this->consumer_configuration->getBackendConfiguration()->getBasePath());
-    $this->assertEquals($this->backend_configuration->getEndpoint(), $this->consumer_configuration->getBackendConfiguration()->getEndpoint());
+    $this->assertEquals($this->backendConfiguration->getBasePath(), $this->consumerConfiguration->getBackendConfiguration()->getBasePath());
+    $this->assertEquals($this->backendConfiguration->getEndpoint(), $this->consumerConfiguration->getBackendConfiguration()->getEndpoint());
 
-    $this->consumer_configuration->delete();
+    $this->consumerConfiguration->delete();
     $this->assertFalse(ConfigurationFactory::load('integration_consumer', $machine_name));
   }
 
