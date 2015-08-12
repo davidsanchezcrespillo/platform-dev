@@ -108,31 +108,12 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
    */
   protected function getExportedEntityFixture($entity_type, $bundle, $id) {
     static $fixtures = array();
-    if (!isset($fixtures[$type][$id])) {
+    if (!isset($fixtures[$bundle][$id])) {
       $export = new \stdClass();
       include "fixtures/entities/$entity_type-$bundle-$id.php";
-      $fixtures[$type][$id] = clone $export;
+      $fixtures[$bundle][$id] = clone $export;
     }
-    return $fixtures[$type][$id];
-  }
-
-  /**
-   * Get rendered entity from fixture directory.
-   *
-   * @param string $type
-   *    Entity type.
-   * @param int $id
-   *    Entity ID.
-   *
-   * @return \stdClass
-   *    Entity object.
-   */
-  protected function getRenderedEntityFixture($type, $id) {
-    $filename = dirname(__FILE__) . "/fixtures/$type-$id.json";
-    if (!file_exists($filename)) {
-      throw new \InvalidArgumentException("Fixture '$type-$id.json' not found");
-    }
-    return file_get_contents($filename);
+    return $fixtures[$bundle][$id];
   }
 
 }
