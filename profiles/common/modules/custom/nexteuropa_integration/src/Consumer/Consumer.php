@@ -14,6 +14,7 @@ use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
 use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
 use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
 use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
+use Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
 use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
 use Drupal\nexteuropa_integration\Consumer\MappingHandler\AbstractMappingHandler;
@@ -124,7 +125,13 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   }
 
   /**
-   * {@inheritdoc}
+   * Register current consumer as Migrate migration and return its instance.
+   *
+   * @param string $machine_name
+   *    Consumer configuration machine name.
+   *
+   * @return Consumer
+   *    Consumer object instance.
    */
   static public function getInstance($machine_name) {
     self::register($machine_name);
@@ -203,4 +210,32 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     }
   }
 
+  /**
+   * Consumer implementation of prepareRow().
+   *
+   * @param DocumentWrapper $row
+   *    Document wrapper object containing source data.
+   *
+   * @return bool
+   *    TRUE to process this row, FALSE to have the source skip it.
+   */
+  public function prepareRow(DocumentWrapper $row) {
+    parent::prepareRow($row);
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDestinationEntity($id) {
+    $entity_type = $this->getConfiguration()->getEntityType();
+    $mapping_row = $this->getMap()->getRowBySource(array('_id' => $id));
+    if ($mapping_row && isset($mapping_row['destid1']) && !empty($mapping_row['destid1'])) {
+      return entity_load_single($entity_type, $mapping_row['destid1']);
+    }
+    else {
+      return FALSE;
+    }
+
+  }
 }
