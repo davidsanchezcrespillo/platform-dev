@@ -39,6 +39,9 @@ class IntegrationTest extends AbstractTest {
       // Test that backend create does assign an ID to a document.
       $this->assertEquals($this->expectedNodeDocumentId($node), $document->getId());
     }
+
+//    $consumer->processImport();
+//    $consumer->processRollback();
   }
 
 }
