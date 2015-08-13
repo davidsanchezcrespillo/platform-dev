@@ -2,12 +2,14 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\Migrate\MigrateSourceBackend
+ * Contains MigrateSourceBackend.
  */
 
 namespace Drupal\nexteuropa_integration\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Backend\AbstractBackend;
+use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Class MigrateSourceBackend.
@@ -24,6 +26,20 @@ class MigrateSourceBackend extends \MigrateSource {
   protected $backend;
 
   /**
+   * List of documents IDs retrieved by current backend.
+   *
+   * @var array
+   */
+  protected $documentList = array();
+
+  /**
+   * Index in $documentList array of current document being processed.
+   *
+   * @var int
+   */
+  protected $currentId = 0;
+
+  /**
    * Constructor.
    *
    * @param AbstractBackend $backend
@@ -38,54 +54,60 @@ class MigrateSourceBackend extends \MigrateSource {
 
   /**
    * Return a string representing the source, for display in the UI.
+   *
+   * @return null|string
+   *    String representing the source
    */
   public function __toString() {
     return t('Migrate source using %backend integration backend.', array('%backend' => $this->backend->getConfiguration()->getName()));
   }
 
   /**
-   * Returns a list of fields available to be mapped from the source,
-   * keyed by field name.
+   * Returns available fields to be mapped from the source, keyed by field name.
+   *
+   * @return array
+   *    List of fields keyed by field name.
    */
   public function fields() {
-    return array(
-      'title' => t('Title'),
-      'body' => t('Body'),
-    );
+    return array();
   }
 
   /**
    * Return the number of available source records.
+   *
+   * @return int
+   *    Number of available records.
    */
   public function computeCount() {
-//    return $this->numRows;
+    return count($this->documentList);
   }
 
   /**
-   * Do whatever needs to be done to start a fresh traversal of the source data.
-   *
-   * This is always called at the start of an import, so tasks such as opening
-   * file handles, running queries, and so on should be performed here.
+   * Reset current document ID so to start a fresh traversal of the source data.
    */
   public function performRewind() {
-//    $this->currentId = 1;
+    if (!$this->documentList) {
+      $this->documentList = $this->backend->getDocumentList();
+    }
+    $this->currentId = 0;
   }
 
   /**
-   * Fetch the next row of data, returning it as an object. Return FALSE
-   * when there is no more data available.
+   * Fetch the next row of data, returning it as an Document object.
+   *
+   * @return DocumentInterface|FALSE
+   *    New document instance or FALSE if not more content is available.
    */
   public function getNextRow() {
-//    if ($this->currentId <= $this->numRows) {
-//      $row = new \stdClass;
-//      $row->id = $this->currentId;
-//      $row->title = 'Sample title ' . $row->id;
-//      $row->body = 'Sample body';
-//      $this->currentId++;
-//      return $row;
-//    }
-//    else {
-//      return NULL;
-//    }
+
+    if ($this->currentId <= $this->computeCount()) {
+      $document = $this->backend->read($this->documentList[$this->currentId]);
+      $this->currentId++;
+      return $document;
+    }
+    else {
+      return FALSE;
+    }
   }
+
 }

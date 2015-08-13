@@ -27,6 +27,13 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
+  public function getDocumentList($max = 0) {
+    return array_keys($this->storage);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function create(DocumentInterface $document) {
     $document->setMetadata('_id', $this->getBackendContentId($document));
     $this->storage[$document->getId()] = $document->getDocument();
@@ -36,9 +43,9 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function read(DocumentInterface $document) {
-    if (isset($this->storage[$document->getId()])) {
-      return new Document($this->storage[$document->getId()]);
+  public function read($id) {
+    if (isset($this->storage[$id])) {
+      return new Document($this->storage[$id]);
     }
     return FALSE;
   }
@@ -54,8 +61,8 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function delete(DocumentInterface $document) {
-    unset($this->storage[$document->getId()]);
+  public function delete($id) {
+    unset($this->storage[$id]);
     return TRUE;
   }
 

@@ -61,7 +61,7 @@ class HttpRestBackendTest extends AbstractTest {
     $backend = $this->getMockedHttpBackendInstance($response);
 
     /** @var RestBackend $backend */
-    $return = $backend->delete(new Document());
+    $return = $backend->delete('123');
     $this->assertTrue($return);
   }
 
