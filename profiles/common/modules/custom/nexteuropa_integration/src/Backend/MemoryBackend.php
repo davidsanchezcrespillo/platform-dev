@@ -28,7 +28,7 @@ class MemoryBackend extends AbstractBackend {
    * {@inheritdoc}
    */
   public function create(DocumentInterface $document) {
-    $document->setMetadata('_id', $this->getBackendId($document));
+    $document->setMetadata('_id', $this->getBackendContentId($document));
     $this->storage[$document->getId()] = $document->getDocument();
     return $document;
   }
@@ -62,7 +62,7 @@ class MemoryBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function getBackendId(DocumentInterface $document) {
+  public function getBackendContentId(DocumentInterface $document) {
     return $document->getMetadata('producer_content_id');
   }
 

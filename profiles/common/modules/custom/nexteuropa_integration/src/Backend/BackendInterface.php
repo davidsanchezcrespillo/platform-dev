@@ -93,14 +93,14 @@ interface BackendInterface {
   public function delete(DocumentInterface $document);
 
   /**
-   * Get backend ID using local producer content ID.
+   * Get backend content ID.
    *
    * @param DocumentInterface $document
    *    Document object.
    *
    * @return string
-   *    Backend ID.
+   *    Backend content ID.
    */
-  public function getBackendId(DocumentInterface $document);
+  public function getBackendContentId(DocumentInterface $document);
 
 }

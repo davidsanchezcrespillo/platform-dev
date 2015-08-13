@@ -60,7 +60,7 @@ class RestBackend extends AbstractBackend {
   public function read(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'GET';
-    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendContentId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -75,7 +75,7 @@ class RestBackend extends AbstractBackend {
     $options = array();
     $options['method'] = 'PUT';
     $options['data'] = $this->getFormatter()->format($document);
-    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendContentId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -89,7 +89,7 @@ class RestBackend extends AbstractBackend {
   public function delete(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'DELETE';
-    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendContentId($document), $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -100,7 +100,7 @@ class RestBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function getBackendId(DocumentInterface $document) {
+  public function getBackendContentId(DocumentInterface $document) {
     $options = array();
     $options['method'] = 'GET';
     $producer = $document->getMetadata('producer');
