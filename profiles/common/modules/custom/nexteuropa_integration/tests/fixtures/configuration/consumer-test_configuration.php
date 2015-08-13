@@ -13,12 +13,8 @@ $export->backend = 'test_configuration';
 $export->entity_type = 'node';
 $export->entity_bundle = 'integration_test';
 $export->mapping = array(
-  'title' => 'source_title',
-  'body' => 'source_body',
-  'field_integration_test_images' => 'source_image',
-  'field_integration_test_files' => 'source_files',
-  'field_integration_test_ref' => 'source_reference',
-  'field_integration_test_terms' => 'source_terms',
+  'title' => 'title_field',
+  'body' => 'body',
 );
 $export->options = array(
   'option1' => 'value1',
