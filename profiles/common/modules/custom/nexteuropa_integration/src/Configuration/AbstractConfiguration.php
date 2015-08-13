@@ -42,14 +42,14 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->name;
+    return isset($this->name) ? $this->name : '';
   }
 
   /**
    * {@inheritdoc}
    */
   public function getMachineName() {
-    return $this->machine_name;
+    return isset($this->machine_name) ? $this->machine_name : '';
   }
 
   /**
