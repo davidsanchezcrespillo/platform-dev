@@ -34,4 +34,15 @@ interface ConsumerInterface {
    */
   public static function register($configuration);
 
+  /**
+   * Load local entity given its remote backend content ID.
+   *
+   * @param string $id
+   *    Backend content ID.
+   *
+   * @return object|FALSE
+   *    Consumed entity for given remote backend content ID, FALSE if none.
+   */
+  public function getDestinationEntity($id);
+
 }

@@ -63,7 +63,7 @@ class ConsumerTest extends AbstractTest {
       $this->assertEquals($source, $mapping[$destination]->getSourceField());
     }
     $this->assertArrayHasKey('title_field', $mapping);
-    $this->assertEquals('source_title', $mapping['title_field']->getSourceField());
+    $this->assertEquals('title_field', $mapping['title_field']->getSourceField());
   }
 
 }

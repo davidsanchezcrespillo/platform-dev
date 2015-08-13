@@ -8,8 +8,6 @@
 namespace Drupal\nexteuropa_integration\Consumer\Migrate;
 
 use Drupal\nexteuropa_integration\Backend\AbstractBackend;
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
 
 /**
  * Class MigrateSourceBackend.
@@ -69,7 +67,9 @@ class MigrateSourceBackend extends \MigrateSource {
    *    List of fields keyed by field name.
    */
   public function fields() {
-    return array();
+    return array(
+      '_id' => t('Backend content ID'),
+    );
   }
 
   /**
@@ -95,15 +95,16 @@ class MigrateSourceBackend extends \MigrateSource {
   /**
    * Fetch the next row of data, returning it as an Document object.
    *
-   * @return DocumentInterface|FALSE
+   * @return DocumentWrapper|FALSE
    *    New document instance or FALSE if not more content is available.
    */
   public function getNextRow() {
 
-    if ($this->currentId <= $this->computeCount()) {
+    if ($this->currentId < $this->computeCount()) {
       $document = $this->backend->read($this->documentList[$this->currentId]);
+      $document_wrapper = new DocumentWrapper($document);
       $this->currentId++;
-      return $document;
+      return $document_wrapper;
     }
     else {
       return FALSE;
