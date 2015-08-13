@@ -49,7 +49,7 @@ class BackendTest extends AbstractTest {
     $this->assertEquals($this->expectedNodeDocumentId($node), $document->getId());
 
     // Test backend read method.
-    $document = $backend->read($document);
+    $document = $backend->read($document->getId());
 
     // Test backend update method.
     $document->setCurrentLanguage('en')->setField('title_field', 'English title updated');
@@ -57,8 +57,9 @@ class BackendTest extends AbstractTest {
     $this->assertEquals('English title updated', $updated_document->getFieldValue('title_field'));
 
     // Test backend delete method.
-    $backend->delete($updated_document);
-    $this->assertFalse($backend->read($updated_document));
+    $id = $updated_document->getId();
+    $backend->delete($id);
+    $this->assertFalse($backend->read($id));
   }
 
 }
