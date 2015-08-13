@@ -10,7 +10,6 @@ namespace Drupal\nexteuropa_integration\Tests;
 use Drupal\nexteuropa_integration\Backend\BackendFactory;
 use Drupal\nexteuropa_integration\Consumer\Consumer;
 use Drupal\nexteuropa_integration\Producer\ProducerFactory;
-use Drupal\nexteuropa_integration\Backend\AbstractBackend;
 
 /**
  * Class IntegrationTest.
@@ -67,4 +66,5 @@ class IntegrationTest extends AbstractTest {
     }
     return $nodes;
   }
+
 }
