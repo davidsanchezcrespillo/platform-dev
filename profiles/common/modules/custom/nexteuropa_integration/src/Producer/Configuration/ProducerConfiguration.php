@@ -31,7 +31,7 @@ class ProducerConfiguration extends AbstractConfiguration {
    *    Producer ID.
    */
   public function getProducerId() {
-    return $this->producer_id;
+    return isset($this->producer_id) ? $this->producer_id : '';
   }
 
   /**
@@ -41,7 +41,7 @@ class ProducerConfiguration extends AbstractConfiguration {
    *    Entity type.
    */
   public function getType() {
-    return $this->type;
+    return isset($this->type) ? $this->type : '';
   }
 
   /**

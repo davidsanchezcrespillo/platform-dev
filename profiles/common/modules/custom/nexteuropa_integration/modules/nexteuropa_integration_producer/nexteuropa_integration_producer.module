@@ -7,9 +7,44 @@
 
 include_once 'includes/nexteuropa_integration_producer.entity.inc';
 include_once 'includes/nexteuropa_integration_producer.hooks.inc';
+include_once 'includes/nexteuropa_integration_producer.admin.inc';
 
 use Drupal\nexteuropa_integration\Document\DocumentInterface;
 use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
+use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
+
+/**
+ * Implements hook_permission().
+ */
+function nexteuropa_integration_producer_permission() {
+  return array(
+    'administer producers' => array(
+      'title' => t('Administer integration layer producers'),
+    ),
+  );
+}
+
+/**
+ * Determines whether the given user can perform actions on an entity.
+ *
+ * @param string $op
+ *   Operation being performed: 'view', 'update', 'create' or 'delete'.
+ * @param ProducerConfiguration|NULL $producer
+ *   Optionally an entity to check access for.
+ * @param object|NULL $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ * @param string|NULL $entity_type
+ *   The entity type of the entity to check for.
+ *
+ * @return bool
+ *   Whether access is allowed or not.
+ *
+ * @see entity_type_supports()
+ * @see nexteuropa_integration_producer_entity_info()
+ */
+function nexteuropa_integration_producer_access($op, $producer, $account, $entity_type) {
+  return user_access('administer producers');
+}
 
 /**
  * Collect and return list of producer definitions.
