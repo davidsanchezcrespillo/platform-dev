@@ -148,7 +148,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    */
   protected function processMappingHandlers($destination_field, $source_field = NULL) {
 
-    $handlers = nexteuropa_integration_producer_get_consumer_mapping_handler_info();
+    $handlers = nexteuropa_integration_consumer_get_consumer_mapping_handler_info();
     foreach ($handlers as $name => $info) {
       /** @var AbstractMappingHandler $handler */
       $handler = new $info['class']($this);
@@ -238,5 +238,4 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     }
 
   }
-
 }
