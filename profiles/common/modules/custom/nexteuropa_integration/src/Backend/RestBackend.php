@@ -20,14 +20,20 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 class RestBackend extends AbstractBackend {
 
   /**
-   * {@inheritdoc}
+   * Get full, single resource URI.
+   *
+   * @return string
+   *    Single resource URI.
    */
   public function getResourceUri() {
     return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getEndpoint();
   }
 
   /**
-   * {@inheritdoc}
+   * Get full resources list URI.
+   *
+   * @return string $list
+   *    List URI.
    */
   public function getListUri() {
     return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getListEndpoint();
