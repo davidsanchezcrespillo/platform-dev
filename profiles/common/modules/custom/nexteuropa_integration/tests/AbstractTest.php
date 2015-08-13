@@ -116,4 +116,31 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
     return $fixtures[$bundle][$id];
   }
 
+  /**
+   * Node fixture data provider.
+   *
+   * @return array
+   *    List of fixtures types and IDs.
+   */
+  public function nodeFixturesDataProvider() {
+    return array(
+      array('integration_test', 1),
+      array('integration_test', 2),
+      array('integration_test', 3),
+    );
+  }
+
+  /**
+   * Return expected document ID.
+   *
+   * @param object $node
+   *    Node object.
+   *
+   * @return string
+   *    Expected document ID.
+   */
+  protected function expectedNodeDocumentId($node) {
+    return 'node-integration-test-' . $node->nid;
+  }
+
 }
