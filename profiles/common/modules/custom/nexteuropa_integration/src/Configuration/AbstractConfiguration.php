@@ -56,14 +56,14 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    * {@inheritdoc}
    */
   public function getEnabled() {
-    $this->enabled;
+    return isset($this->enabled) ? $this->enabled : FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getStatus() {
-    return $this->status;
+    return isset($this->status) ? $this->status : ENTITY_CUSTOM;
   }
 
   /**
