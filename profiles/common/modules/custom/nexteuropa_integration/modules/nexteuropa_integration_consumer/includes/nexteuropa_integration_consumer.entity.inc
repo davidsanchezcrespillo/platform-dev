@@ -10,7 +10,7 @@
  */
 function nexteuropa_integration_consumer_entity_info() {
   $info['integration_consumer'] = array(
-    'label' => t('Integration consumer'),
+    'label' => t('Integration layer consumer'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
     'entity class' => 'Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration',
@@ -23,6 +23,9 @@ function nexteuropa_integration_consumer_entity_info() {
       'id' => 'id',
       'label' => 'name',
       'name' => 'machine_name',
+    ),
+    'admin ui' => array(
+      'path' => 'admin/config/services/integration/consumer',
     ),
   );
   return $info;

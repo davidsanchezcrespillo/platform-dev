@@ -49,7 +49,7 @@ class ConsumerConfiguration extends AbstractConfiguration {
    *    Entity type machine name.
    */
   public function getEntityType() {
-    return $this->entity_type;
+    return isset($this->entity_type) ? $this->entity_type : '';
   }
 
   /**
@@ -59,7 +59,7 @@ class ConsumerConfiguration extends AbstractConfiguration {
    *    Entity bundle machine name.
    */
   public function getEntityBundle() {
-    return $this->entity_bundle;
+    return isset($this->entity_bundle) ? $this->entity_bundle : '';
   }
 
   /**
