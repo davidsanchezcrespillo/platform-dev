@@ -10,7 +10,7 @@
  */
 function nexteuropa_integration_entity_info() {
   $info['integration_backend'] = array(
-    'label' => t('Backend'),
+    'label' => t('Integration layer backend'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
     'entity class' => 'Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration',

@@ -10,7 +10,7 @@
  */
 function nexteuropa_integration_producer_entity_info() {
   $info['integration_producer'] = array(
-    'label' => t('Integration producer'),
+    'label' => t('Integration layer producer'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
     'entity class' => 'Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration',
@@ -19,11 +19,13 @@ function nexteuropa_integration_producer_entity_info() {
     'access callback' => 'nexteuropa_integration_producer_access',
     'module' => 'nexteuropa_integration',
     'exportable' => TRUE,
-    'bundles' => array(),
     'entity keys' => array(
       'id' => 'id',
       'label' => 'name',
       'name' => 'machine_name',
+    ),
+    'admin ui' => array(
+      'path' => 'admin/config/services/integration/producer',
     ),
   );
   return $info;
