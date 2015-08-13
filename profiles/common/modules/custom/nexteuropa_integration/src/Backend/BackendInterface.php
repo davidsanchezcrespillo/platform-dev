@@ -49,22 +49,6 @@ interface BackendInterface {
   public function setFormatter(Formatter\FormatterInterface $formatter);
 
   /**
-   * Get full, single resource URI.
-   *
-   * @return string
-   *    Single resource URI.
-   */
-  public function getResourceUri();
-
-  /**
-   * Get full resources list URI.
-   *
-   * @return string $list
-   *    List URI.
-   */
-  public function getListUri();
-
-  /**
    * Create a new document and populate its backend ID.
    *
    * @param DocumentInterface $document
