@@ -14,7 +14,7 @@ include_once 'includes/nexteuropa_integration_consumer.hooks.inc';
  * @return array
  *    List of mapping handler definitions.
  */
-function nexteuropa_integration_producer_get_consumer_mapping_handler_info() {
+function nexteuropa_integration_consumer_get_consumer_mapping_handler_info() {
   // @todo: Add validation on returned classes to be actual mapping handlers.
   // We should probably apply a similar approach to other hooks too.
   $info = module_invoke_all('nexteuropa_integration_consumer_mapping_handler_info');
