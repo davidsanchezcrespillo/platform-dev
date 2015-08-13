@@ -8,10 +8,6 @@
 namespace Drupal\nexteuropa_integration\Tests\Backend;
 
 use Drupal\nexteuropa_integration\Backend\BackendFactory;
-use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
-use Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse;
-use Drupal\nexteuropa_integration\Backend\RestBackend;
-use Drupal\nexteuropa_integration\Document\Document;
 use Drupal\nexteuropa_integration\Producer\ProducerFactory;
 use Drupal\nexteuropa_integration\Tests\AbstractTest;
 
@@ -44,7 +40,7 @@ class BackendTest extends AbstractTest {
     $this->assertNull($document->getId());
 
     // Each backend is responsible for fetching a document's remote ID.
-    $this->assertEquals($this->expectedNodeDocumentId($node), $backend->getBackendId($document));
+    $this->assertEquals($this->expectedNodeDocumentId($node), $backend->getBackendContentId($document));
 
     // Test backend create method.
     $document = $backend->create($document);
