@@ -238,4 +238,5 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
     }
 
   }
+
 }
