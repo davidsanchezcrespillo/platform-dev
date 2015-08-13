@@ -44,7 +44,7 @@ class ProducerTest extends AbstractTest {
    * @param int $id
    *    Node ID.
    *
-   * @dataProvider nodeFixturesProvider
+   * @dataProvider nodeFixturesDataProvider
    */
   public function testBuild($bundle, $id) {
     $node = $this->getExportedEntityFixture('node', $bundle, $id);
@@ -141,20 +141,6 @@ class ProducerTest extends AbstractTest {
     foreach (array('en', 'fr') as $language) {
       $this->assertEquals($node->title_field[$language][0]['value'], $wrapper->getField('title_field', $language));
     }
-  }
-
-  /**
-   * Node fixture data provider.
-   *
-   * @return array
-   *    List of fixtures types and IDs.
-   */
-  public function nodeFixturesProvider() {
-    return array(
-      array('integration_test', 1),
-      array('integration_test', 2),
-      array('integration_test', 3),
-    );
   }
 
 }
