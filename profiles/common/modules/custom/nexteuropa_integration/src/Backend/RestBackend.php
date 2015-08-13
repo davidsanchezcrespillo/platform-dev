@@ -20,23 +20,11 @@ use Drupal\nexteuropa_integration\Document\DocumentInterface;
 class RestBackend extends AbstractBackend {
 
   /**
-   * Get full, single resource URI.
-   *
-   * @return string
-   *    Single resource URI.
+   * {@inheritdoc}
    */
-  public function getResourceUri() {
-    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getEndpoint();
-  }
-
-  /**
-   * Get full resources list URI.
-   *
-   * @return string $list
-   *    List URI.
-   */
-  public function getListUri() {
-    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getListEndpoint();
+  public function getDocumentList($max = 0) {
+    // @todo implement document list retrieval.
+    return array();
   }
 
   /**
@@ -57,10 +45,10 @@ class RestBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function read(DocumentInterface $document) {
+  public function read($id) {
     $options = array();
     $options['method'] = 'GET';
-    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendContentId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $id, $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -86,10 +74,10 @@ class RestBackend extends AbstractBackend {
   /**
    * {@inheritdoc}
    */
-  public function delete(DocumentInterface $document) {
+  public function delete($id) {
     $options = array();
     $options['method'] = 'DELETE';
-    $response = $this->httpRequest($this->getResourceUri() . '/' . $this->getBackendContentId($document), $options);
+    $response = $this->httpRequest($this->getResourceUri() . '/' . $id, $options);
 
     $this->getResponseHandler()->setResponse($response);
     if (!$this->getResponseHandler()->hasErrors()) {
@@ -134,6 +122,26 @@ class RestBackend extends AbstractBackend {
     // Make sure we use standard drupal_http_request(), without overrides.
     $conf['drupal_http_request_function'] = FALSE;
     return drupal_http_request($url, $options);
+  }
+
+  /**
+   * Get full, single resource URI.
+   *
+   * @return string
+   *    Single resource URI.
+   */
+  protected function getResourceUri() {
+    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getEndpoint();
+  }
+
+  /**
+   * Get full resources list URI.
+   *
+   * @return string $list
+   *    List URI.
+   */
+  protected function getListUri() {
+    return $this->getConfiguration()->getBasePath() . '/' . $this->getConfiguration()->getListEndpoint();
   }
 
 }
