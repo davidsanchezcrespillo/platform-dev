@@ -49,6 +49,17 @@ interface BackendInterface {
   public function setFormatter(Formatter\FormatterInterface $formatter);
 
   /**
+   * Return list of document IDs.
+   *
+   * @param int $max
+   *    Max number of items IDs to return.
+   *
+   * @return array
+   *    List of document IDs
+   */
+  public function getDocumentList($max = 0);
+
+  /**
    * Create a new document and populate its backend ID.
    *
    * @param DocumentInterface $document
@@ -62,13 +73,13 @@ interface BackendInterface {
   /**
    * Get a document from the backend, given its backend ID.
    *
-   * @param DocumentInterface $document
-   *    Document object.
+   * @param string $id
+   *    Document backend ID.
    *
    * @return DocumentInterface|false
    *    Document fetched from backend or FALSE if not found.
    */
-  public function read(DocumentInterface $document);
+  public function read($id);
 
   /**
    * Update an existing document.
@@ -84,13 +95,13 @@ interface BackendInterface {
   /**
    * Delete a document from the backend, given its backend ID.
    *
-   * @param DocumentInterface $document
-   *    Document object.
+   * @param string $id
+   *    Document backend ID.
    *
    * @return bool
    *    TRUE if deleted FALSE if not found.
    */
-  public function delete(DocumentInterface $document);
+  public function delete($id);
 
   /**
    * Get backend content ID.
