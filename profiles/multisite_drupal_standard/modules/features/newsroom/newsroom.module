@@ -675,13 +675,13 @@ function _newsroom_get_summary_block_tid() {
   // Check if selection config is set.
   if (isset($entity->field_associated_newsroom_select) && !empty($entity->field_associated_newsroom_select)) {
     // If it has the selection field, try to load config.
-    $newsroom_selection_node = node_load($entity->field_associated_newsroom_select['und'][0]['target_id']);
+    $newsroom_selection_node = node_load($entity->field_associated_newsroom_select[LANGUAGE_NONE][0]['target_id']);
   }
 
   if ($newsroom_selection_node) {
 
     if (!empty($newsroom_selection_node->field_newsroom_topic_operator)) {
-      $topic_operator = $newsroom_selection_node->field_newsroom_topic_operator['und'][0]['value'];
+      $topic_operator = $newsroom_selection_node->field_newsroom_topic_operator[LANGUAGE_NONE][0]['value'];
     }
 
     $topic_config = field_get_items('node', $newsroom_selection_node, 'field_selected_topics');
@@ -715,7 +715,7 @@ function _newsroom_get_summary_block_tid() {
   }
   elseif (isset($entity->field_associated_newsroom_topic) && !empty($entity->field_associated_newsroom_topic)) {
     // If it has the associated field, try to load topic.
-    $selected_topics = array($entity->field_associated_newsroom_topic['und'][0]['tid']);
+    $selected_topics = array($entity->field_associated_newsroom_topic[LANGUAGE_NONE][0]['tid']);
     $config['display'] = TRUE;
   }
 

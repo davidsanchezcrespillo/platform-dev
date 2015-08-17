@@ -505,7 +505,7 @@ function multisite_newsroom_restore_conf($form, &$form_state) {
 
   // Override values basing on the backup ones.
   foreach ($term as $propname => $prop) {
-    $form_state['values'][$propname]['und'][0]['value'] = $prop;
+    $form_state['values'][$propname][LANGUAGE_NONE][0]['value'] = $prop;
   }
 
   // Set a message for the user.
@@ -586,14 +586,14 @@ function multisite_newsroom_restore_batch(array $chunk, $voc, array $operation_d
         // Override values.
         foreach ($fields as $field_name => $value) {
           if (!in_array($propname, $special)) {
-            $term[$field_name]['und'][0]['value'] = $value;
+            $term[$field_name][LANGUAGE_NONE][0]['value'] = $value;
           }
           else {
             if (is_numeric($value)) {
-              $term[$field_name]['und'][0]['target_id'] = $value;
+              $term[$field_name][LANGUAGE_NONE][0]['target_id'] = $value;
             }
             else {
-              unset($term[$field_name]['und'][0]);
+              unset($term[$field_name][LANGUAGE_NONE][0]);
             }
           }
         }
@@ -726,15 +726,15 @@ function multisite_newsroom_form_taxonomy_overview_terms_alter(&$form, &$form_st
 function _multisite_newsroom_get_ids($voc, $data) {
   switch ($voc) {
     case 'newsroom_item_type':
-      $id = $data['field_newsroom_type_id']['und'][0]['value'];
+      $id = $data['field_newsroom_type_id'][LANGUAGE_NONE][0]['value'];
       break;
 
     case 'newsroom_service':
-      $id = $data['field_newsroom_service_id']['und'][0]['value'];
+      $id = $data['field_newsroom_service_id'][LANGUAGE_NONE][0]['value'];
       break;
 
     case 'newsroom_topic':
-      $id = $data['field_newsroom_topic_id']['und'][0]['value'];
+      $id = $data['field_newsroom_topic_id'][LANGUAGE_NONE][0]['value'];
       break;
   }
   return $id;
@@ -763,8 +763,8 @@ function _multisite_newsroom_export_prepare_values($term) {
         continue;
       }
 
-      if (isset($prop['und'][0]['value'])) {
-        $values[$id][$propname] = $prop['und'][0]['value'];
+      if (isset($prop[LANGUAGE_NONE][0]['value'])) {
+        $values[$id][$propname] = $prop[LANGUAGE_NONE][0]['value'];
       }
     }
   }
