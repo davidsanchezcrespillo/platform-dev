@@ -65,9 +65,9 @@ function nexteuropa_integration_producer_entity_property_info() {
       'sanitize' => 'filter_xss',
     ),
     'type' => array(
-      'label' => t('Backend type'),
+      'label' => t('Producer type'),
       'type' => 'text',
-      'description' => t('The ID of the producer plugin to use.'),
+      'description' => t('The id of the producer plugin to use.'),
       'schema field' => 'type',
       'required' => TRUE,
     ),
