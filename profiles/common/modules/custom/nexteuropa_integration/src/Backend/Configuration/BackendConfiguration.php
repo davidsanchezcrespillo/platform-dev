@@ -57,7 +57,7 @@ class BackendConfiguration extends AbstractConfiguration {
    *    Backend type.
    */
   public function getType() {
-    return $this->type;
+    return isset($this->type) ? $this->type : '';
   }
 
   /**
@@ -77,7 +77,7 @@ class BackendConfiguration extends AbstractConfiguration {
    *    Formatter handler name.
    */
   public function getFormatter() {
-    return $this->formatter;
+    return isset($this->formatter) ? $this->formatter : '';
   }
 
   /**
@@ -112,16 +112,18 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend base path.
+   * @todo: This should actually be backend-type specific.
    *
    * @return string
    *     Backend base path.
    */
   public function getBasePath() {
-    return $this->options['base_path'];
+    return isset($this->options['base_path']) ? $this->options['base_path'] : '';
   }
 
   /**
    * Set backend base path.
+   * @todo: This should actually be backend-type specific.
    *
    * @param string $base_path
    *    Backend base path.
@@ -132,16 +134,18 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend endpoint.
+   * @todo: This should actually be backend-type specific.
    *
    * @return string
    *    Backend endpoint.
    */
   public function getEndpoint() {
-    return $this->options['endpoint'];
+    return isset($this->options['endpoint']) ? $this->options['endpoint'] : '';
   }
 
   /**
    * Set resource endpoint.
+   * @todo: This should actually be backend-type specific.
    *
    * @param string $endpoint
    *    Backend resource endpoint.
@@ -152,16 +156,18 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend resource list endpoint.
+   * @todo: This should actually be backend-type specific.
    *
    * @return string
    *    List endpoint.
    */
   public function getListEndpoint() {
-    return $this->options['list'];
+    return isset($this->options['list']) ? $this->options['list'] : '';
   }
 
   /**
    * Set backend resource list endpoint.
+   * @todo: This should actually be backend-type specific.
    *
    * @param string $list
    *    List endpoint.
