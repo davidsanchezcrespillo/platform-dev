@@ -76,6 +76,41 @@ function integration_consumer_form($form, &$form_state, ConsumerConfiguration $c
   $form['status'] = array(
     '#value' => ($op == 'add') ? ENTITY_CUSTOM : $consumer->getStatus(),
   );
+  
+  $form['mapping'] = array(
+    '#tree' => TRUE,
+    '#theme' => 'table',
+    '#header' => array(t('Source'), t('Destination')),
+    '#rows' => array(),
+  );
+
+  $fields = field_info_instances();
+  foreach ($fields as $entity_type => $bundles) {
+    foreach ($bundles as $bundle => $fields) {
+      foreach ($fields as $field_name => $field) {
+        $label = array();
+        $label[] = $entity_info[$entity_type]['label'];
+        $label[] = $entity_info[$entity_type]['bundles'][$bundle]['label'];
+        $label[] = $field['label'];
+
+        $destination = array('#markup' => implode(' - ', $label));
+        $source = array('#type' => 'textfield');
+        if ($bundle == $consumer->getEntityBundle() && $entity_type == $consumer->getEntityType()) {
+          $source['#default_value'] = $consumer->getMappingSource($field_name);
+        }
+        $form['mapping'][] = array(
+          "$entity_type-$bundle-$field_name" => &$source,
+          'destination' => &$destination,
+        );
+        $form['mapping']['#rows'][] = array(
+          array('data' => &$source),
+          array('data' => &$destination),
+        );
+        unset($destination);
+        unset($source);
+      }
+    }
+  }
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -107,13 +142,29 @@ function nexteuropa_integration_consumer_load_consumer($machine_name) {
 function integration_consumer_form_submit(&$form, &$form_state) {
 
   $entity_info = entity_get_info();
-  $form_state['values']['entity_bundle'] = $form_state['values']['entity_bundle_' . $form_state['values']['entity_type']];
-  foreach ($entity_info as $entity_type => $info) {
-    unset($form_state['values']['entity_bundle_' . $entity_type]);
+  $entity_type = $form_state['values']['entity_type'];
+  $form_state['values']['entity_bundle'] = $form_state['values']['entity_bundle_' . $entity_type];
+  $bundle = $form_state['values']['entity_bundle'];
+  foreach ($entity_info as $_type => $info) {
+    unset($form_state['values']['entity_bundle_' . $_type]);
   }
+
+  // Sanitize mapping.
+  $mapping = array();
+  foreach ($form_state['values']['mapping'] as $mapping_row) {
+    $keys = array_keys($mapping_row);
+    $field_id = array_shift($keys);
+    $field_value = trim(array_shift($mapping_row));
+    list($_type, $_bundle, $_name) = explode('-', $field_id);
+    if ($field_value && ($entity_type == $_type) && ($bundle == $_bundle)) {
+      $mapping[$_name] = $field_value;
+    }
+  }
+  $form_state['values']['mapping'] = $mapping;
 
   /** @var ConsumerConfiguration $consumer */
   $consumer = entity_ui_form_submit_build_entity($form, $form_state);
   $consumer->save();
-  $form_state['redirect'] = 'admin/config/services/integration/consumer';
+
+  drupal_set_message(t('Consumer configuration has been saved.'));
 }
