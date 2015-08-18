@@ -166,5 +166,6 @@ function integration_consumer_form_submit(&$form, &$form_state) {
   $consumer = entity_ui_form_submit_build_entity($form, $form_state);
   $consumer->save();
 
-  drupal_set_message(t('Consumer configuration has been saved.'));
+  drupal_set_message(t('Configuration has been saved.'));
+  $form_state['redirect'] = 'admin/config/services/integration/consumer';
 }

@@ -19,11 +19,13 @@ function nexteuropa_integration_entity_info() {
     'access callback' => 'nexteuropa_integration_backend_access',
     'module' => 'nexteuropa_integration',
     'exportable' => TRUE,
-    'bundles' => array(),
     'entity keys' => array(
       'id' => 'id',
       'label' => 'name',
       'name' => 'machine_name',
+    ),
+    'admin ui' => array(
+      'path' => 'admin/config/services/integration/backend',
     ),
   );
   return $info;
