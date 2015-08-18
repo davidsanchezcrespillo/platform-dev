@@ -102,5 +102,7 @@ function integration_producer_form_submit(&$form, &$form_state) {
   /** @var ProducerConfiguration $producer */
   $producer = entity_ui_form_submit_build_entity($form, $form_state);
   $producer->save();
+
+  drupal_set_message(t('Configuration has been saved.'));
   $form_state['redirect'] = 'admin/config/services/integration/producer';
 }
