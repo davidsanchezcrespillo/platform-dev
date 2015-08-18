@@ -7,6 +7,42 @@
 
 include_once 'includes/nexteuropa_integration.entity.inc';
 include_once 'includes/nexteuropa_integration.hooks.inc';
+include_once 'includes/nexteuropa_integration.admin.inc';
+
+use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+
+/**
+ * Implements hook_permission().
+ */
+function nexteuropa_integration_permission() {
+  return array(
+    'administer backends' => array(
+      'title' => t('Administer integration layer backends'),
+    ),
+  );
+}
+
+/**
+ * Determines whether the given user can perform actions on an entity.
+ *
+ * @param string $op
+ *   Operation being performed: 'view', 'update', 'create' or 'delete'.
+ * @param BackendConfiguration|NULL $backend
+ *   Optionally an entity to check access for.
+ * @param object|NULL $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ * @param string|NULL $entity_type
+ *   The entity type of the entity to check for.
+ *
+ * @return bool
+ *   Whether access is allowed or not.
+ *
+ * @see entity_type_supports()
+ * @see nexteuropa_integration_producer_entity_info()
+ */
+function nexteuropa_integration_backend_access($op, $backend, $account, $entity_type) {
+  return user_access('administer backends');
+}
 
 /**
  * Collect and return list of backend definitions.
