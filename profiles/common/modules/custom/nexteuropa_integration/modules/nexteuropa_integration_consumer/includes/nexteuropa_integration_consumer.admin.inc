@@ -5,7 +5,7 @@
  * Contains administrative forms.
  */
 
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
 
 /**
  * Generates the profile type editing form.
@@ -27,7 +27,7 @@ function integration_consumer_form($form, &$form_state, ConsumerConfiguration $c
     '#default_value' => $consumer->getMachineName(),
     '#disabled' => $consumer->getEnabled(),
     '#machine_name' => array(
-      'exists' => 'nexteuropa_integration_consumer_load_consumer',
+      'exists' => 'integration_consumer_load_consumer',
       'source' => array('name'),
     ),
     '#description' => t('A unique machine-readable name for this consumer. It must only contain lowercase letters, numbers, and underscores.'),
@@ -130,7 +130,7 @@ function integration_consumer_form($form, &$form_state, ConsumerConfiguration $c
  * @return ConsumerConfiguration
  *    Consumer configuration entity.
  */
-function nexteuropa_integration_consumer_load_consumer($machine_name) {
+function integration_consumer_load_consumer($machine_name) {
   return entity_load_single('integration_consumer', $machine_name);
 }
 

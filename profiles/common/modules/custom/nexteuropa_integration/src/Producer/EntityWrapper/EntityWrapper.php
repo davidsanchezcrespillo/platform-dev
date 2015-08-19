@@ -5,12 +5,12 @@
  * Contains EntityWrapper.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\EntityWrapper;
+namespace Drupal\integration\Producer\EntityWrapper;
 
 /**
  * Class EntityWrapper.
  *
- * @package Drupal\nexteuropa_integration\Producer\EntityWrapper
+ * @package Drupal\integration\Producer\EntityWrapper
  */
 class EntityWrapper extends \EntityDrupalWrapper implements EntityWrapperInterface {
 

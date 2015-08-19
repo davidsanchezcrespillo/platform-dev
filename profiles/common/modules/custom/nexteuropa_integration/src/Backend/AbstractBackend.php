@@ -2,18 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Backend\AbstractBackend.
+ * Contains \Drupal\integration\Backend\AbstractBackend.
  */
 
-namespace Drupal\nexteuropa_integration\Backend;
+namespace Drupal\integration\Backend;
 
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
-use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
+use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\ConfigurableInterface;
 
 /**
  * Class AbstractBackend.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 abstract class AbstractBackend implements BackendInterface, ConfigurableInterface {
 

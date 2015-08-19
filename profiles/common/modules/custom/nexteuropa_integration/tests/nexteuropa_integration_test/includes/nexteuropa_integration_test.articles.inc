@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Contains NextEuropaIntegrationTestArticlesMigration class.
+ * Contains IntegrationTestArticlesMigration class.
  */
 
-use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\AbstractMigrateTest;
+use Drupal\integration\Tests\Consumer\Migrate\AbstractMigrateTest;
 
 /**
- * Class NextEuropaIntegrationTestArticlesMigration.
+ * Class IntegrationTestArticlesMigration.
  */
-class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTestAbstractMigration {
+class IntegrationTestArticlesMigration extends IntegrationTestAbstractMigration {
 
   /**
    * {@inheritdoc}
@@ -20,8 +20,8 @@ class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTe
 
     // Requires taxonomy terms migration to run before content migration.
     $this->setHardDependencies(array(
-      'NextEuropaIntegrationTestNews',
-      'NextEuropaIntegrationTestCategories',
+      'IntegrationTestNews',
+      'IntegrationTestCategories',
     ));
 
     $this->setMap(new MigrateSQLMap(
@@ -39,11 +39,11 @@ class NextEuropaIntegrationTestArticlesMigration extends NextEuropaIntegrationTe
     $this->addFieldMapping('field_integration_test_dates', 'date');
 
     // Using an external migration source requires source_type to be set to tid.
-    $this->addFieldMapping('field_integration_test_terms', 'categories')->sourceMigration('NextEuropaIntegrationTestCategories');
+    $this->addFieldMapping('field_integration_test_terms', 'categories')->sourceMigration('IntegrationTestCategories');
     $this->addFieldMapping('field_integration_test_terms:source_type')->defaultValue('tid');
 
     // Entity reference field mapping.
-    $this->addFieldMapping('field_integration_test_ref', 'news')->sourceMigration('NextEuropaIntegrationTestNews');
+    $this->addFieldMapping('field_integration_test_ref', 'news')->sourceMigration('IntegrationTestNews');
 
     // Import images.
     $this->addFieldMapping('field_integration_test_images', 'images');

@@ -5,12 +5,12 @@
  * Contains AbstractMigrateTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
+namespace Drupal\integration\Tests\Consumer\Migrate;
 
 /**
  * Class AbstractMigrateTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
+ * @package Drupal\integration\Tests\Consumer\Migrate
  */
 abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
 
@@ -27,8 +27,8 @@ abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
    */
   public function setUp() {
 
-    if (!module_exists('nexteuropa_integration_test')) {
-      throw new \Exception('NextEuropa Migrate module must be enabled before running tests.');
+    if (!module_exists('integration_test')) {
+      throw new \Exception('Migrate module must be enabled before running tests.');
     }
     $this->buildFixturesList();
   }
@@ -40,7 +40,7 @@ abstract class AbstractMigrateTest extends \PHPUnit_Framework_TestCase {
    *    Fixtures path.
    */
   public static function getFixturesPath() {
-    return drupal_get_path('module', 'nexteuropa_integration_test') . '/fixtures';
+    return drupal_get_path('module', 'integration_test') . '/fixtures';
   }
 
   /**

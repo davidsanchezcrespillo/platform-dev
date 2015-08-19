@@ -5,14 +5,14 @@
  * Contains MemoryResponse.
  */
 
-namespace Drupal\nexteuropa_integration\Backend\Response;
+namespace Drupal\integration\Backend\Response;
 
 /**
  * Class MemoryResponse.
  *
  * To be used together with MemoryBackend, always returns success.
  *
- * @package Drupal\nexteuropa_integration\Backend\Response
+ * @package Drupal\integration\Backend\Response
  */
 class MemoryResponse extends AbstractResponse {
 

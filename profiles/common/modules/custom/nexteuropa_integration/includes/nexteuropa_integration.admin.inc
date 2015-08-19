@@ -5,7 +5,7 @@
  * Contains administrative forms.
  */
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
 
 /**
  * Generates the profile type editing form.
@@ -27,14 +27,14 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
     '#default_value' => $backend->getMachineName(),
     '#disabled' => $backend->getEnabled(),
     '#machine_name' => array(
-      'exists' => 'nexteuropa_integration_load_backend',
+      'exists' => 'integration_load_backend',
       'source' => array('name'),
     ),
     '#description' => t('A unique machine-readable name for this backend. It must only contain lowercase letters, numbers, and underscores.'),
     '#required' => TRUE,
   );
 
-  $types = nexteuropa_integration_backend_get_backend_info();
+  $types = integration_backend_get_backend_info();
   $form['type'] = array(
     '#title' => t('Backend type'),
     '#type' => 'select',
@@ -42,7 +42,7 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
     '#default_value' => $backend->getType(),
     '#required' => TRUE,
   );
-  $formatters = nexteuropa_integration_backend_get_formatter_handler_info();
+  $formatters = integration_backend_get_formatter_handler_info();
   $form['formatter'] = array(
     '#title' => t('Formatter type'),
     '#type' => 'select',
@@ -107,7 +107,7 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
  * @return BackendConfiguration
  *    Backend configuration entity.
  */
-function nexteuropa_integration_load_backend($machine_name) {
+function integration_load_backend($machine_name) {
   return entity_load_single('integration_backend', $machine_name);
 }
 

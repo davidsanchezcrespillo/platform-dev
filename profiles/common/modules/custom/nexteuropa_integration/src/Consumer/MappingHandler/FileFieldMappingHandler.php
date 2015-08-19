@@ -5,12 +5,12 @@
  * Contains FileFieldMappingHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;
+namespace Drupal\integration\Consumer\MappingHandler;
 
 /**
  * Class FileFieldMappingHandler.
  *
- * @package Drupal\nexteuropa_integration\Consumer\MappingHandler
+ * @package Drupal\integration\Consumer\MappingHandler
  */
 class FileFieldMappingHandler extends AbstractMappingHandler {
 

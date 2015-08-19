@@ -5,14 +5,14 @@
  * Contains ProducerConfiguration.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\Configuration;
+namespace Drupal\integration\Producer\Configuration;
 
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\AbstractConfiguration;
 
 /**
  * Class ProducerConfiguration.
  *
- * @package Drupal\nexteuropa_integration\Producer
+ * @package Drupal\integration\Producer
  */
 class ProducerConfiguration extends AbstractConfiguration {
 

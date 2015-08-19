@@ -8,16 +8,16 @@
 /**
  * Implements hook_entity_info().
  */
-function nexteuropa_integration_entity_info() {
+function integration_entity_info() {
   $info['integration_backend'] = array(
     'label' => t('Integration layer backend'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
-    'entity class' => 'Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration',
-    'base table' => 'nexteuropa_integration_backend',
-    'uri callback' => 'nexteuropa_integration_backend_url',
-    'access callback' => 'nexteuropa_integration_backend_access',
-    'module' => 'nexteuropa_integration',
+    'entity class' => 'Drupal\integration\Backend\Configuration\BackendConfiguration',
+    'base table' => 'integration_backend',
+    'uri callback' => 'integration_backend_url',
+    'access callback' => 'integration_backend_access',
+    'module' => 'integration',
     'exportable' => TRUE,
     'entity keys' => array(
       'id' => 'id',
@@ -34,7 +34,7 @@ function nexteuropa_integration_entity_info() {
 /**
  * Implements hook_entity_property_info().
  */
-function nexteuropa_integration_entity_property_info() {
+function integration_entity_property_info() {
   $info['integration_backend']['properties'] = array(
     'id' => array(
       'label' => t('ID'),
@@ -96,7 +96,7 @@ function nexteuropa_integration_entity_property_info() {
       'type' => 'integer',
       'description' => t('The exportable status of the backend.'),
       'schema field' => 'status',
-      'options list' => 'nexteuropa_integration_configuration_status_options_list',
+      'options list' => 'integration_configuration_status_options_list',
     ),
     'module' => array(
       'label' => t('Module'),
@@ -116,7 +116,7 @@ function nexteuropa_integration_entity_property_info() {
  * @return array
  *   An array of options, as defined by hook_options_list().
  */
-function nexteuropa_integration_configuration_status_options_list() {
+function integration_configuration_status_options_list() {
   return array(
     ENTITY_CUSTOM => t('Custom'),
     ENTITY_IN_CODE => t('Default'),

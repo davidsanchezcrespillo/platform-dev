@@ -5,7 +5,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Drupal\\nexteuropa_integration\\Tests\\": "./tests/"
+      "Drupal\\integration\\Tests\\": "./tests/"
     }
   }
 }

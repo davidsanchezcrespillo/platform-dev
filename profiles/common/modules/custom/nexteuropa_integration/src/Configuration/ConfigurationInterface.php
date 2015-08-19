@@ -5,12 +5,12 @@
  * Contains ConfigurationInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Configuration;
+namespace Drupal\integration\Configuration;
 
 /**
  * Interface ConfigurationInterface.
  *
- * @package Drupal\nexteuropa_integration\Configuration
+ * @package Drupal\integration\Configuration
  */
 interface ConfigurationInterface {
 
@@ -44,7 +44,7 @@ interface ConfigurationInterface {
    * @return string
    *    Exportable status of the backend.
    *
-   * @see nexteuropa_integration_configuration_status_options_list()
+   * @see integration_configuration_status_options_list()
    */
   public function getStatus();
 

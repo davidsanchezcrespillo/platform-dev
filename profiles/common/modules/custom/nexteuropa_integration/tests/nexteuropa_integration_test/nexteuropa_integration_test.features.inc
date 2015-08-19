@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.features.inc
+ * integration_test.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function nexteuropa_integration_test_ctools_plugin_api($module = NULL, $api = NULL) {
+function integration_test_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -16,7 +16,7 @@ function nexteuropa_integration_test_ctools_plugin_api($module = NULL, $api = NU
 /**
  * Implements hook_node_info().
  */
-function nexteuropa_integration_test_node_info() {
+function integration_test_node_info() {
   $items = array(
     'integration_test' => array(
       'name' => t('Integration test'),

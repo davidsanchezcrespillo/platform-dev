@@ -2,28 +2,28 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Consumer\Consumer.
+ * Contains Drupal\integration\Consumer\Consumer.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer;
+namespace Drupal\integration\Consumer;
 
-use Drupal\nexteuropa_integration\Backend\BackendFactory;
-use Drupal\nexteuropa_integration\Backend\BackendInterface;
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
-use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
-use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
-use Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper;
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON;
-use Drupal\nexteuropa_integration\Consumer\MappingHandler\AbstractMappingHandler;
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateSourceBackend;
+use Drupal\integration\Backend\BackendFactory;
+use Drupal\integration\Backend\BackendInterface;
+use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\ConfigurableInterface;
+use Drupal\integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\integration\Consumer\Migrate\AbstractMigration;
+use Drupal\integration\Consumer\Migrate\DocumentWrapper;
+use Drupal\integration\Consumer\Migrate\MigrateItemJSON;
+use Drupal\integration\Consumer\Migrate\MigrateListJSON;
+use Drupal\integration\Consumer\MappingHandler\AbstractMappingHandler;
+use Drupal\integration\Consumer\Migrate\MigrateSourceBackend;
 
 /**
  * Interface ConsumerInterface.
  *
- * @package Drupal\nexteuropa_integration\Consumer
+ * @package Drupal\integration\Consumer
  */
 class Consumer extends AbstractMigration implements ConsumerInterface, ConfigurableInterface {
 
@@ -148,7 +148,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    */
   protected function processMappingHandlers($destination_field, $source_field = NULL) {
 
-    $handlers = nexteuropa_integration_consumer_get_consumer_mapping_handler_info();
+    $handlers = integration_consumer_get_consumer_mapping_handler_info();
     foreach ($handlers as $name => $info) {
       /** @var AbstractMappingHandler $handler */
       $handler = new $info['class']($this);

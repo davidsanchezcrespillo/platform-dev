@@ -5,14 +5,14 @@
  * Contains CategoriesMigrationTest class.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
+namespace Drupal\integration\Tests\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\integration\Document\Document;
 
 /**
  * Class CategoriesMigrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
+ * @package Drupal\integration\Tests\Consumer\Migrate
  */
 class CategoriesMigrationTest extends AbstractMigrateTest {
 
@@ -21,14 +21,14 @@ class CategoriesMigrationTest extends AbstractMigrateTest {
    */
   public function setUp() {
     parent::setUp();
-    \Migration::getInstance('NextEuropaIntegrationTestCategories')->processImport();
+    \Migration::getInstance('IntegrationTestCategories')->processImport();
   }
 
   /**
    * Testing Content migration.
    */
   public function testContentMigration() {
-    $migration = \Migration::getInstance('NextEuropaIntegrationTestCategories');
+    $migration = \Migration::getInstance('IntegrationTestCategories');
 
     foreach ($this->fixtures['categories'] as $id => $fixture) {
       $mapping_row = $migration->getMap()->getRowBySource(array('_id' => $id));
@@ -51,7 +51,7 @@ class CategoriesMigrationTest extends AbstractMigrateTest {
    */
   public function tearDown() {
     parent::tearDown();
-    \Migration::getInstance('NextEuropaIntegrationTestCategories')->processRollback();
+    \Migration::getInstance('IntegrationTestCategories')->processRollback();
   }
 
 }

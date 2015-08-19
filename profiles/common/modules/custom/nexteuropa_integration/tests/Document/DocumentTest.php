@@ -5,15 +5,15 @@
  * Contains DocumentTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Document;
+namespace Drupal\integration\Tests\Document;
 
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\AbstractMigrateTest;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Tests\Consumer\Migrate\AbstractMigrateTest;
 
 /**
  * Class DocumentTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer
+ * @package Drupal\integration\Tests\Consumer
  */
 class DocumentTest extends AbstractMigrateTest {
 
