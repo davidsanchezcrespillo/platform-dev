@@ -8,9 +8,9 @@
 /**
  * Implements hook_schema().
  */
-function nexteuropa_integration_schema() {
+function integration_schema() {
 
-  $schema['nexteuropa_integration_backend'] = array(
+  $schema['integration_backend'] = array(
     'description' => 'Stores integration layer backend configuration.',
     'fields' => array(
       'id' => array(

@@ -1,34 +1,34 @@
 <?php
 /**
  * @file
- * Code for the NextEuropa Integration Test feature.
+ * Code for the Integration Test feature.
  */
 
-include_once 'nexteuropa_integration_test.features.inc';
+include_once 'integration_test.features.inc';
 
 /**
  * Implements hook_migrate_api().
  */
-function nexteuropa_integration_test_migrate_api() {
+function integration_test_migrate_api() {
   return array(
     'api' => 2,
     'groups' => array(
-      'NextEuropaIntegrationTest' => array(
-        'title' => t('NextEuropa Integration Test'),
+      'IntegrationTest' => array(
+        'title' => t('Integration Test'),
       ),
     ),
     'migrations' => array(
-      'NextEuropaIntegrationTestArticles' => array(
-        'class_name' => 'NextEuropaIntegrationTestArticlesMigration',
-        'group_name' => 'NextEuropaIntegrationTest',
+      'IntegrationTestArticles' => array(
+        'class_name' => 'IntegrationTestArticlesMigration',
+        'group_name' => 'IntegrationTest',
       ),
-      'NextEuropaIntegrationTestNews' => array(
-        'class_name' => 'NextEuropaIntegrationTestNewsMigration',
-        'group_name' => 'NextEuropaIntegrationTest',
+      'IntegrationTestNews' => array(
+        'class_name' => 'IntegrationTestNewsMigration',
+        'group_name' => 'IntegrationTest',
       ),
-      'NextEuropaIntegrationTestCategories' => array(
-        'class_name' => 'NextEuropaIntegrationTestCategoriesMigration',
-        'group_name' => 'NextEuropaIntegrationTest',
+      'IntegrationTestCategories' => array(
+        'class_name' => 'IntegrationTestCategoriesMigration',
+        'group_name' => 'IntegrationTest',
       ),
     ),
   );

@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper.
+ * Contains \Drupal\integration\Consumer\Migrate\DocumentWrapper.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\Migrate;
+namespace Drupal\integration\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Class DocumentWrapper.
  *
- * @package Drupal\nexteuropa_integration\Consumer\Migrate
+ * @package Drupal\integration\Consumer\Migrate
  *
  * Migrate enforces $source_row to be a stdClass object, so we need to wrap the
  * the document into a class that extends stdClass and exposes

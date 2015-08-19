@@ -2,18 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Tests\DocumentWrapperTest.
+ * Contains \Drupal\integration\Tests\DocumentWrapperTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
+namespace Drupal\integration\Tests\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Consumer\Migrate\DocumentWrapper;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Consumer\Migrate\DocumentWrapper;
 
 /**
  * Class DocumentWrapperTest.
  *
- * @package Drupal\nexteuropa_integration\Tests
+ * @package Drupal\integration\Tests
  */
 class DocumentWrapperTest extends AbstractMigrateTest {
 

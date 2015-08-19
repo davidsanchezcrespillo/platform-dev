@@ -8,9 +8,9 @@
 /**
  * Implements hook_schema().
  */
-function nexteuropa_integration_consumer_schema() {
+function integration_consumer_schema() {
 
-  $schema['nexteuropa_integration_consumer'] = array(
+  $schema['integration_consumer'] = array(
     'description' => 'Stores integration layer consumer configuration.',
     'fields' => array(
       'id' => array(

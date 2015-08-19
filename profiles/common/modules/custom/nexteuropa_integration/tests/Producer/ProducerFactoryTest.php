@@ -5,15 +5,15 @@
  * Contains ProducerFactoryTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Producer;
+namespace Drupal\integration\Tests\Producer;
 
-use Drupal\nexteuropa_integration\Producer\ProducerFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Producer\ProducerFactory;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class ProducerFactoryTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Producer
+ * @package Drupal\integration\Tests\Producer
  */
 class ProducerFactoryTest extends AbstractTest {
 
@@ -22,7 +22,7 @@ class ProducerFactoryTest extends AbstractTest {
    */
   public function testFactory() {
     $node = $this->getExportedEntityFixture('node', 'integration_test', 1);
-    $producer_info = nexteuropa_integration_producer_get_producer_info();
+    $producer_info = integration_producer_get_producer_info();
     $producer_class = $producer_info[$this->producerConfiguration->getType()]['class'];
 
     $producer = ProducerFactory::getInstance('test_configuration', $node);

@@ -8,16 +8,16 @@
 /**
  * Implements hook_entity_info().
  */
-function nexteuropa_integration_consumer_entity_info() {
+function integration_consumer_entity_info() {
   $info['integration_consumer'] = array(
     'label' => t('Integration layer consumer'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
-    'entity class' => 'Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration',
-    'base table' => 'nexteuropa_integration_consumer',
-    'uri callback' => 'nexteuropa_integration_consumer_url',
-    'access callback' => 'nexteuropa_integration_consumer_access',
-    'module' => 'nexteuropa_integration_consumer',
+    'entity class' => 'Drupal\integration\Consumer\Configuration\ConsumerConfiguration',
+    'base table' => 'integration_consumer',
+    'uri callback' => 'integration_consumer_url',
+    'access callback' => 'integration_consumer_access',
+    'module' => 'integration_consumer',
     'exportable' => TRUE,
     'entity keys' => array(
       'id' => 'id',
@@ -34,7 +34,7 @@ function nexteuropa_integration_consumer_entity_info() {
 /**
  * Implements hook_entity_property_info().
  */
-function nexteuropa_integration_consumer_entity_property_info() {
+function integration_consumer_entity_property_info() {
   $info['integration_consumer']['properties'] = array(
     'id' => array(
       'label' => t('ID'),
@@ -96,7 +96,7 @@ function nexteuropa_integration_consumer_entity_property_info() {
       'type' => 'integer',
       'description' => t('The exportable status of the consumer.'),
       'schema field' => 'status',
-      'options list' => 'nexteuropa_integration_configuration_status_options_list',
+      'options list' => 'integration_configuration_status_options_list',
     ),
     'module' => array(
       'label' => t('Module'),

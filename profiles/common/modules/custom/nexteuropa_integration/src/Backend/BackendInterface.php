@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Backend\BackendInterface.
+ * Contains Drupal\integration\Backend\BackendInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Backend;
+namespace Drupal\integration\Backend;
 
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Interface BackendInterface.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 interface BackendInterface {
 

@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Code for the NextEuropa Integration Test feature.
+ * Code for the Integration Test feature.
  */
 
-include_once 'nexteuropa_integration_test.features.inc';
+include_once 'integration_test.features.inc';
 
 /**
  * Implements hook_install().
  */
-function nexteuropa_integration_test_install() {
+function integration_test_install() {
   // Force registration of migration classes.
   migrate_static_registration();
   // Make sure all sensitive configuration is correctly applied.
-  features_revert(array('nexteuropa_integration_test' => array('taxonomy', 'variable')));
+  features_revert(array('integration_test' => array('taxonomy', 'variable')));
 }

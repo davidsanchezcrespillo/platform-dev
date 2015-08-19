@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.features.field_instance.inc
+ * integration_test.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function nexteuropa_integration_test_field_default_field_instances() {
+function integration_test_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'node-integration_test-body'

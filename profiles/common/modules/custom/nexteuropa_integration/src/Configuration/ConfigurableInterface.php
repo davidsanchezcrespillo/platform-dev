@@ -5,12 +5,12 @@
  * Contains ConfigurableInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Configuration;
+namespace Drupal\integration\Configuration;
 
 /**
  * Interface ConfigurableInterface.
  *
- * @package Drupal\nexteuropa_integration\Configuration
+ * @package Drupal\integration\Configuration
  */
 interface ConfigurableInterface {
 

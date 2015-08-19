@@ -5,15 +5,15 @@
  * Contains BackendFactoryTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Backend;
+namespace Drupal\integration\Tests\Backend;
 
-use Drupal\nexteuropa_integration\Backend\BackendFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Backend\BackendFactory;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class BackendFactoryTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Backend
+ * @package Drupal\integration\Tests\Backend
  */
 class BackendFactoryTest extends AbstractTest {
 
@@ -21,7 +21,7 @@ class BackendFactoryTest extends AbstractTest {
    * Test create method.
    */
   public function testFactory() {
-    $backend_info = nexteuropa_integration_backend_get_backend_info();
+    $backend_info = integration_backend_get_backend_info();
     $backend_class = $backend_info[$this->backendConfiguration->getType()]['class'];
 
     $backend = BackendFactory::getInstance('test_configuration');

@@ -5,16 +5,16 @@
  * Contains BackendFactory.
  */
 
-namespace Drupal\nexteuropa_integration\Backend;
+namespace Drupal\integration\Backend;
 
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
 
 /**
  * Interface BackendFactory.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 class BackendFactory {
 
@@ -41,9 +41,9 @@ class BackendFactory {
       /** @var BackendConfiguration $configuration */
       $configuration = self::loadConfiguration($machine_name);
 
-      $backend_info = nexteuropa_integration_backend_get_backend_info();
-      $response_info = nexteuropa_integration_backend_get_response_handler_info();
-      $formatter_info = nexteuropa_integration_backend_get_formatter_handler_info();
+      $backend_info = integration_backend_get_backend_info();
+      $response_info = integration_backend_get_response_handler_info();
+      $formatter_info = integration_backend_get_formatter_handler_info();
 
       $backend_class = $backend_info[$configuration->getType()]['class'];
       $response_class = $response_info[$configuration->getResponse()]['class'];

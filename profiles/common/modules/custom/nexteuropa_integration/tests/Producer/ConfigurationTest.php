@@ -5,16 +5,16 @@
  * Contains ConfigurationTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Producer;
+namespace Drupal\integration\Tests\Producer;
 
-use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Producer\Configuration\ProducerConfiguration;
+use Drupal\integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class ConfigurationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Producer
+ * @package Drupal\integration\Tests\Producer
  */
 class ConfigurationTest extends AbstractTest {
 
@@ -25,7 +25,7 @@ class ConfigurationTest extends AbstractTest {
    */
   public function testConfigurationEntityCrud($data) {
     $reflection = new \ReflectionClass($this->producerConfiguration);
-    $this->assertEquals('Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration', $reflection->getName());
+    $this->assertEquals('Drupal\integration\Producer\Configuration\ProducerConfiguration', $reflection->getName());
 
     $this->assertEquals($data->machine_name, $this->producerConfiguration->identifier());
     $this->assertEquals(ENTITY_CUSTOM, $this->producerConfiguration->getStatus());

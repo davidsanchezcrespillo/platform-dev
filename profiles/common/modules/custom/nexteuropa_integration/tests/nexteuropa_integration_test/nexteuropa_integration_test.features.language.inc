@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.features.language.inc
+ * integration_test.features.language.inc
  */
 
 /**
  * Implements hook_locale_default_languages().
  */
-function nexteuropa_integration_test_locale_default_languages() {
+function integration_test_locale_default_languages() {
   $languages = array();
 
   // Exported language: en.

@@ -5,12 +5,12 @@
  * Contains FileFieldHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
+namespace Drupal\integration\Producer\FieldHandlers;
 
 /**
  * Class FileFieldHandler.
  *
- * @package Drupal\nexteuropa_integration\Producer\FieldHandlers
+ * @package Drupal\integration\Producer\FieldHandlers
  */
 class FileFieldHandler extends AbstractFieldHandler {
 

@@ -5,16 +5,16 @@
  * Module file.
  */
 
-include_once 'includes/nexteuropa_integration.entity.inc';
-include_once 'includes/nexteuropa_integration.hooks.inc';
-include_once 'includes/nexteuropa_integration.admin.inc';
+include_once 'includes/integration.entity.inc';
+include_once 'includes/integration.hooks.inc';
+include_once 'includes/integration.admin.inc';
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
 
 /**
  * Implements hook_permission().
  */
-function nexteuropa_integration_permission() {
+function integration_permission() {
   return array(
     'administer backends' => array(
       'title' => t('Administer integration layer backends'),
@@ -38,9 +38,9 @@ function nexteuropa_integration_permission() {
  *   Whether access is allowed or not.
  *
  * @see entity_type_supports()
- * @see nexteuropa_integration_producer_entity_info()
+ * @see integration_producer_entity_info()
  */
-function nexteuropa_integration_backend_access($op, $backend, $account, $entity_type) {
+function integration_backend_access($op, $backend, $account, $entity_type) {
   return user_access('administer backends');
 }
 
@@ -50,9 +50,9 @@ function nexteuropa_integration_backend_access($op, $backend, $account, $entity_
  * @return array
  *    List of backend definitions.
  */
-function nexteuropa_integration_backend_get_backend_info() {
-  $info = module_invoke_all('nexteuropa_integration_backend_info');
-  drupal_alter('nexteuropa_integration_backend_info', $info);
+function integration_backend_get_backend_info() {
+  $info = module_invoke_all('integration_backend_info');
+  drupal_alter('integration_backend_info', $info);
   return $info;
 }
 
@@ -62,9 +62,9 @@ function nexteuropa_integration_backend_get_backend_info() {
  * @return array
  *    List of response handler definitions.
  */
-function nexteuropa_integration_backend_get_response_handler_info() {
-  $info = module_invoke_all('nexteuropa_integration_backend_response_handler_info');
-  drupal_alter('nexteuropa_integration_backend_response_handler_info', $info);
+function integration_backend_get_response_handler_info() {
+  $info = module_invoke_all('integration_backend_response_handler_info');
+  drupal_alter('integration_backend_response_handler_info', $info);
   return $info;
 }
 
@@ -74,8 +74,8 @@ function nexteuropa_integration_backend_get_response_handler_info() {
  * @return array
  *    List of formatter definitions.
  */
-function nexteuropa_integration_backend_get_formatter_handler_info() {
-  $info = module_invoke_all('nexteuropa_integration_backend_formatter_handler_info');
-  drupal_alter('nexteuropa_integration_backend_formatter_handler_info', $info);
+function integration_backend_get_formatter_handler_info() {
+  $info = module_invoke_all('integration_backend_formatter_handler_info');
+  drupal_alter('integration_backend_formatter_handler_info', $info);
   return $info;
 }

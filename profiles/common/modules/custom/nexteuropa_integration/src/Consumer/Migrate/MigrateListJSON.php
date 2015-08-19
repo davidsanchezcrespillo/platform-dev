@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Consumer\Migrate\MigrateListJSON.
+ * Contains \Drupal\integration\Consumer\Migrate\MigrateListJSON.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\Migrate;
+namespace Drupal\integration\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\integration\Document\Document;
 
 // @codingStandardsIgnoreStart
 
 /**
  * Class MigrateListJSON.
  *
- * @package Drupal\nexteuropa_integration\Consumer\Migrate
+ * @package Drupal\integration\Consumer\Migrate
  *
  * @todo: move this class under Backend namespace.
  */
