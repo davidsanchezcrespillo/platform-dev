@@ -5,7 +5,7 @@
  * Contains administrative forms.
  */
 
-use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
+use Drupal\integration\Producer\Configuration\ProducerConfiguration;
 
 /**
  * Generates the profile type editing form.
@@ -27,14 +27,14 @@ function integration_producer_form($form, &$form_state, ProducerConfiguration $p
     '#default_value' => $producer->getMachineName(),
     '#disabled' => $producer->getEnabled(),
     '#machine_name' => array(
-      'exists' => 'nexteuropa_integration_producer_load_producer',
+      'exists' => 'integration_producer_load_producer',
       'source' => array('name'),
     ),
     '#description' => t('A unique machine-readable name for this producer. It must only contain lowercase letters, numbers, and underscores.'),
     '#required' => TRUE,
   );
 
-  $types = nexteuropa_integration_producer_get_producer_info();
+  $types = integration_producer_get_producer_info();
   $form['type'] = array(
     '#title' => t('Producer type'),
     '#type' => 'select',
@@ -47,7 +47,7 @@ function integration_producer_form($form, &$form_state, ProducerConfiguration $p
     '#type' => 'textfield',
     '#default_value' => $producer->getProducerId(),
     '#element_validate' => array(
-      'nexteuropa_integration_producer_element_producer_id_validate',
+      'integration_producer_element_producer_id_validate',
     ),
     '#required' => TRUE,
   );
@@ -74,7 +74,7 @@ function integration_producer_form($form, &$form_state, ProducerConfiguration $p
  *
  * @see integration_producer_form()
  */
-function nexteuropa_integration_producer_element_producer_id_validate($element, &$form_state, $form) {
+function integration_producer_element_producer_id_validate($element, &$form_state, $form) {
   if ($element['#value'] && !preg_match('!^[a-z\-]+$!', $element['#value'])) {
     form_error($element, t('Producer ID can contain only lowercase letters and dashes.'));
   }
@@ -89,7 +89,7 @@ function nexteuropa_integration_producer_element_producer_id_validate($element, 
  * @return ProducerConfiguration
  *    Producer configuration entity.
  */
-function nexteuropa_integration_producer_load_producer($machine_name) {
+function integration_producer_load_producer($machine_name) {
   return entity_load_single('integration_producer', $machine_name);
 }
 

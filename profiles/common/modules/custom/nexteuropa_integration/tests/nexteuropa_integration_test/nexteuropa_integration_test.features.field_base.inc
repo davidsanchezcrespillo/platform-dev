@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.features.field_base.inc
+ * integration_test.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function nexteuropa_integration_test_field_default_field_bases() {
+function integration_test_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'body'

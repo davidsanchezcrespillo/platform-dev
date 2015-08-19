@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Tests\AbstractTest.
+ * Contains Drupal\integration\Tests\AbstractTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests;
+namespace Drupal\integration\Tests;
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
-use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\integration\Producer\Configuration\ProducerConfiguration;
 
 
 /**
  * Class AbstractTest.
  *
- * @package Drupal\nexteuropa_integration\Tests
+ * @package Drupal\integration\Tests
  */
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase {
 

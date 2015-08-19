@@ -5,12 +5,12 @@
  * Contains ConsumerConfiguration.
  */
 
-namespace Drupal\nexteuropa_integration\Configuration;
+namespace Drupal\integration\Configuration;
 
 /**
  * Class AbstractConfiguration.
  *
- * @package Drupal\nexteuropa_integration\Configuration
+ * @package Drupal\integration\Configuration
  */
 abstract class AbstractConfiguration extends \Entity implements ConfigurationInterface {
 
@@ -33,7 +33,7 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    *
    * @var string
    *
-   * @see nexteuropa_integration_configuration_status_options_list()
+   * @see integration_configuration_status_options_list()
    */
   public $status;
 

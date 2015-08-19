@@ -5,18 +5,18 @@
  * Contains HttpRestBackendTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Backend;
+namespace Drupal\integration\Tests\Backend;
 
-use Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter;
-use Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse;
-use Drupal\nexteuropa_integration\Backend\RestBackend;
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Backend\Formatter\JsonFormatter;
+use Drupal\integration\Backend\Response\HttpRequestResponse;
+use Drupal\integration\Backend\RestBackend;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class HttpRestBackendTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Backend
+ * @package Drupal\integration\Tests\Backend
  */
 class HttpRestBackendTest extends AbstractTest {
 
@@ -81,7 +81,7 @@ class HttpRestBackendTest extends AbstractTest {
       new HttpRequestResponse(),
       new JsonFormatter(),
     );
-    $backend = \Mockery::mock('Drupal\nexteuropa_integration\Backend\RestBackend[httpRequest]', $arguments);
+    $backend = \Mockery::mock('Drupal\integration\Backend\RestBackend[httpRequest]', $arguments);
     $backend->shouldAllowMockingProtectedMethods()
       ->shouldReceive('httpRequest')
       ->andReturn($returned_response);

@@ -8,9 +8,9 @@
 /**
  * Implements hook_schema().
  */
-function nexteuropa_integration_producer_schema() {
+function integration_producer_schema() {
 
-  $schema['nexteuropa_integration_producer'] = array(
+  $schema['integration_producer'] = array(
     'description' => 'Stores integration layer producer configuration.',
     'fields' => array(
       'id' => array(

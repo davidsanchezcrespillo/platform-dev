@@ -5,14 +5,14 @@
  * Contains HttpRequestResponse.
  */
 
-namespace Drupal\nexteuropa_integration\Backend\Response;
+namespace Drupal\integration\Backend\Response;
 
 /**
  * Class HttpRequestResponse.
  *
  * Parse response returned by standard drupal_http_request(), without overrides.
  *
- * @package Drupal\nexteuropa_integration\Backend\Response
+ * @package Drupal\integration\Backend\Response
  */
 class HttpRequestResponse extends AbstractResponse {
 

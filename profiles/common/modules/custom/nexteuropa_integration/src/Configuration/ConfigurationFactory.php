@@ -5,14 +5,14 @@
  * Contains ConfigurationFactory.
  */
 
-namespace Drupal\nexteuropa_integration\Configuration;
+namespace Drupal\integration\Configuration;
 
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\AbstractConfiguration;
 
 /**
  * Interface ConfigurationFactory.
  *
- * @package Drupal\nexteuropa_integration\Configuration
+ * @package Drupal\integration\Configuration
  */
 class ConfigurationFactory {
 

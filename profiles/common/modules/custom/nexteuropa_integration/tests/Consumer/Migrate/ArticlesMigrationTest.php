@@ -5,14 +5,14 @@
  * Contains ArticlesMigrationTest class.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
+namespace Drupal\integration\Tests\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\integration\Document\Document;
 
 /**
  * Class ArticlesMigrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
+ * @package Drupal\integration\Tests\Consumer\Migrate
  */
 class ArticlesMigrationTest extends AbstractMigrateTest {
 
@@ -21,16 +21,16 @@ class ArticlesMigrationTest extends AbstractMigrateTest {
    */
   public function setUp() {
     parent::setUp();
-    \Migration::getInstance('NextEuropaIntegrationTestNews')->processImport();
-    \Migration::getInstance('NextEuropaIntegrationTestCategories')->processImport();
-    \Migration::getInstance('NextEuropaIntegrationTestArticles')->processImport();
+    \Migration::getInstance('IntegrationTestNews')->processImport();
+    \Migration::getInstance('IntegrationTestCategories')->processImport();
+    \Migration::getInstance('IntegrationTestArticles')->processImport();
   }
 
   /**
    * Testing Content migration.
    */
   public function testContentMigration() {
-    $migration = \Migration::getInstance('NextEuropaIntegrationTestArticles');
+    $migration = \Migration::getInstance('IntegrationTestArticles');
 
     foreach ($this->fixtures['articles'] as $id => $fixture) {
       $mapping_row = $migration->getMap()->getRowBySource(array('_id' => $id));
@@ -102,9 +102,9 @@ class ArticlesMigrationTest extends AbstractMigrateTest {
    */
   public function tearDown() {
     parent::tearDown();
-    \Migration::getInstance('NextEuropaIntegrationTestNews')->processRollback();
-    \Migration::getInstance('NextEuropaIntegrationTestArticles')->processRollback();
-    \Migration::getInstance('NextEuropaIntegrationTestCategories')->processRollback();
+    \Migration::getInstance('IntegrationTestNews')->processRollback();
+    \Migration::getInstance('IntegrationTestArticles')->processRollback();
+    \Migration::getInstance('IntegrationTestCategories')->processRollback();
   }
 
 }

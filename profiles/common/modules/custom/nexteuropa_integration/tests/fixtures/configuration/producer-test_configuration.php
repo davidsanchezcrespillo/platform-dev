@@ -17,4 +17,4 @@ $export->options = array(
 );
 $export->enabled = 1;
 $export->status = 1;
-$export->module = 'nexteuropa_integration_test';
+$export->module = 'integration_test';

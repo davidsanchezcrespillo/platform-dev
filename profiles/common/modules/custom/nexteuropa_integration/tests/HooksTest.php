@@ -2,27 +2,27 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Tests\BackendTest.
+ * Contains Drupal\integration\Tests\BackendTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests;
+namespace Drupal\integration\Tests;
 
 /**
- * Test nexteuropa_integration hook implementation and altering.
+ * Test integration hook implementation and altering.
  *
- * @package Drupal\nexteuropa_integration\Tests\BackendTest
+ * @package Drupal\integration\Tests\BackendTest
  */
 class HooksTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * Test hook_nexteuropa_integration_producer_info().
+   * Test hook_integration_producer_info().
    */
   public function testProducerInfo() {
 
-    $hook_response = nexteuropa_integration_producer_get_producer_info();
+    $hook_response = integration_producer_get_producer_info();
     $expected = array(
-      'node' => 'Drupal\nexteuropa_integration\Producer\NodeProducer',
-      'taxonomy_term' => 'Drupal\nexteuropa_integration\Producer\TaxonomyTermProducer',
+      'node' => 'Drupal\integration\Producer\NodeProducer',
+      'taxonomy_term' => 'Drupal\integration\Producer\TaxonomyTermProducer',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -31,14 +31,14 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test nexteuropa_integration_backend_info().
+   * Test integration_backend_info().
    */
   public function testBackendInfo() {
 
-    $hook_response = nexteuropa_integration_backend_get_backend_info();
+    $hook_response = integration_backend_get_backend_info();
     $expected = array(
-      'rest_backend' => 'Drupal\nexteuropa_integration\Backend\RestBackend',
-      'memory_backend' => 'Drupal\nexteuropa_integration\Backend\MemoryBackend',
+      'rest_backend' => 'Drupal\integration\Backend\RestBackend',
+      'memory_backend' => 'Drupal\integration\Backend\MemoryBackend',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -47,13 +47,13 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test hook_nexteuropa_integration_backend_formatter_handler_info().
+   * Test hook_integration_backend_formatter_handler_info().
    */
   public function testFormatterHandlerInfo() {
 
-    $hook_response = nexteuropa_integration_backend_get_formatter_handler_info();
+    $hook_response = integration_backend_get_formatter_handler_info();
     $expected = array(
-      'json_formatter' => 'Drupal\nexteuropa_integration\Backend\Formatter\JsonFormatter',
+      'json_formatter' => 'Drupal\integration\Backend\Formatter\JsonFormatter',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -62,14 +62,14 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test hook_nexteuropa_integration_backend_response_handler_info().
+   * Test hook_integration_backend_response_handler_info().
    */
   public function testResponseHandlerInfo() {
 
-    $hook_response = nexteuropa_integration_backend_get_response_handler_info();
+    $hook_response = integration_backend_get_response_handler_info();
     $expected = array(
-      'http_response' => 'Drupal\nexteuropa_integration\Backend\Response\HttpRequestResponse',
-      'memory_response' => 'Drupal\nexteuropa_integration\Backend\Response\MemoryResponse',
+      'http_response' => 'Drupal\integration\Backend\Response\HttpRequestResponse',
+      'memory_response' => 'Drupal\integration\Backend\Response\MemoryResponse',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -78,15 +78,15 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test hook_nexteuropa_integration_producer_field_handler_info().
+   * Test hook_integration_producer_field_handler_info().
    */
   public function testProducerFieldHandlersInfo() {
 
-    $hook_response = nexteuropa_integration_producer_get_field_handler_info();
+    $hook_response = integration_producer_get_field_handler_info();
     $expected = array(
-      'default' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\DefaultFieldHandler',
-      'text' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
-      'text_long' => 'Drupal\nexteuropa_integration\Producer\FieldHandlers\TextFieldHandler',
+      'default' => 'Drupal\integration\Producer\FieldHandlers\DefaultFieldHandler',
+      'text' => 'Drupal\integration\Producer\FieldHandlers\TextFieldHandler',
+      'text_long' => 'Drupal\integration\Producer\FieldHandlers\TextFieldHandler',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
@@ -95,15 +95,15 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Test hook_nexteuropa_integration_consumer_mapping_handler_info().
+   * Test hook_integration_consumer_mapping_handler_info().
    */
   public function testConsumerMappingHandlersInfo() {
 
-    $hook_response = nexteuropa_integration_consumer_get_consumer_mapping_handler_info();
+    $hook_response = integration_consumer_get_consumer_mapping_handler_info();
     $expected = array(
-      'title_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\TitleMappingHandler',
-      'file_field_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\FileFieldMappingHandler',
-      'text_with_summary_mapping' => 'Drupal\nexteuropa_integration\Consumer\MappingHandler\TextWithSummaryMappingHandler',
+      'title_mapping' => 'Drupal\integration\Consumer\MappingHandler\TitleMappingHandler',
+      'file_field_mapping' => 'Drupal\integration\Consumer\MappingHandler\FileFieldMappingHandler',
+      'text_with_summary_mapping' => 'Drupal\integration\Consumer\MappingHandler\TextWithSummaryMappingHandler',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));

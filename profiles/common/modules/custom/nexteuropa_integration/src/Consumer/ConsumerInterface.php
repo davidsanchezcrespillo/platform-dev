@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Consumer\ConsumerInterface.
+ * Contains Drupal\integration\Consumer\ConsumerInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer;
+namespace Drupal\integration\Consumer;
 
-use Drupal\nexteuropa_integration\Backend\BackendInterface;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfigurationInterface;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Backend\BackendInterface;
+use Drupal\integration\Consumer\Configuration\ConsumerConfigurationInterface;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Interface ConsumerInterface.
  *
- * @package Drupal\nexteuropa_integration\Consumer
+ * @package Drupal\integration\Consumer
  */
 interface ConsumerInterface {
 

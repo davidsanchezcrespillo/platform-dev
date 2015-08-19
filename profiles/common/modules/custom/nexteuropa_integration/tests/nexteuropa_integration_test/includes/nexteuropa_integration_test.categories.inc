@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Contains NextEuropaIntegrationTestCategoriesMigration class.
+ * Contains IntegrationTestCategoriesMigration class.
  */
 
 /**
- * Class NextEuropaIntegrationTestCategoriesMigration.
+ * Class IntegrationTestCategoriesMigration.
  */
-class NextEuropaIntegrationTestCategoriesMigration extends NextEuropaIntegrationTestAbstractMigration {
+class IntegrationTestCategoriesMigration extends IntegrationTestAbstractMigration {
 
   /**
    * {@inheritdoc}

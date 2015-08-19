@@ -2,18 +2,18 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Backend\MemoryBackend.
+ * Contains \Drupal\integration\Backend\MemoryBackend.
  */
 
-namespace Drupal\nexteuropa_integration\Backend;
+namespace Drupal\integration\Backend;
 
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Class MemoryBackend.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 class MemoryBackend extends AbstractBackend {
 

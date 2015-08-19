@@ -5,12 +5,12 @@
  * Contains DateFieldHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
+namespace Drupal\integration\Producer\FieldHandlers;
 
 /**
  * Class DateFieldHandler.
  *
- * @package Drupal\nexteuropa_integration\Producer\FieldHandlers
+ * @package Drupal\integration\Producer\FieldHandlers
  */
 class DateFieldHandler extends AbstractFieldHandler {
 

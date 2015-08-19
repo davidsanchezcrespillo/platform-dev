@@ -8,16 +8,16 @@
 /**
  * Implements hook_entity_info().
  */
-function nexteuropa_integration_producer_entity_info() {
+function integration_producer_entity_info() {
   $info['integration_producer'] = array(
     'label' => t('Integration layer producer'),
     'controller class' => 'EntityAPIControllerExportable',
     'metadata controller class' => FALSE,
-    'entity class' => 'Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration',
-    'base table' => 'nexteuropa_integration_producer',
-    'uri callback' => 'nexteuropa_integration_producer_url',
-    'access callback' => 'nexteuropa_integration_producer_access',
-    'module' => 'nexteuropa_integration',
+    'entity class' => 'Drupal\integration\Producer\Configuration\ProducerConfiguration',
+    'base table' => 'integration_producer',
+    'uri callback' => 'integration_producer_url',
+    'access callback' => 'integration_producer_access',
+    'module' => 'integration',
     'exportable' => TRUE,
     'entity keys' => array(
       'id' => 'id',
@@ -34,7 +34,7 @@ function nexteuropa_integration_producer_entity_info() {
 /**
  * Implements hook_entity_property_info().
  */
-function nexteuropa_integration_producer_entity_property_info() {
+function integration_producer_entity_property_info() {
   $info['integration_producer']['properties'] = array(
     'id' => array(
       'label' => t('ID'),
@@ -89,7 +89,7 @@ function nexteuropa_integration_producer_entity_property_info() {
       'type' => 'integer',
       'description' => t('The exportable status of the producer.'),
       'schema field' => 'status',
-      'options list' => 'nexteuropa_integration_configuration_status_options_list',
+      'options list' => 'integration_configuration_status_options_list',
     ),
     'module' => array(
       'label' => t('Module'),

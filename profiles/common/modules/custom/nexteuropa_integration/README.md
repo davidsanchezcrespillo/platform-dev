@@ -1,5 +1,5 @@
-NextEuropa Integration
-======================
+Integration
+===========
 
 Backend
 ------------------
@@ -65,22 +65,22 @@ In order to implement your own migration using Migrate refer to:
 [Getting started with Migrate](https://www.drupal.org/node/1006982).
 
 In order to be able to import Integration Layer JSON documents make sure that
-your migration classes extend ```Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration```
+your migration classes extend ```Drupal\integration\Consumer\Migrate\AbstractMigration```
 instead the default ```Migration``` class, provided by the Migrate module.
 
-Also use ```Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON``` 
+Also use ```Drupal\integration\Consumer\Migrate\MigrateItemJSON```
 instead of default ```MigrateItemJSON```, provided by Migrate module.
 
-Below an example about how to setup migration source using "NextEuropa Migrate"
+Below an example about how to setup migration source using "Migrate"
 classes:
 
 ```
 <?php
 
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
-use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
+use Drupal\integration\Consumer\Migrate\MigrateItemJSON;
+use Drupal\integration\Consumer\Migrate\AbstractMigration;
 
-class NextEuropaMigration extends AbstractMigration {
+class Migration extends AbstractMigration {
 
   public function __construct($arguments) {
     // Ordinary Migrate code goes here.
@@ -109,9 +109,9 @@ requirement we must meet is to always provide the following field mappings:
 ```
 
 For more in-depth examples on how to setup your migration please refer to
-```nexteuropa_integration_test``` migration classes:
+```integration_test``` migration classes:
 
-- ./tests/nexteuropa_integration_test/includes/nexteuropa_integration_test.abstract.inc
-- ./tests/nexteuropa_integration_test/includes/nexteuropa_integration_test.articles.inc
-- ./tests/nexteuropa_integration_test/includes/nexteuropa_integration_test.categories.inc
-- ./tests/nexteuropa_integration_test/includes/nexteuropa_integration_test.news.inc
+- ./tests/integration_test/includes/integration_test.abstract.inc
+- ./tests/integration_test/includes/integration_test.articles.inc
+- ./tests/integration_test/includes/integration_test.categories.inc
+- ./tests/integration_test/includes/integration_test.news.inc

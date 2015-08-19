@@ -5,14 +5,14 @@
  * Contains MappingHandlerInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;
+namespace Drupal\integration\Consumer\MappingHandler;
 
-use Drupal\nexteuropa_integration\Consumer\Consumer;
+use Drupal\integration\Consumer\Consumer;
 
 /**
  * Interface MappingHandlerInterface.
  *
- * @package Drupal\nexteuropa_integration\Consumer
+ * @package Drupal\integration\Consumer
  */
 interface MappingHandlerInterface {
 

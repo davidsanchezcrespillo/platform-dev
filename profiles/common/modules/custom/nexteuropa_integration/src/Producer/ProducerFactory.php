@@ -5,17 +5,17 @@
  * Contains ProducerFactory.
  */
 
-namespace Drupal\nexteuropa_integration\Producer;
+namespace Drupal\integration\Producer;
 
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Producer\Configuration\ProducerConfiguration;
+use Drupal\integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Producer\Configuration\ProducerConfiguration;
 
 /**
  * Interface ProducerFactory.
  *
- * @package Drupal\nexteuropa_integration\Producer
+ * @package Drupal\integration\Producer
  */
 class ProducerFactory {
 
@@ -34,7 +34,7 @@ class ProducerFactory {
     /** @var ProducerConfiguration $configuration */
     $configuration = self::loadConfiguration($machine_name);
 
-    $producer_info = nexteuropa_integration_producer_get_producer_info();
+    $producer_info = integration_producer_get_producer_info();
     $producer_class = $producer_info[$configuration->getType()]['class'];
 
     if (!class_exists($producer_class)) {

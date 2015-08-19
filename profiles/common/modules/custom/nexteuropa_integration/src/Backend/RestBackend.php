@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Backend\RestBackend.
+ * Contains \Drupal\integration\Backend\RestBackend.
  */
 
-namespace Drupal\nexteuropa_integration\Backend;
+namespace Drupal\integration\Backend;
 
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Class RestBackend.
  *
  * Simple REST backend using standard drupal_http_request(), without overrides.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 class RestBackend extends AbstractBackend {
 

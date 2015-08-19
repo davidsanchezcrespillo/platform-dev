@@ -5,21 +5,21 @@
  * Contains BackendConfiguration.
  */
 
-namespace Drupal\nexteuropa_integration\Backend\Configuration;
+namespace Drupal\integration\Backend\Configuration;
 
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\AbstractConfiguration;
 
 /**
  * Class BackendConfiguration.
  *
- * @package Drupal\nexteuropa_integration\Backend
+ * @package Drupal\integration\Backend
  */
 class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Backend type plugin.
    *
-   * @see nexteuropa_integration_backend_info()
+   * @see integration_backend_info()
    *
    * @var string
    */
@@ -28,7 +28,7 @@ class BackendConfiguration extends AbstractConfiguration {
   /**
    * Formatter handler machine name.
    *
-   * @see hook_nexteuropa_integration_backend_formatter_handler_info()
+   * @see hook_integration_backend_formatter_handler_info()
    *
    * @var string
    */
@@ -37,7 +37,7 @@ class BackendConfiguration extends AbstractConfiguration {
   /**
    * Response handler machine name.
    *
-   * @see nexteuropa_integration_backend_response_handler_info()
+   * @see integration_backend_response_handler_info()
    *
    * @var string
    */

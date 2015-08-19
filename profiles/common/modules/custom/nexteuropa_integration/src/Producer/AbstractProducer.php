@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Producer\AbstractProducer.
+ * Contains \Drupal\integration\Producer\AbstractProducer.
  */
 
-namespace Drupal\nexteuropa_integration\Producer;
+namespace Drupal\integration\Producer;
 
-use Drupal\nexteuropa_integration\Configuration\ConfigurableInterface;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\ConfigurableInterface;
+use Drupal\integration\Document\DocumentInterface;
+use Drupal\integration\Configuration\AbstractConfiguration;
 
 /**
  * Class AbstractProducer.
  *
- * @package Drupal\nexteuropa_integration\Producer
+ * @package Drupal\integration\Producer
  */
 abstract class AbstractProducer implements ProducerInterface, ConfigurableInterface {
 
@@ -47,7 +47,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
   /**
    * List of field handler definitions keyed by field type.
    *
-   * @see nexteuropa_integration_producer_get_field_handlers()
+   * @see integration_producer_get_field_handlers()
    *
    * @var array[FieldHandlerInterface]
    */
@@ -67,7 +67,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
     $this->setConfiguration($configuration);
     $this->entityWrapper = $entity_wrapper;
     $this->document = $document;
-    $this->fieldHandlers = nexteuropa_integration_producer_get_field_handler_info();
+    $this->fieldHandlers = integration_producer_get_field_handler_info();
   }
 
   /**
@@ -149,7 +149,7 @@ abstract class AbstractProducer implements ProducerInterface, ConfigurableInterf
 
     $entity_wrapper = $this->getEntityWrapper();
     $document = $this->getDocument();
-    drupal_alter('nexteuropa_integration_producer_document_build', $entity_wrapper, $document);
+    drupal_alter('integration_producer_document_build', $entity_wrapper, $document);
     return $document;
   }
 

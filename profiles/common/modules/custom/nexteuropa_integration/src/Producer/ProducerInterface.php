@@ -2,18 +2,18 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Producer\ProducerInterface.
+ * Contains Drupal\integration\Producer\ProducerInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Producer;
+namespace Drupal\integration\Producer;
 
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
+use Drupal\integration\Document\DocumentInterface;
+use Drupal\integration\Producer\EntityWrapper\EntityWrapper;
 
 /**
  * Interface ProducerInterface.
  *
- * @package Drupal\nexteuropa_integration\Producer
+ * @package Drupal\integration\Producer
  */
 interface ProducerInterface {
 
