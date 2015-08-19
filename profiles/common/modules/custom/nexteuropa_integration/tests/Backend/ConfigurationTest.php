@@ -5,16 +5,16 @@
  * Contains ConfigurationTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Backend;
+namespace Drupal\integration\Tests\Backend;
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class ConfigurationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Backend
+ * @package Drupal\integration\Tests\Backend
  */
 class ConfigurationTest extends AbstractTest {
 
@@ -26,7 +26,7 @@ class ConfigurationTest extends AbstractTest {
   public function testConfigurationEntityCrud($data) {
 
     $reflection = new \ReflectionClass($this->backendConfiguration);
-    $this->assertEquals('Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration', $reflection->getName());
+    $this->assertEquals('Drupal\integration\Backend\Configuration\BackendConfiguration', $reflection->getName());
 
     $this->assertEquals($data->machine_name, $this->backendConfiguration->identifier());
     $this->assertEquals(ENTITY_CUSTOM, $this->backendConfiguration->getStatus());

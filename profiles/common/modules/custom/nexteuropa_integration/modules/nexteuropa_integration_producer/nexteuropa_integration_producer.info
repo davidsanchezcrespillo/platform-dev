@@ -1,8 +1,8 @@
-name = NextEuropa Integration Producer
+name = Integration Producer
 description = Integration Layer Producer plugin.
 core = 7.x
-package = NextEuropa
+package =
 version = 7.x-1.0-dev
-project = nexteuropa_integration_producer
+project = integration_producer
 
-dependencies[] = nexteuropa_integration
+dependencies[] = integration

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.strongarm.inc
+ * integration_test.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function nexteuropa_integration_test_strongarm() {
+function integration_test_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

@@ -5,12 +5,12 @@
  * Contains DefaultFieldHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
+namespace Drupal\integration\Producer\FieldHandlers;
 
 /**
  * Class DefaultFieldHandler.
  *
- * @package Drupal\nexteuropa_integration\Producer\FieldHandlers
+ * @package Drupal\integration\Producer\FieldHandlers
  */
 class DefaultFieldHandler extends AbstractFieldHandler {
 

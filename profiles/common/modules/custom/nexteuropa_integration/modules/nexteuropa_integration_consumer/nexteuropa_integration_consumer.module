@@ -5,11 +5,11 @@
  * Module file.
  */
 
-include_once 'includes/nexteuropa_integration_consumer.entity.inc';
-include_once 'includes/nexteuropa_integration_consumer.hooks.inc';
-include_once 'includes/nexteuropa_integration_consumer.admin.inc';
+include_once 'includes/integration_consumer.entity.inc';
+include_once 'includes/integration_consumer.hooks.inc';
+include_once 'includes/integration_consumer.admin.inc';
 
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
 
 /**
  * Determines whether the given user can perform actions on an entity.
@@ -27,9 +27,9 @@ use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
  *   Whether access is allowed or not.
  *
  * @see entity_type_supports()
- * @see nexteuropa_integration_consumer_entity_info()
+ * @see integration_consumer_entity_info()
  */
-function nexteuropa_integration_consumer_access($op, $consumer, $account, $entity_type) {
+function integration_consumer_access($op, $consumer, $account, $entity_type) {
   return user_access('administer consumers');
 }
 
@@ -39,10 +39,10 @@ function nexteuropa_integration_consumer_access($op, $consumer, $account, $entit
  * @return array
  *    List of mapping handler definitions.
  */
-function nexteuropa_integration_consumer_get_consumer_mapping_handler_info() {
+function integration_consumer_get_consumer_mapping_handler_info() {
   // @todo: Add validation on returned classes to be actual mapping handlers.
   // We should probably apply a similar approach to other hooks too.
-  $info = module_invoke_all('nexteuropa_integration_consumer_mapping_handler_info');
-  drupal_alter('nexteuropa_integration_consumer_mapping_handler_info', $info);
+  $info = module_invoke_all('integration_consumer_mapping_handler_info');
+  drupal_alter('integration_consumer_mapping_handler_info', $info);
   return $info;
 }

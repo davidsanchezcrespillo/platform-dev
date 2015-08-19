@@ -5,12 +5,12 @@
  * Contains ResponseInterface.
  */
 
-namespace Drupal\nexteuropa_integration\Backend\Response;
+namespace Drupal\integration\Backend\Response;
 
 /**
  * Class AbstractResponse.
  *
- * @package Drupal\nexteuropa_integration\Backend\Response
+ * @package Drupal\integration\Backend\Response
  */
 interface ResponseInterface {
 

@@ -5,16 +5,16 @@
  * Contains BackendTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Backend;
+namespace Drupal\integration\Tests\Backend;
 
-use Drupal\nexteuropa_integration\Backend\BackendFactory;
-use Drupal\nexteuropa_integration\Producer\ProducerFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Backend\BackendFactory;
+use Drupal\integration\Producer\ProducerFactory;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class BackendTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Backend
+ * @package Drupal\integration\Tests\Backend
  */
 class BackendTest extends AbstractTest {
 

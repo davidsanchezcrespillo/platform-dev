@@ -5,14 +5,14 @@
  * Contains MigrateSourceBackend.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\Migrate;
+namespace Drupal\integration\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Backend\AbstractBackend;
+use Drupal\integration\Backend\AbstractBackend;
 
 /**
  * Class MigrateSourceBackend.
  *
- * @package Drupal\nexteuropa_integration\Consumer\Migrate
+ * @package Drupal\integration\Consumer\Migrate
  */
 class MigrateSourceBackend extends \MigrateSource {
 

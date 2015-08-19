@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nexteuropa_integration_test.features.taxonomy.inc
+ * integration_test.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function nexteuropa_integration_test_taxonomy_default_vocabularies() {
+function integration_test_taxonomy_default_vocabularies() {
   return array(
     'integration_test' => array(
       'name' => 'Integration test',

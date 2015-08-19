@@ -5,14 +5,14 @@
  * Contains NewsMigrationTest class.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer\Migrate;
+namespace Drupal\integration\Tests\Consumer\Migrate;
 
-use Drupal\nexteuropa_integration\Document\Document;
+use Drupal\integration\Document\Document;
 
 /**
  * Class NewsMigrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer\Migrate
+ * @package Drupal\integration\Tests\Consumer\Migrate
  */
 class NewsMigrationTest extends AbstractMigrateTest {
 
@@ -21,14 +21,14 @@ class NewsMigrationTest extends AbstractMigrateTest {
    */
   public function setUp() {
     parent::setUp();
-    \Migration::getInstance('NextEuropaIntegrationTestNews')->processImport();
+    \Migration::getInstance('IntegrationTestNews')->processImport();
   }
 
   /**
    * Testing Content migration.
    */
   public function testContentMigration() {
-    $migration = \Migration::getInstance('NextEuropaIntegrationTestNews');
+    $migration = \Migration::getInstance('IntegrationTestNews');
 
     foreach ($this->fixtures['news'] as $id => $fixture) {
       $mapping_row = $migration->getMap()->getRowBySource(array('_id' => $id));
@@ -44,7 +44,7 @@ class NewsMigrationTest extends AbstractMigrateTest {
         $this->assertEquals($source->getFieldValue('title'), $node->title_field[$language][0]['value']);
 
         // Assert that body has been imported correctly.
-        // @see: NextEuropaIntegrationTestNewsMigration::prepareRow().
+        // @see: IntegrationTestNewsMigration::prepareRow().
         $abstract = 'Processed ' . $source->getFieldValue('abstract');
         $this->assertEquals($abstract, $node->body[$language][0]['value']);
       }
@@ -59,7 +59,7 @@ class NewsMigrationTest extends AbstractMigrateTest {
    */
   public function tearDown() {
     parent::tearDown();
-    \Migration::getInstance('NextEuropaIntegrationTestNews')->processRollback();
+    \Migration::getInstance('IntegrationTestNews')->processRollback();
   }
 
 }

@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Contains \Drupal\nexteuropa_integration\Backend\Formatter.
+ * Contains \Drupal\integration\Backend\Formatter.
  */
 
-namespace Drupal\nexteuropa_integration\Backend\Formatter;
+namespace Drupal\integration\Backend\Formatter;
 
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
+use Drupal\integration\Document\DocumentInterface;
 
 /**
  * Interface FormatterInterface.
  *
- * @package Drupal\nexteuropa_integration\Backend\Formatter
+ * @package Drupal\integration\Backend\Formatter
  */
 interface FormatterInterface {
 

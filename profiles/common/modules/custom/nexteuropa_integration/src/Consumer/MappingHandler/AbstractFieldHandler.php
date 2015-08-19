@@ -5,14 +5,14 @@
  * Contains AbstractMappingHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;
+namespace Drupal\integration\Consumer\MappingHandler;
 
-use Drupal\nexteuropa_integration\Consumer\Consumer;
+use Drupal\integration\Consumer\Consumer;
 
 /**
  * Class AbstractMappingHandler.
  *
- * @package Drupal\nexteuropa_integration\Consumer
+ * @package Drupal\integration\Consumer
  */
 abstract class AbstractMappingHandler implements MappingHandlerInterface {
 

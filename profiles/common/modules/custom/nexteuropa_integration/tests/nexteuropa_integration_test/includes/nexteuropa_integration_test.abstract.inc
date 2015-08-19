@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains NextEuropaIntegrationTestAbstractMigration class.
+ * Contains IntegrationTestAbstractMigration class.
  */
 
-use Drupal\nexteuropa_integration\Consumer\Migrate\MigrateItemJSON;
-use Drupal\nexteuropa_integration\Consumer\Migrate\AbstractMigration;
-use Drupal\nexteuropa_integration\Tests\Consumer\Migrate\AbstractMigrateTest;
+use Drupal\integration\Consumer\Migrate\MigrateItemJSON;
+use Drupal\integration\Consumer\Migrate\AbstractMigration;
+use Drupal\integration\Tests\Consumer\Migrate\AbstractMigrateTest;
 
 /**
- * Class NextEuropaIntegrationTestAbstractMigration.
+ * Class IntegrationTestAbstractMigration.
  */
-abstract class NextEuropaIntegrationTestAbstractMigration extends AbstractMigration {
+abstract class IntegrationTestAbstractMigration extends AbstractMigration {
 
   /**
    * Define source key, to be used in setMap().
@@ -56,7 +56,7 @@ abstract class NextEuropaIntegrationTestAbstractMigration extends AbstractMigrat
    *    Fixtures path.
    */
   public static function getFixturesPath() {
-    return drupal_get_path('module', 'nexteuropa_integration_test') . '/fixtures';
+    return drupal_get_path('module', 'integration_test') . '/fixtures';
   }
 
 }

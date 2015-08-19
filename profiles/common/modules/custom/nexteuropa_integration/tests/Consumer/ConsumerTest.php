@@ -2,20 +2,20 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Tests\Consumer\ConsumerTest.
+ * Contains Drupal\integration\Tests\Consumer\ConsumerTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Consumer;
+namespace Drupal\integration\Tests\Consumer;
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
-use Drupal\nexteuropa_integration\Consumer\Configuration\ConsumerConfiguration;
-use Drupal\nexteuropa_integration\Consumer\Consumer;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
+use Drupal\integration\Consumer\Consumer;
+use Drupal\integration\Tests\AbstractTest;
 
 /**
  * Class ConsumerTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Consumer
+ * @package Drupal\integration\Tests\Consumer
  */
 class ConsumerTest extends AbstractTest {
 
@@ -24,7 +24,7 @@ class ConsumerTest extends AbstractTest {
    */
   public function setUp() {
     parent::setUp();
-    \MigrationBase::setDisplayFunction('Drupal\nexteuropa_integration\Tests\Consumer\ConsumerTest::migrateException');
+    \MigrationBase::setDisplayFunction('Drupal\integration\Tests\Consumer\ConsumerTest::migrateException');
   }
 
   /**

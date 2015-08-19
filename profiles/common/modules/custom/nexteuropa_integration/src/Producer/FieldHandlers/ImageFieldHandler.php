@@ -5,14 +5,14 @@
  * Contains ImageFieldHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Producer\FieldHandlers;
+namespace Drupal\integration\Producer\FieldHandlers;
 
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FileFieldHandler;
+use Drupal\integration\Producer\FieldHandlers\FileFieldHandler;
 
 /**
  * Class ImageFieldHandler.
  *
- * @package Drupal\nexteuropa_integration\Producer\FieldHandlers
+ * @package Drupal\integration\Producer\FieldHandlers
  */
 class ImageFieldHandler extends FileFieldHandler {
 

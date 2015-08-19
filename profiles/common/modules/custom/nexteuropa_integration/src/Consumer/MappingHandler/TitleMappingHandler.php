@@ -5,12 +5,12 @@
  * Contains TitleMappingHandler.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\MappingHandler;
+namespace Drupal\integration\Consumer\MappingHandler;
 
 /**
  * Class TitleMappingHandler.
  *
- * @package Drupal\nexteuropa_integration\Consumer\MappingHandler
+ * @package Drupal\integration\Consumer\MappingHandler
  */
 class TitleMappingHandler extends AbstractMappingHandler {
 

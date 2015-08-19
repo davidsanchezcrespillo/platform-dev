@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Tests\IntegrationTest.
+ * Contains Drupal\integration\Tests\IntegrationTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests;
+namespace Drupal\integration\Tests;
 
-use Drupal\nexteuropa_integration\Backend\BackendFactory;
-use Drupal\nexteuropa_integration\Consumer\Consumer;
-use Drupal\nexteuropa_integration\Producer\ProducerFactory;
+use Drupal\integration\Backend\BackendFactory;
+use Drupal\integration\Consumer\Consumer;
+use Drupal\integration\Producer\ProducerFactory;
 
 /**
  * Class IntegrationTest.
  *
- * @package Drupal\nexteuropa_integration\Tests
+ * @package Drupal\integration\Tests
  */
 class IntegrationTest extends AbstractTest {
 
@@ -26,6 +26,9 @@ class IntegrationTest extends AbstractTest {
     // Get backend, producer and consumer instances.
     $backend = BackendFactory::getInstance('test_configuration');
     $consumer = Consumer::getInstance('test_configuration');
+
+    // Make sure we have no test leftovers.
+    $consumer->processRollback();
 
     // Push all fixture nodes to given backend.
     foreach ($this->getProducerNodes() as $node) {

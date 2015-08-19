@@ -2,24 +2,24 @@
 
 /**
  * @file
- * Contains Drupal\nexteuropa_integration\Tests\Producer\ProducerTest.
+ * Contains Drupal\integration\Tests\Producer\ProducerTest.
  */
 
-namespace Drupal\nexteuropa_integration\Tests\Producer;
+namespace Drupal\integration\Tests\Producer;
 
-use Drupal\nexteuropa_integration\Document\Document;
-use Drupal\nexteuropa_integration\Producer\NodeProducer;
-use Drupal\nexteuropa_integration\Document\DocumentInterface;
-use Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper;
-use Drupal\nexteuropa_integration\Producer\FieldHandlers\FieldHandlerInterface;
-use Drupal\nexteuropa_integration\Producer\ProducerFactory;
-use Drupal\nexteuropa_integration\Tests\AbstractTest;
+use Drupal\integration\Document\Document;
+use Drupal\integration\Producer\NodeProducer;
+use Drupal\integration\Document\DocumentInterface;
+use Drupal\integration\Producer\EntityWrapper\EntityWrapper;
+use Drupal\integration\Producer\FieldHandlers\FieldHandlerInterface;
+use Drupal\integration\Producer\ProducerFactory;
+use Drupal\integration\Tests\AbstractTest;
 use \Mockery as m;
 
 /**
  * Class BackendTest.
  *
- * @package Drupal\nexteuropa_integration\Tests\Producer\ProducerTest
+ * @package Drupal\integration\Tests\Producer\ProducerTest
  */
 class ProducerTest extends AbstractTest {
 
@@ -28,12 +28,12 @@ class ProducerTest extends AbstractTest {
    */
   public function testInstance() {
 
-    $entity_wrapper = m::mock('Drupal\nexteuropa_integration\Producer\EntityWrapper\EntityWrapper');
-    $document = m::mock('Drupal\nexteuropa_integration\Document\DocumentInterface');
+    $entity_wrapper = m::mock('Drupal\integration\Producer\EntityWrapper\EntityWrapper');
+    $document = m::mock('Drupal\integration\Document\DocumentInterface');
 
     $producer = new NodeProducer($this->producerConfiguration, $entity_wrapper, $document);
     $reflection = new \ReflectionClass($producer);
-    $this->assertEquals('Drupal\nexteuropa_integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
+    $this->assertEquals('Drupal\integration\Producer\AbstractProducer', $reflection->getParentClass()->getName());
   }
 
   /**

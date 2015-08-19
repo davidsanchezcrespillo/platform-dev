@@ -5,16 +5,16 @@
  * Contains ConsumerConfiguration.
  */
 
-namespace Drupal\nexteuropa_integration\Consumer\Configuration;
+namespace Drupal\integration\Consumer\Configuration;
 
-use Drupal\nexteuropa_integration\Backend\Configuration\BackendConfiguration;
-use Drupal\nexteuropa_integration\Configuration\AbstractConfiguration;
-use Drupal\nexteuropa_integration\Configuration\ConfigurationFactory;
+use Drupal\integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\Configuration\ConfigurationFactory;
 
 /**
  * Class ConsumerConfiguration.
  *
- * @package Drupal\nexteuropa_integration\Consumer
+ * @package Drupal\integration\Consumer
  */
 class ConsumerConfiguration extends AbstractConfiguration {
 
