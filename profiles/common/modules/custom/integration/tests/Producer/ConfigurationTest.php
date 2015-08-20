@@ -22,6 +22,7 @@ class ConfigurationTest extends AbstractTest {
    * Test configuration entity CRUD operations.
    *
    * @dataProvider configurationProvider
+   * @expectedException \InvalidArgumentException
    */
   public function testConfigurationEntityCrud($data) {
     $reflection = new \ReflectionClass($this->producerConfiguration);
@@ -39,7 +40,8 @@ class ConfigurationTest extends AbstractTest {
     $this->assertNotNull(ConfigurationFactory::load('integration_producer', $machine_name));
 
     $this->producerConfiguration->delete();
-    $this->assertFalse(ConfigurationFactory::load('integration_producer', $machine_name));
+    // Should throw \InvalidArgumentException exception.
+    ConfigurationFactory::load('integration_producer', $machine_name);
   }
 
   /**
