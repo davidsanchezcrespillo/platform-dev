@@ -102,9 +102,9 @@ class ArticlesMigrationTest extends AbstractMigrateTest {
    */
   public function tearDown() {
     parent::tearDown();
-    \Migration::getInstance('IntegrationTestNews')->processRollback();
-    \Migration::getInstance('IntegrationTestArticles')->processRollback();
-    \Migration::getInstance('IntegrationTestCategories')->processRollback();
+//    \Migration::getInstance('IntegrationTestNews')->processRollback();
+//    \Migration::getInstance('IntegrationTestArticles')->processRollback();
+//    \Migration::getInstance('IntegrationTestCategories')->processRollback();
   }
 
 }
