@@ -33,22 +33,51 @@ class PluginManagerTest extends \PHPUnit_Framework_TestCase {
 
     $info = PluginManager::getInstance('consumer')->setComponent('mapping_handler')->getInfo();
     $expected = array(
-      'title_mapping',
       'file_field_mapping',
       'text_with_summary_mapping',
+      'title_mapping',
     );
     $this->assertEquals($expected, array_keys($info));
 
-    // Test plugin manager methods for plugins.
     $manager = PluginManager::getInstance('backend');
-    $this->assertEquals('REST backend', $manager->getLabel('rest_backend'));
-    $this->assertEquals('Drupal\integration\Backend\RestBackend', $manager->getClass('rest_backend'));
-    $this->assertEquals('Backend implementing a RESTful calls in order to store data remotely.', $manager->getDescription('rest_backend'));
+    $data = integration_integration_backend_info();
+    $this->assertFromData($manager, $data);
 
-    // Test plugin manager methods for plugin components.
     $manager = PluginManager::getInstance('backend')->setComponent('response_handler');
-    $this->assertEquals('Raw response', $manager->getLabel('raw_response'));
-    $this->assertEquals('Drupal\integration\Backend\Response\RawResponse', $manager->getClass('raw_response'));
-    $this->assertEquals('Simply passes along whatever returned by the backend in use.', $manager->getDescription('raw_response'));
+    $data = integration_integration_backend_response_handler_info();
+    $this->assertFromData($manager, $data);
+
+    $manager = PluginManager::getInstance('backend')->setComponent('formatter_handler');
+    $data = integration_integration_backend_formatter_handler_info();
+    $this->assertFromData($manager, $data);
+
+    $manager = PluginManager::getInstance('consumer')->setComponent('mapping_handler');
+    $data = integration_consumer_integration_consumer_mapping_handler_info();
+    $this->assertFromData($manager, $data);
+
+    $manager = PluginManager::getInstance('producer');
+    $data = integration_producer_get_producer_info();
+    $this->assertFromData($manager, $data);
+
+    $manager = PluginManager::getInstance('producer')->setComponent('field_handler');
+    $data = integration_producer_integration_producer_field_handler_info();
+    $this->assertFromData($manager, $data);
   }
+
+  /**
+   * Assert that all plugin properties are set correctly.
+   *
+   * @param PluginManager $manager
+   *    PluginManager instance.
+   * @param $data
+   *    Data to test our assertions against.
+   */
+  public function assertFromData(PluginManager $manager, $data) {
+    foreach ($data as $name => $info) {
+      $this->assertEquals($info['label'], $manager->getLabel($name));
+      $this->assertEquals($info['class'], $manager->getClass($name));
+      $this->assertEquals($info['description'], $manager->getDescription($name));
+    }
+  }
+
 }
