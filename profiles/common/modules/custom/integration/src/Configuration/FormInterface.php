@@ -22,7 +22,7 @@ interface FormInterface {
    * @param array $form_state
    *    Form state array.
    */
-  public function form(&$form = array(), &$form_state = array());
+  public function form(array &$form = array(), array &$form_state = array());
 
   /**
    * Handle form submission.
@@ -32,7 +32,7 @@ interface FormInterface {
    * @param array $form_state
    *    Form state array.
    */
-  public function formSubmit($form, &$form_state);
+  public function formSubmit(array $form, array &$form_state);
 
   /**
    * Handle form validation.
@@ -42,6 +42,6 @@ interface FormInterface {
    * @param array $form_state
    *    Form state array.
    */
-  public function formValidate($form, &$form_state);
+  public function formValidate(array $form, array &$form_state);
 
 }

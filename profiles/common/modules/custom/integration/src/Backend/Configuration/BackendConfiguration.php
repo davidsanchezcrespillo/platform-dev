@@ -125,60 +125,55 @@ class BackendConfiguration extends AbstractConfiguration {
   /**
    * Set backend base path.
    *
-   * @todo: This should actually be backend-type specific.
-   *
    * @param string $base_path
    *    Backend base path.
    */
   public function setBasePath($base_path) {
+    // @todo: This should actually be backend-type specific.
     $this->options['base_path'] = $base_path;
   }
 
   /**
    * Get backend endpoint.
    *
-   * @todo: This should actually be backend-type specific.
-   *
    * @return string
    *    Backend endpoint.
    */
   public function getEndpoint() {
+    // @todo: This should actually be backend-type specific.
     return isset($this->options['endpoint']) ? $this->options['endpoint'] : '';
   }
 
   /**
    * Set resource endpoint.
    *
-   * @todo: This should actually be backend-type specific.
-   *
    * @param string $endpoint
    *    Backend resource endpoint.
    */
   public function setEndpoint($endpoint) {
+    // @todo: This should actually be backend-type specific.
     $this->options['endpoint'] = $endpoint;
   }
 
   /**
    * Get backend resource list endpoint.
    *
-   * @todo: This should actually be backend-type specific.
-   *
    * @return string
    *    List endpoint.
    */
   public function getListEndpoint() {
+    // @todo: This should actually be backend-type specific.
     return isset($this->options['list']) ? $this->options['list'] : '';
   }
 
   /**
    * Set backend resource list endpoint.
    *
-   * @todo: This should actually be backend-type specific.
-   *
    * @param string $list
    *    List endpoint.
    */
   public function setListEndpoint($list) {
+    // @todo: This should actually be backend-type specific.
     $this->options['list'] = $list;
   }
 

@@ -32,14 +32,14 @@ class PluginManager {
   );
 
   /**
-   * Current plugin identifier.
+   * Current plugin machine name.
    *
    * @var string
    */
   private $plugin;
 
   /**
-   * Current component identifier.
+   * Current component machine name.
    *
    * @var string
    */
@@ -54,15 +54,15 @@ class PluginManager {
    * @return PluginManager
    *    PluginManager instance for specified plugin type.
    */
-  static function getInstance($plugin) {
+  static public function getInstance($plugin) {
     return new self($plugin);
   }
 
   /**
    * PluginManager constructor.
    *
-   * @param array $plugin
-   *    Plugin identifier.
+   * @param string $plugin
+   *    Plugin machine name.
    */
   public function __construct($plugin) {
     $this->plugin = $plugin;
@@ -72,7 +72,7 @@ class PluginManager {
    * Set current plugin component.
    *
    * @param string $component
-   *    Set current plugin component identifier.
+   *    Set current plugin component machine name.
    *
    * @return $this
    */
@@ -92,10 +92,10 @@ class PluginManager {
   }
 
   /**
-   * Get result of info hook for current plugin and component identifier.
+   * Get result of info hook for current plugin and component machine name.
    *
    * @return array
-   *    Array of information about current plugin and component identifier.
+   *    Array of information about current plugin and component machine name.
    */
   public function getInfo() {
     $function_name = $this->buildInfoGetterName();
@@ -116,7 +116,7 @@ class PluginManager {
   /**
    * Get current plugin class.
    *
-   * @param $name
+   * @param string $name
    *    Plugin or component name.
    *
    * @return string
@@ -130,7 +130,7 @@ class PluginManager {
   /**
    * Get current plugin description.
    *
-   * @param $name
+   * @param string $name
    *    Plugin or component name.
    *
    * @return string
@@ -142,10 +142,7 @@ class PluginManager {
   }
 
   /**
-   * Build info getter name give current plugin and component identifier.
-   *
-   * @param $name
-   *    Plugin or component name.
+   * Build info getter name give current plugin and component machine name.
    *
    * @return string
    *    Full info getter name.

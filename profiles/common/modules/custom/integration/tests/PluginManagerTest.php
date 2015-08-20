@@ -69,10 +69,10 @@ class PluginManagerTest extends \PHPUnit_Framework_TestCase {
    *
    * @param PluginManager $manager
    *    PluginManager instance.
-   * @param $data
+   * @param array $data
    *    Data to test our assertions against.
    */
-  public function assertFromData(PluginManager $manager, $data) {
+  public function assertFromData(PluginManager $manager, array $data) {
     foreach ($data as $name => $info) {
       $this->assertEquals($info['label'], $manager->getLabel($name));
       $this->assertEquals($info['class'], $manager->getClass($name));

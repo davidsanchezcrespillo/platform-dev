@@ -217,7 +217,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
   /**
    * Consumer implementation of prepareRow().
    *
-   * @param DocumentWrapper $row
+   * @param mixed $row
    *    Document wrapper object containing source data.
    *
    * @return bool
