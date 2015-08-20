@@ -108,54 +108,51 @@ class PluginManager {
    * @return string
    *    Current plugin label.
    */
-  public function getLabel() {
+  public function getLabel($name) {
     $info = $this->getInfo();
-    $identifier = $this->getCurrentIdentifier();
-    return $info[$identifier]['label'];
+    return $info[$name]['label'];
   }
 
   /**
    * Get current plugin class.
    *
+   * @param $name
+   *    Plugin or component name.
+   *
    * @return string
    *    Current plugin class.
    */
-  public function getClass() {
+  public function getClass($name) {
     $info = $this->getInfo();
-    $identifier = $this->getCurrentIdentifier();
-    return $info[$identifier]['class'];
+    return $info[$name]['class'];
   }
 
   /**
    * Get current plugin description.
    *
+   * @param $name
+   *    Plugin or component name.
+   *
    * @return string
    *    Current plugin description.
    */
-  public function getDescription() {
+  public function getDescription($name) {
     $info = $this->getInfo();
-    $identifier = $this->getCurrentIdentifier();
-    return $info[$identifier]['description'];
-  }
-
-  /**
-   * @return string
-   */
-  private function getCurrentIdentifier() {
-    return isset($this->component) ? $this->component : $this->plugin;
+    return $info[$name]['description'];
   }
 
   /**
    * Build info getter name give current plugin and component identifier.
+   *
+   * @param $name
+   *    Plugin or component name.
    *
    * @return string
    *    Full info getter name.
    */
   private function buildInfoGetterName() {
     $parts = array('integration', $this->plugin, 'get');
-    if ($this->component) {
-      $parts[] = $this->component;
-    }
+    $parts[] = $this->component ? $this->component : $this->plugin;
     $parts[] = 'info';
     return implode('_', $parts);
   }
