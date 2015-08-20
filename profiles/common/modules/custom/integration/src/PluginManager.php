@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\integration\PluginManager
+ * Contains \Drupal\integration\PluginManager.
  */
 
 namespace Drupal\integration;
@@ -69,7 +69,7 @@ class PluginManager {
   }
 
   /**
-   * Set current plugin component
+   * Set current plugin component.
    *
    * @param string $component
    *    Set current plugin component identifier.

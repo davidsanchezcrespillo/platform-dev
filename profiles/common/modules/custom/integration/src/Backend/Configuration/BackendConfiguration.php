@@ -112,6 +112,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend base path.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @return string
@@ -123,6 +124,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Set backend base path.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @param string $base_path
@@ -134,6 +136,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend endpoint.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @return string
@@ -145,6 +148,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Set resource endpoint.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @param string $endpoint
@@ -156,6 +160,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Get backend resource list endpoint.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @return string
@@ -167,6 +172,7 @@ class BackendConfiguration extends AbstractConfiguration {
 
   /**
    * Set backend resource list endpoint.
+   *
    * @todo: This should actually be backend-type specific.
    *
    * @param string $list
