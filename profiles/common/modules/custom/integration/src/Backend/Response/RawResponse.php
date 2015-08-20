@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains MemoryResponse.
+ * Contains RawResponse.
  */
 
 namespace Drupal\integration\Backend\Response;
 
 /**
- * Class MemoryResponse.
+ * Class RawResponse.
  *
  * To be used together with MemoryBackend, always returns success.
  *
  * @package Drupal\integration\Backend\Response
  */
-class MemoryResponse extends AbstractResponse {
+class RawResponse extends AbstractResponse {
 
   /**
    * {@inheritdoc}
