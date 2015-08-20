@@ -10,6 +10,7 @@ namespace Drupal\integration\Backend;
 use Drupal\integration\Configuration\ConfigurationFactory;
 use Drupal\integration\Configuration\AbstractConfiguration;
 use Drupal\integration\Backend\Configuration\BackendConfiguration;
+use Drupal\integration\PluginManager;
 
 /**
  * Interface BackendFactory.
@@ -41,13 +42,10 @@ class BackendFactory {
       /** @var BackendConfiguration $configuration */
       $configuration = self::loadConfiguration($machine_name);
 
-      $backend_info = integration_backend_get_backend_info();
-      $response_info = integration_backend_get_response_handler_info();
-      $formatter_info = integration_backend_get_formatter_handler_info();
-
-      $backend_class = $backend_info[$configuration->getType()]['class'];
-      $response_class = $response_info[$configuration->getResponse()]['class'];
-      $formatter_class = $formatter_info[$configuration->getFormatter()]['class'];
+      $plugin_manager = PluginManager::getInstance('backend');
+      $backend_class = $plugin_manager->getClass($configuration->getType());
+      $response_class = $plugin_manager->setComponent('response_handler')->getClass($configuration->getResponse());
+      $formatter_class = $plugin_manager->setComponent('formatter_handler')->getClass($configuration->getFormatter());
 
       foreach (array($backend_class, $response_class, $formatter_class) as $class) {
         if (!class_exists($class)) {
