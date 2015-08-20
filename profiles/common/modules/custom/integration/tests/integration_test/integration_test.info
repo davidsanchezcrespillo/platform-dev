@@ -1,7 +1,7 @@
 name = Integration Test
 description = Integration Test feature
 core = 7.x
-package =
+package = Integration
 dependencies[] = date
 dependencies[] = date_api
 dependencies[] = date_popup

@@ -1,7 +1,7 @@
 name = Integration Producer
 description = Integration Layer Producer plugin.
 core = 7.x
-package =
+package = Integration
 version = 7.x-1.0-dev
 project = integration_producer
 
