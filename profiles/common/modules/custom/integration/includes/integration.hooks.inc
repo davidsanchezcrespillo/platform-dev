@@ -46,10 +46,10 @@ function integration_integration_backend_response_handler_info() {
       'description' => t('Parse response returned by standard, non-overridden, drupal_http_request().'),
       'class' => 'Drupal\integration\Backend\Response\HttpRequestResponse',
     ),
-    'memory_response' => array(
+    'raw_response' => array(
       'label' => t('Memory response'),
       'description' => t('Simply passes along whatever returned by the backend in use.'),
-      'class' => 'Drupal\integration\Backend\Response\MemoryResponse',
+      'class' => 'Drupal\integration\Backend\Response\RawResponse',
     ),
   );
 }
