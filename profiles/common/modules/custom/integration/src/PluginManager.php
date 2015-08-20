@@ -46,14 +46,6 @@ class PluginManager {
   private $component = NULL;
 
   /**
-   * PluginManager constructor.
-   * @param array $plugins
-   */
-  public function __construct($plugin) {
-    $this->plugin = $plugin;
-  }
-
-  /**
    * Get plugin manager instance.
    *
    * @param string $plugin
@@ -67,6 +59,16 @@ class PluginManager {
   }
 
   /**
+   * PluginManager constructor.
+   *
+   * @param array $plugin
+   *    Plugin identifier.
+   */
+  public function __construct($plugin) {
+    $this->plugin = $plugin;
+  }
+
+  /**
    * Set current plugin component
    *
    * @param string $component
@@ -77,21 +79,6 @@ class PluginManager {
   public function setComponent($component) {
     $this->component = $component;
     return $this;
-  }
-
-  /**
-   * Build info getter name give current plugin and component identifier.
-   *
-   * @return string
-   *    Full info getter name.
-   */
-  private function buildInfoGetterName() {
-    $parts = array('integration', $this->plugin, 'get');
-    if ($this->component) {
-      $parts[] = $this->component;
-    }
-    $parts[] = 'info';
-    return implode('_', $parts);
   }
 
   /**
@@ -113,6 +100,64 @@ class PluginManager {
   public function getInfo() {
     $function_name = $this->buildInfoGetterName();
     return $function_name();
+  }
+
+  /**
+   * Get current plugin label.
+   *
+   * @return string
+   *    Current plugin label.
+   */
+  public function getLabel() {
+    $info = $this->getInfo();
+    $identifier = $this->getCurrentIdentifier();
+    return $info[$identifier]['label'];
+  }
+
+  /**
+   * Get current plugin class.
+   *
+   * @return string
+   *    Current plugin class.
+   */
+  public function getClass() {
+    $info = $this->getInfo();
+    $identifier = $this->getCurrentIdentifier();
+    return $info[$identifier]['class'];
+  }
+
+  /**
+   * Get current plugin description.
+   *
+   * @return string
+   *    Current plugin description.
+   */
+  public function getDescription() {
+    $info = $this->getInfo();
+    $identifier = $this->getCurrentIdentifier();
+    return $info[$identifier]['description'];
+  }
+
+  /**
+   * @return string
+   */
+  private function getCurrentIdentifier() {
+    return isset($this->component) ? $this->component : $this->plugin;
+  }
+
+  /**
+   * Build info getter name give current plugin and component identifier.
+   *
+   * @return string
+   *    Full info getter name.
+   */
+  private function buildInfoGetterName() {
+    $parts = array('integration', $this->plugin, 'get');
+    if ($this->component) {
+      $parts[] = $this->component;
+    }
+    $parts[] = 'info';
+    return implode('_', $parts);
   }
 
 }
