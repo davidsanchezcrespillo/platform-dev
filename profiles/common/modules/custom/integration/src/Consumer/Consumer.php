@@ -129,13 +129,17 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    *
    * @param string $machine_name
    *    Consumer configuration machine name.
+   * @param string $class_name
+   *    Deprecated: class name is retrieved from migrate_status.
+   * @param array $arguments
+   *    Deprecated: arguments are retrieved from migrate_status.
    *
    * @return Consumer
    *    Consumer object instance.
    */
-  static public function getInstance($machine_name) {
+  static public function getInstance($machine_name, $class_name = NULL, array $arguments = array()) {
     self::register($machine_name);
-    return parent::getInstance($machine_name);
+    return parent::getInstance($machine_name, $class_name, $arguments);
   }
 
   /**
@@ -219,7 +223,7 @@ class Consumer extends AbstractMigration implements ConsumerInterface, Configura
    * @return bool
    *    TRUE to process this row, FALSE to have the source skip it.
    */
-  public function prepareRow(DocumentWrapper $row) {
+  public function prepareRow($row) {
     parent::prepareRow($row);
     return TRUE;
   }
