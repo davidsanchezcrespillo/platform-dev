@@ -47,7 +47,7 @@ function integration_integration_backend_response_handler_info() {
       'class' => 'Drupal\integration\Backend\Response\HttpRequestResponse',
     ),
     'raw_response' => array(
-      'label' => t('Memory response'),
+      'label' => t('Raw response'),
       'description' => t('Simply passes along whatever returned by the backend in use.'),
       'class' => 'Drupal\integration\Backend\Response\RawResponse',
     ),
