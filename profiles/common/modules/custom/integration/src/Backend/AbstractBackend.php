@@ -72,7 +72,7 @@ abstract class AbstractBackend implements BackendInterface, ConfigurableInterfac
    * {@inheritdoc}
    */
   public function getResponseHandler() {
-    return $this->response;
+    return isset($this->response) ? $this->response : '';
   }
 
   /**
@@ -85,8 +85,8 @@ abstract class AbstractBackend implements BackendInterface, ConfigurableInterfac
   /**
    * {@inheritdoc}
    */
-  public function getFormatter() {
-    return $this->formatter;
+  public function getFormatterHandler() {
+    return isset($this->formatter) ? $this->formatter : '';
   }
 
   /**
