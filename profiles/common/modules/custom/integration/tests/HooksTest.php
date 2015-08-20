@@ -99,7 +99,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
    */
   public function testConsumerMappingHandlersInfo() {
 
-    $hook_response = integration_consumer_get_consumer_mapping_handler_info();
+    $hook_response = integration_consumer_get_mapping_handler_info();
     $expected = array(
       'title_mapping' => 'Drupal\integration\Consumer\MappingHandler\TitleMappingHandler',
       'file_field_mapping' => 'Drupal\integration\Consumer\MappingHandler\FileFieldMappingHandler',

@@ -39,7 +39,7 @@ function integration_consumer_access($op, $consumer, $account, $entity_type) {
  * @return array
  *    List of mapping handler definitions.
  */
-function integration_consumer_get_consumer_mapping_handler_info() {
+function integration_consumer_get_mapping_handler_info() {
   // @todo: Add validation on returned classes to be actual mapping handlers.
   // We should probably apply a similar approach to other hooks too.
   $info = module_invoke_all('integration_consumer_mapping_handler_info');
