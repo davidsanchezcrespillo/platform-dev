@@ -10,6 +10,7 @@ namespace Drupal\integration\Producer;
 use Drupal\integration\Configuration\ConfigurationFactory;
 use Drupal\integration\Configuration\AbstractConfiguration;
 use Drupal\integration\Document\Document;
+use Drupal\integration\PluginManager;
 use Drupal\integration\Producer\Configuration\ProducerConfiguration;
 
 /**
@@ -34,8 +35,8 @@ class ProducerFactory {
     /** @var ProducerConfiguration $configuration */
     $configuration = self::loadConfiguration($machine_name);
 
-    $producer_info = integration_producer_get_producer_info();
-    $producer_class = $producer_info[$configuration->getType()]['class'];
+    $plugin_manager = PluginManager::getInstance('producer');
+    $producer_class = $plugin_manager->getClass($configuration->getType());
 
     if (!class_exists($producer_class)) {
       throw new \InvalidArgumentException("Class $producer_class does not exists");
