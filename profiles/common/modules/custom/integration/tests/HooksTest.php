@@ -69,7 +69,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase {
     $hook_response = integration_backend_get_response_handler_info();
     $expected = array(
       'http_response' => 'Drupal\integration\Backend\Response\HttpRequestResponse',
-      'memory_response' => 'Drupal\integration\Backend\Response\MemoryResponse',
+      'raw_response' => 'Drupal\integration\Backend\Response\RawResponse',
     );
     foreach ($expected as $key => $value) {
       $this->assertTrue(isset($hook_response[$key]));
