@@ -60,7 +60,6 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
     '#value' => ($op == 'add') ? ENTITY_CUSTOM : $backend->getStatus(),
   );
 
-
   // @todo: derive these from chosen backend type.
   $form['options'] = array(
     '#title' => t('Options'),

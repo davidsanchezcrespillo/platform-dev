@@ -76,7 +76,7 @@ function integration_consumer_form($form, &$form_state, ConsumerConfiguration $c
   $form['status'] = array(
     '#value' => ($op == 'add') ? ENTITY_CUSTOM : $consumer->getStatus(),
   );
-  
+
   $form['mapping'] = array(
     '#tree' => TRUE,
     '#theme' => 'table',

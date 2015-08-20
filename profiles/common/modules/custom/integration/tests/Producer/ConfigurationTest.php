@@ -22,6 +22,7 @@ class ConfigurationTest extends AbstractTest {
    * Test configuration entity CRUD operations.
    *
    * @dataProvider configurationProvider
+   *
    * @expectedException \InvalidArgumentException
    */
   public function testConfigurationEntityCrud($data) {
