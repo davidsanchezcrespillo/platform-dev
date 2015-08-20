@@ -38,7 +38,7 @@ interface BackendInterface {
    * @return Formatter\FormatterInterface
    *    Formatter object instance.
    */
-  public function getFormatter();
+  public function getFormatterHandler();
 
   /**
    * Set formatter object.
