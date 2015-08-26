@@ -137,15 +137,14 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    * {@inheritdoc}
    */
   public function formSubmit(array $form, array &$form_state) {
-    // TODO: Implement formSubmit() method.
+
   }
 
   /**
    * {@inheritdoc}
    */
   public function formValidate(array $form, array &$form_state) {
-    // TODO: Implement formValidate() method.
-  }
 
+  }
 
 }

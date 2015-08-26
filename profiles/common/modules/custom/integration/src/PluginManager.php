@@ -78,12 +78,12 @@ class PluginManager {
       ),
       'consumer' => array(
         'components' => array(
-          'mapping_handler' =>  t('Mapping handler'),
+          'mapping_handler' => t('Mapping handler'),
         ),
       ),
       'producer' => array(
         'components' => array(
-          'field_handler' =>  t('Field handler'),
+          'field_handler' => t('Field handler'),
         ),
       ),
     );
@@ -188,14 +188,34 @@ class PluginManager {
   }
 
   /**
+   * Check weather the given component is configurable or not.
+   *
+   * @param string $component
+   *    Component name.
+   *
+   * @return bool
+   *    TRUE if the given component is configurable or not, FALSE otherwise.
+   */
+  public function isConfigurable($component) {
+    $info = $this->getInfo();
+    if (isset($info[$component]['configuration class'])) {
+      if (!class_exists($info[$component]['configuration class'])) {
+        throw new \InvalidArgumentException(t('Component configuration class not found.'));
+      }
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Format current info results as Form API radio buttons.
    *
    * @param string $title
    *    Form element #title.
-   * @param $default_value
+   * @param mixed $default_value
    *    Form element #default_value.
    * @param bool|FALSE $required
-   *    Form element #required
+   *    Form element #required.
    *
    * @return array
    *    Form API radio buttons element.
