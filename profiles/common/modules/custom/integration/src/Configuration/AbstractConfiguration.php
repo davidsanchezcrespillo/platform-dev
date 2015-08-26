@@ -12,7 +12,7 @@ namespace Drupal\integration\Configuration;
  *
  * @package Drupal\integration\Configuration
  */
-abstract class AbstractConfiguration extends \Entity implements ConfigurationInterface {
+abstract class AbstractConfiguration extends \Entity implements ConfigurationInterface, FormInterface {
 
   /**
    * Configuration human readable name.
@@ -100,5 +100,52 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
   public function getEntityKey($name) {
     return isset($this->entityInfo['entity keys'][$name]) ? $this->entityInfo['entity keys'][$name] : FALSE;
   }
+
+  /**
+   * @inheritDoc
+   */
+  public function form(array &$form, array &$form_state, $op) {
+
+    $form['name'] = array(
+      '#title' => t('Name'),
+      '#type' => 'textfield',
+      '#default_value' => $this->getName(),
+      '#required' => TRUE,
+    );
+    $form['machine_name'] = array(
+      '#type' => 'machine_name',
+      '#default_value' => $this->getMachineName(),
+      '#disabled' => $this->getEnabled(),
+      '#machine_name' => array(
+        'exists' => 'integration_load_backend',
+        'source' => array('name'),
+      ),
+      '#description' => t('A unique machine-readable name for this backend. It must only contain lowercase letters, numbers, and underscores.'),
+      '#required' => TRUE,
+    );
+    $form['enabled'] = array(
+      '#title' => t('Enabled'),
+      '#type' => 'checkbox',
+      '#default_value' => ($op == 'add') ? TRUE : $this->getEnabled(),
+    );
+    $form['status'] = array(
+      '#value' => ($op == 'add') ? ENTITY_CUSTOM : $this->getStatus(),
+    );
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public function formSubmit(array $form, array &$form_state) {
+    // TODO: Implement formSubmit() method.
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public function formValidate(array $form, array &$form_state) {
+    // TODO: Implement formValidate() method.
+  }
+
 
 }

@@ -15,50 +15,7 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
   if ($op == 'clone') {
     $backend->name .= ' cloned';
   }
-
-  $form['name'] = array(
-    '#title' => t('Name'),
-    '#type' => 'textfield',
-    '#default_value' => $backend->getName(),
-    '#required' => TRUE,
-  );
-  $form['machine_name'] = array(
-    '#type' => 'machine_name',
-    '#default_value' => $backend->getMachineName(),
-    '#disabled' => $backend->getEnabled(),
-    '#machine_name' => array(
-      'exists' => 'integration_load_backend',
-      'source' => array('name'),
-    ),
-    '#description' => t('A unique machine-readable name for this backend. It must only contain lowercase letters, numbers, and underscores.'),
-    '#required' => TRUE,
-  );
-
-  $types = integration_backend_get_backend_info();
-  $form['type'] = array(
-    '#title' => t('Backend type'),
-    '#type' => 'select',
-    '#options' => array_combine(array_keys($types), array_keys($types)),
-    '#default_value' => $backend->getType(),
-    '#required' => TRUE,
-  );
-  $formatters = integration_backend_get_formatter_handler_info();
-  $form['formatter'] = array(
-    '#title' => t('Formatter type'),
-    '#type' => 'select',
-    '#options' => array_combine(array_keys($formatters), array_keys($formatters)),
-    '#default_value' => $backend->getFormatter(),
-    '#required' => TRUE,
-  );
-
-  $form['enabled'] = array(
-    '#title' => t('Enabled'),
-    '#type' => 'checkbox',
-    '#default_value' => ($op == 'add') ? TRUE : $backend->getEnabled(),
-  );
-  $form['status'] = array(
-    '#value' => ($op == 'add') ? ENTITY_CUSTOM : $backend->getStatus(),
-  );
+  $backend->form($form, $form_state, $op);
 
   // @todo: derive these from chosen backend type.
   $form['options'] = array(
