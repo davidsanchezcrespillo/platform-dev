@@ -21,8 +21,10 @@ interface FormInterface {
    *    Form array.
    * @param array $form_state
    *    Form state array.
+   * @param string $op
+   *    Current form operation.
    */
-  public function form(array &$form = array(), array &$form_state = array());
+  public function form(array &$form, array &$form_state, $op);
 
   /**
    * Handle form submission.

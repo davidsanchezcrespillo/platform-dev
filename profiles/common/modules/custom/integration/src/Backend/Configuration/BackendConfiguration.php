@@ -8,6 +8,7 @@
 namespace Drupal\integration\Backend\Configuration;
 
 use Drupal\integration\Configuration\AbstractConfiguration;
+use Drupal\integration\PluginManager;
 
 /**
  * Class BackendConfiguration.
@@ -176,5 +177,29 @@ class BackendConfiguration extends AbstractConfiguration {
     // @todo: This should actually be backend-type specific.
     $this->options['list'] = $list;
   }
+
+  /**
+   * @inheritDoc
+   */
+  public function form(array &$form, array &$form_state, $op) {
+    parent::form($form, $form_state, $op);
+    $plugin = PluginManager::getInstance('backend');
+
+    $form['type'] = array(
+      '#title' => t('Backend type'),
+      '#type' => 'select',
+      '#options' => $plugin->getSelectOptions(),
+      '#default_value' => $this->getType(),
+      '#required' => TRUE,
+    );
+    $form['formatter'] = array(
+      '#title' => t('Formatter type'),
+      '#type' => 'select',
+      '#options' => $plugin->setComponent('formatter_handler')->getSelectOptions(),
+      '#default_value' => $this->getFormatter(),
+      '#required' => TRUE,
+    );
+  }
+
 
 }

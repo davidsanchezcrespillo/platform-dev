@@ -141,6 +141,15 @@ class PluginManager {
     return $info[$name]['description'];
   }
 
+  public function getSelectOptions() {
+    $info = $this->getInfo();
+    $options = array();
+    foreach ($info as $name => $definition) {
+      $options[$name] = $definition['label'];
+    }
+    return $options;
+  }
+
   /**
    * Build info getter name give current plugin and component machine name.
    *
