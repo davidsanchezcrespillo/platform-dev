@@ -112,73 +112,6 @@ class BackendConfiguration extends AbstractConfiguration {
   }
 
   /**
-   * Get backend base path.
-   *
-   * @todo: This should actually be backend-type specific.
-   *
-   * @return string
-   *     Backend base path.
-   */
-  public function getBasePath() {
-    return isset($this->options['base_path']) ? $this->options['base_path'] : '';
-  }
-
-  /**
-   * Set backend base path.
-   *
-   * @param string $base_path
-   *    Backend base path.
-   */
-  public function setBasePath($base_path) {
-    // @todo: This should actually be backend-type specific.
-    $this->options['base_path'] = $base_path;
-  }
-
-  /**
-   * Get backend endpoint.
-   *
-   * @return string
-   *    Backend endpoint.
-   */
-  public function getEndpoint() {
-    // @todo: This should actually be backend-type specific.
-    return isset($this->options['endpoint']) ? $this->options['endpoint'] : '';
-  }
-
-  /**
-   * Set resource endpoint.
-   *
-   * @param string $endpoint
-   *    Backend resource endpoint.
-   */
-  public function setEndpoint($endpoint) {
-    // @todo: This should actually be backend-type specific.
-    $this->options['endpoint'] = $endpoint;
-  }
-
-  /**
-   * Get backend resource list endpoint.
-   *
-   * @return string
-   *    List endpoint.
-   */
-  public function getListEndpoint() {
-    // @todo: This should actually be backend-type specific.
-    return isset($this->options['list']) ? $this->options['list'] : '';
-  }
-
-  /**
-   * Set backend resource list endpoint.
-   *
-   * @param string $list
-   *    List endpoint.
-   */
-  public function setListEndpoint($list) {
-    // @todo: This should actually be backend-type specific.
-    $this->options['list'] = $list;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array &$form, array &$form_state, $op) {
@@ -200,6 +133,10 @@ class BackendConfiguration extends AbstractConfiguration {
         '#group' => 'component',
       );
       $form["component_$component"][$component] = $plugin->setComponent($component)->getFormRadios($label, '', TRUE);
+
+      if ($plugin->isConfigurable($component)) {
+
+      }
     }
   }
 
