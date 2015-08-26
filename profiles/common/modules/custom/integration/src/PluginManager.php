@@ -190,19 +190,36 @@ class PluginManager {
   /**
    * Check weather the given component is configurable or not.
    *
-   * @param string $component
-   *    Component name.
+   * @param string $type
+   *    Component type.
    *
    * @return bool
    *    TRUE if the given component is configurable or not, FALSE otherwise.
    */
-  public function isConfigurable($component) {
+  public function isComponentConfigurable($type) {
     $info = $this->getInfo();
-    if (isset($info[$component]['configuration class'])) {
-      if (!class_exists($info[$component]['configuration class'])) {
+    if (isset($info[$type]['configuration class'])) {
+      if (!class_exists($info[$type]['configuration class'])) {
         throw new \InvalidArgumentException(t('Component configuration class not found.'));
       }
       return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Get component configuration class.
+   *
+   * @param string $type
+   *    Component type.
+   *
+   * @return string|FALSE
+   *    Configuration class name if configurable, FALSE otherwise.
+   */
+  public function getComponentConfigurationClass($type) {
+    if ($this->isComponentConfigurable($type)) {
+      $info = $this->getInfo();
+      return $info[$type]['configuration class'];
     }
     return FALSE;
   }
