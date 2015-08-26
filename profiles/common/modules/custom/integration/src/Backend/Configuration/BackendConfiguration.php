@@ -179,27 +179,28 @@ class BackendConfiguration extends AbstractConfiguration {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function form(array &$form, array &$form_state, $op) {
     parent::form($form, $form_state, $op);
     $plugin = PluginManager::getInstance('backend');
 
-    $form['type'] = array(
-      '#title' => t('Backend type'),
-      '#type' => 'select',
-      '#options' => $plugin->getSelectOptions(),
-      '#default_value' => $this->getType(),
-      '#required' => TRUE,
-    );
-    $form['formatter'] = array(
-      '#title' => t('Formatter type'),
-      '#type' => 'select',
-      '#options' => $plugin->setComponent('formatter_handler')->getSelectOptions(),
-      '#default_value' => $this->getFormatter(),
-      '#required' => TRUE,
-    );
-  }
+    $form['type'] = $plugin->getFormRadios(t('Backend type'), $this->getType(), TRUE);
 
+    $form['component'] = array(
+      '#type' => 'vertical_tabs',
+      '#tree' => FALSE,
+    );
+    foreach ($plugin->getComponents() as $component) {
+      $label = $plugin->getComponentLabel($component);
+      $form["component_$component"] = array(
+        '#type' => 'fieldset',
+        '#title' => $label,
+        '#collapsible' => TRUE,
+        '#group' => 'component',
+      );
+      $form["component_$component"][$component] = $plugin->setComponent($component)->getFormRadios($label, '', TRUE);
+    }
+  }
 
 }

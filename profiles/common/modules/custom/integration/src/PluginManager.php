@@ -19,17 +19,7 @@ class PluginManager {
    *
    * @var array
    */
-  private $plugins = array(
-    'backend' => array(
-      'components' => array('response_handler', 'formatter_handler'),
-    ),
-    'consumer' => array(
-      'components' => array('mapping_handler'),
-    ),
-    'producer' => array(
-      'components' => array('field_handler'),
-    ),
-  );
+  private $plugins = array();
 
   /**
    * Current plugin machine name.
@@ -65,7 +55,38 @@ class PluginManager {
    *    Plugin machine name.
    */
   public function __construct($plugin) {
+    $this->plugins = $this->pluginDefinitions();
     $this->plugin = $plugin;
+  }
+
+  /**
+   * Return plugin definition array.
+   *
+   * @return array
+   *    Plugin definition array.
+   */
+  private function pluginDefinitions() {
+    // @todo: this should be a hook defining plugins outside this class.
+    // we could use hook_views_plugins() as model and refactor the whole thing.
+    return array(
+      'backend' => array(
+        'components' => array(
+          'response_handler' => t('Response handler'),
+          'formatter_handler' => t('Formatter handler'),
+          'authentication_handler' => t('Authentication handler'),
+        ),
+      ),
+      'consumer' => array(
+        'components' => array(
+          'mapping_handler' =>  t('Mapping handler'),
+        ),
+      ),
+      'producer' => array(
+        'components' => array(
+          'field_handler' =>  t('Field handler'),
+        ),
+      ),
+    );
   }
 
   /**
@@ -88,7 +109,17 @@ class PluginManager {
    *    List of current plugin components.
    */
   public function getComponents() {
-    return $this->plugins[$this->plugin]['components'];
+    return array_keys($this->plugins[$this->plugin]['components']);
+  }
+
+  /**
+   * Get provided human readable label of provided component.
+   *
+   * @return string
+   *    Component human readable label.
+   */
+  public function getComponentLabel($component) {
+    return $this->plugins[$this->plugin]['components'][$component];
   }
 
   /**
@@ -141,7 +172,13 @@ class PluginManager {
     return $info[$name]['description'];
   }
 
-  public function getSelectOptions() {
+  /**
+   * Format current info results as a Form API #options array.
+   *
+   * @return array
+   *    Form API select #options array.
+   */
+  public function getFormOptions() {
     $info = $this->getInfo();
     $options = array();
     foreach ($info as $name => $definition) {
@@ -149,6 +186,36 @@ class PluginManager {
     }
     return $options;
   }
+
+  /**
+   * Format current info results as Form API radio buttons.
+   *
+   * @param string $title
+   *    Form element #title.
+   * @param $default_value
+   *    Form element #default_value.
+   * @param bool|FALSE $required
+   *    Form element #required
+   *
+   * @return array
+   *    Form API radio buttons element.
+   */
+  public function getFormRadios($title, $default_value, $required = FALSE) {
+    $options = $this->getFormOptions();
+
+    $element = array(
+      '#type' => 'radios',
+      '#title' => $title,
+      '#default_value' => $default_value,
+      '#options' => $options,
+      '#required' => $required,
+    );
+    foreach (array_keys($options) as $name) {
+      $element[$name] = array('#description' => $this->getDescription($name));
+    }
+    return $element;
+  }
+
 
   /**
    * Build info getter name give current plugin and component machine name.
