@@ -12,37 +12,34 @@ use Drupal\integration\Backend\Configuration\BackendConfiguration;
  */
 function integration_backend_form($form, &$form_state, BackendConfiguration $backend, $op = 'edit') {
 
-  if ($op == 'clone') {
-    $backend->name .= ' cloned';
-  }
   $backend->form($form, $form_state, $op);
 
-  // @todo: derive these from chosen backend type.
-  $form['options'] = array(
-    '#title' => t('Options'),
-    '#type' => 'fieldset',
-    '#tree' => TRUE,
-    '#collapsed' => FALSE,
-    '#collapsible' => TRUE,
-  );
-  $form['options']['base_path'] = array(
-    '#title' => t('Base path'),
-    '#type' => 'textfield',
-    '#default_value' => $backend->getBasePath(),
-    '#required' => TRUE,
-  );
-  $form['options']['endpoint'] = array(
-    '#title' => t('Endpoint'),
-    '#type' => 'textfield',
-    '#default_value' => $backend->getEndpoint(),
-    '#required' => TRUE,
-  );
-  $form['options']['list'] = array(
-    '#title' => t('List endpoint'),
-    '#type' => 'textfield',
-    '#default_value' => $backend->getListEndpoint(),
-    '#required' => TRUE,
-  );
+//  // @todo: derive these from chosen backend type.
+//  $form['options'] = array(
+//    '#title' => t('Options'),
+//    '#type' => 'fieldset',
+//    '#tree' => TRUE,
+//    '#collapsed' => FALSE,
+//    '#collapsible' => TRUE,
+//  );
+//  $form['options']['base_path'] = array(
+//    '#title' => t('Base path'),
+//    '#type' => 'textfield',
+//    '#default_value' => $backend->getBasePath(),
+//    '#required' => TRUE,
+//  );
+//  $form['options']['endpoint'] = array(
+//    '#title' => t('Endpoint'),
+//    '#type' => 'textfield',
+//    '#default_value' => $backend->getEndpoint(),
+//    '#required' => TRUE,
+//  );
+//  $form['options']['list'] = array(
+//    '#title' => t('List endpoint'),
+//    '#type' => 'textfield',
+//    '#default_value' => $backend->getListEndpoint(),
+//    '#required' => TRUE,
+//  );
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(

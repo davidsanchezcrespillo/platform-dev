@@ -21,9 +21,22 @@ class PluginManagerTest extends \PHPUnit_Framework_TestCase {
    */
   public function testConstruction() {
 
-    $this->assertEquals(array('response_handler', 'formatter_handler'), PluginManager::getInstance('backend')->getComponents());
-    $this->assertEquals(array('mapping_handler'), PluginManager::getInstance('consumer')->getComponents());
-    $this->assertEquals(array('field_handler'), PluginManager::getInstance('producer')->getComponents());
+    $expected = array(
+      'response_handler',
+      'formatter_handler',
+      'authentication_handler',
+    );
+    $this->assertEquals($expected, PluginManager::getInstance('backend')->getComponents());
+
+    $expected = array(
+      'mapping_handler',
+    );
+    $this->assertEquals($expected, PluginManager::getInstance('consumer')->getComponents());
+
+    $expected = array(
+      'field_handler',
+    );
+    $this->assertEquals($expected, PluginManager::getInstance('producer')->getComponents());
   }
 
   /**

@@ -53,3 +53,24 @@ function integration_integration_backend_response_handler_info() {
     ),
   );
 }
+
+/**
+ * Implements hook_integration_backend_authentication_handler_info().
+ */
+function integration_integration_backend_authentication_handler_info() {
+  return array(
+    'http_authentication' => array(
+      'label' => t('HTTP Authentication'),
+      'description' => t('Provide basic HTTP authentication.'),
+      'class' => 'Drupal\integration\Backend\Authentication\HttpAuthentication',
+      'configuration class' => 'Drupal\integration\Backend\Response\HttpRequestResponse',
+      'plugin types' => array('rest_backend'),
+    ),
+    'no_authentication' => array(
+      'label' => t('No authentication'),
+      'description' => t('Backend can be accessed without restrictions.'),
+      'class' => 'Drupal\integration\Backend\Authentication\NoAuthentication',
+      'plugin types' => array('rest_backend', 'memory_backend'),
+    ),
+  );
+}

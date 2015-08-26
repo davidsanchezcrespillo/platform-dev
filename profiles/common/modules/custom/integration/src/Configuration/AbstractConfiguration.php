@@ -102,14 +102,14 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function form(array &$form, array &$form_state, $op) {
 
     $form['name'] = array(
       '#title' => t('Name'),
       '#type' => 'textfield',
-      '#default_value' => $this->getName(),
+      '#default_value' => ($op == 'clone') ? $this->getName() . ' clone' : $this->getName(),
       '#required' => TRUE,
     );
     $form['machine_name'] = array(
@@ -120,7 +120,7 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
         'exists' => 'integration_load_backend',
         'source' => array('name'),
       ),
-      '#description' => t('A unique machine-readable name for this backend. It must only contain lowercase letters, numbers, and underscores.'),
+      '#description' => t('A unique machine-readable name for this configuration object. It must only contain lowercase letters, numbers, and underscores.'),
       '#required' => TRUE,
     );
     $form['enabled'] = array(
@@ -134,14 +134,14 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function formSubmit(array $form, array &$form_state) {
     // TODO: Implement formSubmit() method.
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function formValidate(array $form, array &$form_state) {
     // TODO: Implement formValidate() method.

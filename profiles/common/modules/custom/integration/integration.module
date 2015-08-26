@@ -57,7 +57,7 @@ function integration_backend_get_backend_info() {
 }
 
 /**
- * Collect and return list of response handler definitions.
+ * Collect and return list of backend response handler definitions.
  *
  * @return array
  *    List of response handler definitions.
@@ -69,7 +69,7 @@ function integration_backend_get_response_handler_info() {
 }
 
 /**
- * Collect and return list of formatter definitions.
+ * Collect and return list of backend formatter handler definitions.
  *
  * @return array
  *    List of formatter definitions.
@@ -77,5 +77,17 @@ function integration_backend_get_response_handler_info() {
 function integration_backend_get_formatter_handler_info() {
   $info = module_invoke_all('integration_backend_formatter_handler_info');
   drupal_alter('integration_backend_formatter_handler_info', $info);
+  return $info;
+}
+
+/**
+ * Collect and return list of backend authentication handler definitions.
+ *
+ * @return array
+ *    List of formatter definitions.
+ */
+function integration_backend_get_authentication_handler_info() {
+  $info = module_invoke_all('integration_backend_authentication_handler_info');
+  drupal_alter('integration_backend_authentication_handler_info', $info);
   return $info;
 }
