@@ -23,20 +23,6 @@ function integration_backend_form($form, &$form_state, BackendConfiguration $bac
   return $form;
 }
 
-
-/**
- * Load backend entity given its machine name.
- *
- * @param string $machine_name
- *    Backend configuration entity machine name.
- *
- * @return BackendConfiguration
- *    Backend configuration entity.
- */
-function integration_load_backend($machine_name) {
-  return entity_load_single('integration_backend', $machine_name);
-}
-
 /**
  * Form API submit callback for the type form.
  *

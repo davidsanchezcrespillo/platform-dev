@@ -122,19 +122,6 @@ function integration_consumer_form($form, &$form_state, ConsumerConfiguration $c
 }
 
 /**
- * Load consumer entity given its machine name.
- *
- * @param string $machine_name
- *    Consumer configuration entity machine name.
- *
- * @return ConsumerConfiguration
- *    Consumer configuration entity.
- */
-function integration_consumer_load_consumer($machine_name) {
-  return entity_load_single('integration_consumer', $machine_name);
-}
-
-/**
  * Form API submit callback for the type form.
  *
  * @see integration_consumer_form()

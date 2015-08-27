@@ -81,19 +81,6 @@ function integration_producer_element_producer_id_validate($element, &$form_stat
 }
 
 /**
- * Load producer entity given its machine name.
- *
- * @param string $machine_name
- *    Producer configuration entity machine name.
- *
- * @return ProducerConfiguration
- *    Producer configuration entity.
- */
-function integration_producer_load_producer($machine_name) {
-  return entity_load_single('integration_producer', $machine_name);
-}
-
-/**
  * Form API submit callback for the type form.
  *
  * @see integration_producer_form()

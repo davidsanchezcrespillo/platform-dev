@@ -12,6 +12,19 @@ include_once 'includes/integration_consumer.admin.inc';
 use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
 
 /**
+ * Load consumer entity given its machine name.
+ *
+ * @param string $machine_name
+ *    Consumer configuration entity machine name.
+ *
+ * @return ConsumerConfiguration
+ *    Consumer configuration entity.
+ */
+function integration_consumer_load_consumer($machine_name) {
+  return entity_load_single('integration_consumer', $machine_name);
+}
+
+/**
  * Determines whether the given user can perform actions on an entity.
  *
  * @param string $op

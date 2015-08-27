@@ -14,6 +14,19 @@ use Drupal\integration\Producer\EntityWrapper\EntityWrapper;
 use Drupal\integration\Producer\Configuration\ProducerConfiguration;
 
 /**
+ * Load producer entity given its machine name.
+ *
+ * @param string $machine_name
+ *    Producer configuration entity machine name.
+ *
+ * @return ProducerConfiguration
+ *    Producer configuration entity.
+ */
+function integration_producer_load_producer($machine_name) {
+  return entity_load_single('integration_producer', $machine_name);
+}
+
+/**
  * Implements hook_permission().
  */
 function integration_producer_permission() {

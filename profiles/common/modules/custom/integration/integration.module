@@ -45,6 +45,19 @@ function integration_backend_access($op, $backend, $account, $entity_type) {
 }
 
 /**
+ * Load backend entity given its machine name.
+ *
+ * @param string $machine_name
+ *    Backend configuration entity machine name.
+ *
+ * @return BackendConfiguration
+ *    Backend configuration entity.
+ */
+function integration_load_backend($machine_name) {
+  return entity_load_single('integration_backend', $machine_name);
+}
+
+/**
  * Collect and return list of backend definitions.
  *
  * @return array
