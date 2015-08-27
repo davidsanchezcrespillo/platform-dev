@@ -44,8 +44,8 @@ class ConfigurationTest extends AbstractTest {
     $machine_name = $this->consumerConfiguration->identifier();
     $this->assertNotNull(ConfigurationFactory::load('integration_consumer', $machine_name));
 
-    $this->assertEquals($this->backendConfiguration->getBasePath(), $this->consumerConfiguration->getBackendConfiguration()->getBasePath());
-    $this->assertEquals($this->backendConfiguration->getEndpoint(), $this->consumerConfiguration->getBackendConfiguration()->getEndpoint());
+    $this->assertEquals($this->backendConfiguration->getOption('base_path'), $this->consumerConfiguration->getBackendConfiguration()->getOption('base_path'));
+    $this->assertEquals($this->backendConfiguration->getOption('endpoint'), $this->consumerConfiguration->getBackendConfiguration()->getOption('endpoint'));
 
     $this->consumerConfiguration->delete();
     // Should throw \InvalidArgumentException exception.

@@ -46,13 +46,6 @@ class BackendConfiguration extends AbstractConfiguration {
   public $response = '';
 
   /**
-   * Contains backend options.
-   *
-   * @var array
-   */
-  public $options = array();
-
-  /**
    * Get backend type.
    *
    * @return string

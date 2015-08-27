@@ -37,6 +37,12 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    */
   public $status;
 
+  /**
+   * Configuration entity options.
+   *
+   * @var array
+   */
+  public $options = array();
 
   /**
    * {@inheritdoc}
@@ -99,6 +105,20 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
    */
   public function getEntityKey($name) {
     return isset($this->entityInfo['entity keys'][$name]) ? $this->entityInfo['entity keys'][$name] : FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOption($name) {
+    return isset($this->options[$name]) ? $this->options[$name] : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setOption($name, $value) {
+    return $this->options[$name] = $value;
   }
 
   /**

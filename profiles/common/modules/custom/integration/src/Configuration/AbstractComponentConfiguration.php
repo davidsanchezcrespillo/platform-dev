@@ -22,37 +22,13 @@ abstract class AbstractComponentConfiguration implements ComponentConfigurationI
   protected $configuration;
 
   /**
-   * Component configuration options.
-   *
-   * @var array
-   */
-  protected $options;
-
-  /**
    * Constructor.
    *
    * @param AbstractConfiguration $configuration
    *    Plugin configuration object this component belongs to.
-   * @param array $options
-   *    Component configuration options.
    */
-  public function __construct(AbstractConfiguration $configuration, array $options = array()) {
+  public function __construct(AbstractConfiguration $configuration) {
     $this->configuration = $configuration;
-    $this->options = $options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getOption($name) {
-    return isset($this->options[$name]) ? $this->options[$name] : '';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setOption($name, $value) {
-    $this->options[$name] = $value;
   }
 
   /**

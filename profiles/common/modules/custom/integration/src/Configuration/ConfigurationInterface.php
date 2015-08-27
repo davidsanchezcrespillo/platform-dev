@@ -81,7 +81,7 @@ interface ConfigurationInterface {
   public function isFixed();
 
   /**
-   * Return value of an entity key value.
+   * Get value of an entity info array property.
    *
    * @param string $name
    *    Entity key name.
@@ -92,5 +92,26 @@ interface ConfigurationInterface {
    * @see entity_get_info()
    */
   public function getEntityKey($name);
+
+  /**
+   * Get entity configuration option value.
+   *
+   * @param string $name
+   *    Entity key name.
+   *
+   * @return mixed|NULL
+   *    Option value if set, NULL otherwise.
+   */
+  public function getOption($name);
+
+  /**
+   * Set entity configuration option.
+   *
+   * @param string $name
+   *    Option name.
+   * @param string $value
+   *    Option value.
+   */
+  public function setOption($name, $value);
 
 }
