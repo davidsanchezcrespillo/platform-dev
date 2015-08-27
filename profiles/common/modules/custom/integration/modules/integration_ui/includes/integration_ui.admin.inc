@@ -10,7 +10,7 @@ use Drupal\integration\Configuration\AbstractConfiguration;
 /**
  * Generates the profile type editing form.
  */
-function integration_ui_configuration_entity_form($form, &$form_state, AbstractConfiguration $configuration, $op = 'edit') {
+function integration_ui_entity_form($form, &$form_state, AbstractConfiguration $configuration, $op = 'edit') {
 
   $configuration->form($form, $form_state, $op);
 

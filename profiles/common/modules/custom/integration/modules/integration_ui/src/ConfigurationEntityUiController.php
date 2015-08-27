@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\integration_ui\ConfigurationEntityContentUiController.
+ * Contains \Drupal\integration_ui\ConfigurationEntityUiController.
  */
 
 namespace Drupal\integration_ui;
@@ -12,6 +12,19 @@ namespace Drupal\integration_ui;
  *
  * @package Drupal\integration_ui
  */
-class ConfigurationEntityUiController extends \EntityContentUIController {
+class ConfigurationEntityUiController extends \EntityDefaultUIController {
+
+  /**
+   * Provides definitions for implementing hook_menu().
+   */
+  public function hook_menu() {
+    $items = parent::hook_menu();
+    foreach ($items as $path => $item) {
+      if ($item['page callback'] == 'entity_ui_get_form') {
+        $items[$path]['page callback'] = 'integration_ui_get_form';
+      }
+    }
+    return $items;
+  }
 
 }
