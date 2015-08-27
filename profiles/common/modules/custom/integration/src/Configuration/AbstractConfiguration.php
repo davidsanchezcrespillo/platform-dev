@@ -103,7 +103,7 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
   /**
    * {@inheritdoc}
    */
-  public function getEntityKey($name) {
+  public function getEntityInfoProperty($name) {
     return isset($this->entityInfo['entity keys'][$name]) ? $this->entityInfo['entity keys'][$name] : FALSE;
   }
 

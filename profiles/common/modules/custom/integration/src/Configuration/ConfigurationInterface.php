@@ -91,7 +91,7 @@ interface ConfigurationInterface {
    *
    * @see entity_get_info()
    */
-  public function getEntityKey($name);
+  public function getEntityInfoProperty($name);
 
   /**
    * Get entity configuration option value.
