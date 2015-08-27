@@ -8,36 +8,19 @@
 namespace Drupal\integration\Backend\Authentication;
 
 use Drupal\integration\Configuration\AbstractComponentConfiguration;
+use Drupal\integration\Configuration\FormInterface;
 
 /**
  * Class HttpAuthenticationConfiguration.
  *
  * @package Drupal\integration\Backend\Authentication
  */
-class HttpAuthenticationConfiguration extends AbstractComponentConfiguration {
+class HttpAuthenticationConfiguration extends AbstractComponentConfiguration implements FormInterface {
 
   /**
    * {@inheritdoc}
    */
   public function form(array &$form, array &$form_state, $op) {
-    $form['base_path'] = array(
-      '#title' => t('Base path'),
-      '#type' => 'textfield',
-      '#default_value' => $this->getOption('base_path'),
-      '#required' => TRUE,
-    );
-    $form['endpoint'] = array(
-      '#title' => t('Endpoint'),
-      '#type' => 'textfield',
-      '#default_value' => $this->getOption('endpoint'),
-      '#required' => TRUE,
-    );
-    $form['list'] = array(
-      '#title' => t('List endpoint'),
-      '#type' => 'textfield',
-      '#default_value' => $this->getOption('list'),
-      '#required' => TRUE,
-    );
   }
 
 }

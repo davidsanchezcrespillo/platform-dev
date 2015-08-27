@@ -12,7 +12,7 @@ namespace Drupal\integration\Configuration;
  *
  * @package Drupal\integration\Configuration
  */
-abstract class AbstractComponentConfiguration implements ComponentConfigurationInterface, FormInterface {
+abstract class AbstractComponentConfiguration implements ComponentConfigurationInterface {
 
   /**
    * Plugin configuration object this component belongs to.
