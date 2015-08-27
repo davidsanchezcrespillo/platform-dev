@@ -253,7 +253,6 @@ class PluginManager {
     return $element;
   }
 
-
   /**
    * Build info getter name give current plugin and component machine name.
    *
