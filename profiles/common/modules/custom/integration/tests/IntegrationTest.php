@@ -28,6 +28,7 @@ class IntegrationTest extends AbstractTest {
     $consumer = Consumer::getInstance('test_configuration');
 
     // Make sure we have no test leftovers.
+    // @todo: remove rollback from test execution.
     $consumer->processRollback();
 
     // Push all fixture nodes to given backend.
@@ -53,6 +54,7 @@ class IntegrationTest extends AbstractTest {
     }
 
     // Remove nodes from consumer.
+    // @todo: remove rollback from test execution.
     $consumer->processRollback();
   }
 
