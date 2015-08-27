@@ -129,7 +129,7 @@ class PluginManager {
    *    Array of information about current plugin and component machine name.
    */
   public function getInfo() {
-    $function_name = $this->buildInfoGetterName();
+    $function_name = $this->buildInfoHookName();
     return $function_name();
   }
 
@@ -260,7 +260,7 @@ class PluginManager {
    * @return string
    *    Full info getter name.
    */
-  private function buildInfoGetterName() {
+  private function buildInfoHookName() {
     $parts = array('integration', $this->plugin, 'get');
     $parts[] = $this->component ? $this->component : $this->plugin;
     $parts[] = 'info';
