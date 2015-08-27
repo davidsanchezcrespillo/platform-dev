@@ -7,7 +7,6 @@
 
 include_once 'includes/integration_producer.entity.inc';
 include_once 'includes/integration_producer.hooks.inc';
-include_once 'includes/integration_producer.admin.inc';
 
 use Drupal\integration\Document\DocumentInterface;
 use Drupal\integration\Producer\EntityWrapper\EntityWrapper;

@@ -7,7 +7,6 @@
 
 include_once 'includes/integration_consumer.entity.inc';
 include_once 'includes/integration_consumer.hooks.inc';
-include_once 'includes/integration_consumer.admin.inc';
 
 use Drupal\integration\Consumer\Configuration\ConsumerConfiguration;
 
