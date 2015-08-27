@@ -113,8 +113,6 @@ class BackendConfiguration extends AbstractConfiguration {
     $plugin = PluginManager::getInstance('backend');
 
     $form['type'] = $plugin->getFormRadios(t('Backend type'), $this->getType(), TRUE);
-
-
     $this->componentsForm($plugin, $form, $form_state, $op);
   }
 
