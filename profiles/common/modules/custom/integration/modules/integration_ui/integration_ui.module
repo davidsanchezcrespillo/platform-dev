@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+include_once 'includes/integration_ui.admin.inc';
+
