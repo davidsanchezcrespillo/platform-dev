@@ -24,9 +24,6 @@ function integration_producer_entity_info() {
       'label' => 'name',
       'name' => 'machine_name',
     ),
-    'admin ui' => array(
-      'path' => 'admin/config/services/integration/producer',
-    ),
   );
   return $info;
 }

@@ -7,3 +7,18 @@
 
 include_once 'includes/integration_ui.admin.inc';
 
+/**
+ * Implements hook_entity_info_alter().
+ */
+function integration_ui_entity_info_alter(&$info) {
+  $info['integration_backend']['admin ui'] = array(
+    'path' => 'admin/config/services/integration/backend',
+  );
+  $info['integration_consumer']['admin ui'] = array(
+    'path' => 'admin/config/services/integration/consumer',
+  );
+  $info['integration_producer']['admin ui'] = array(
+    'path' => 'admin/config/services/integration/producer',
+  );
+  return $info;
+}
