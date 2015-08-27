@@ -32,6 +32,16 @@ abstract class AbstractComponentConfiguration implements ComponentConfigurationI
   }
 
   /**
+   * Get current configuration entity object.
+   *
+   * @return AbstractConfiguration
+   *    Current configuration entity object.
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function formSubmit(array $form, array &$form_state) {
