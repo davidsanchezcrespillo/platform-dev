@@ -6,6 +6,7 @@
  */
 
 namespace Drupal\integration\Configuration;
+use Drupal\integration\PluginManager;
 
 /**
  * Class AbstractConfiguration.
@@ -151,6 +152,22 @@ abstract class AbstractConfiguration extends \Entity implements ConfigurationInt
     $form['status'] = array(
       '#value' => ($op == 'add') ? ENTITY_CUSTOM : $this->getStatus(),
     );
+  }
+
+  /**
+   * Return current plugin components form portion.
+   *
+   * @param PluginManager $plugin
+   *    Current plugin manager being used.
+   * @param array $form
+   *    Form array.
+   * @param array $form_state
+   *    Form state array.
+   * @param string $op
+   *    Current form operation.
+   */
+  public function componentsForm(PluginManager $plugin, array &$form, array &$form_state, $op) {
+
   }
 
   /**

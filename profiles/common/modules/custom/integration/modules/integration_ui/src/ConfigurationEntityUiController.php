@@ -14,8 +14,12 @@ namespace Drupal\integration_ui;
  */
 class ConfigurationEntityUiController extends \EntityDefaultUIController {
 
+  // @codingStandardsIgnoreStart
   /**
    * Provides definitions for implementing hook_menu().
+   *
+   * @return array
+   *    Menu items array, as normally returned by hook_menu().
    */
   public function hook_menu() {
     $items = parent::hook_menu();
@@ -26,5 +30,6 @@ class ConfigurationEntityUiController extends \EntityDefaultUIController {
     }
     return $items;
   }
+  // @codingStandardsIgnoreEnd
 
 }
