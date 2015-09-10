@@ -39,6 +39,7 @@ projects[linkchecker][patch][] = ../multisite_drupal_core/patches/linkchecker-00
 projects[maxlength][patch][] = ../multisite_drupal_core/patches/maxlength-indefined_index-2235.patch
 projects[maxlength][patch][] = ../multisite_drupal_core/patches/maxlength-prevent_undefined_index_error-1416608-3.patch
 projects[media_dailymotion][patch][] = ../multisite_drupal_core/patches/media_dailymotion-handle_protocol-4103.patch
+projects[media_dailymotion][patch][] = ../multisite_drupal_core/patches/media_dailymotion_short_url_7082.patch
 projects[media_flickr][patch][] = ../multisite_drupal_core/patches/media_flickr-missing_thumbnail-2494.patch
 projects[media_flickr][patch][] = ../multisite_drupal_core/patches/media_flickr-undefined_index-2183.patch
 projects[media_flickr][patch][] = ../multisite_drupal_core/patches/media_flickr-Media_v2_removed_XML_APIs-2089665-1.patch

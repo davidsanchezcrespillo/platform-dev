@@ -1,0 +1,10 @@
+--- MediaInternetDailymotionHandler.inc.original	2015-09-10 15:23:05.340953238 +0200
++++ MediaInternetDailymotionHandler.inc	2015-09-10 15:23:35.210169278 +0200
+@@ -14,6 +14,7 @@
+     $patterns = array(
+       '@dailymotion\.com/swf/([^"\&]+)@i',
+       '@dailymotion\.com/video/([^/_]+)_@i',
++      '@dai.ly/([^"\&\? ]+)@i',
+     );
+     foreach ($patterns as $pattern) {
+       preg_match($pattern, $embedCode, $matches);
