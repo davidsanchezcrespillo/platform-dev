@@ -140,6 +140,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param TableNode $modules_table
    *   The table listing modules.
    *
+   * @return TRUE
+   *   Always returns TRUE.
+   *
+   * @throws \Exception
+   *   Thrown when one or more of the modules could not be enabled.
+   *
    * @Given the/these module/modules is/are enabled
    */
   public function enableModule(TableNode $modules_table) {
